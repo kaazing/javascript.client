@@ -1,4 +1,4 @@
-kaaz-utils.js
+kaz-utils.js
 =============
 
-JavaScript Utilities
+JavaScript Kaazing utils library 

@@ -1,0 +1,23 @@
+{
+  "name": "kaaz-utils.js",
+  "version": "0.1.0",
+  "authors": [
+    "Kaazing"
+  ],
+  "description": "Kaazing javacsript util libraries.",
+  "main": "dist/kaaz-utils.js",
+  "license": "Apache",
+  "homepage": "https://github.com/kaazing/kaaz-utils.js",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    ".*",
+    "Gruntfile.js",
+    "node_modules",
+    "bower_components",
+    "test",
+    "*.json",
+    "LICENSE",
+    "README.md"
+  ]
+}
