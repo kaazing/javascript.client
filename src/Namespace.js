@@ -8,7 +8,7 @@
 // Root Namespace Object
 var Org = Org || {};
 
-if (Org !== "function") {
+if (Org.namespace !== "function") {
     // The implementation is nondestructive i.e. if a namespace exists, it won't be created.
 	Org.namespace = function(namespace_string) {
 	    var parts = namespace_string.split('.'), 
@@ -33,5 +33,4 @@ if (Org !== "function") {
 }
 
 Org.Kaazing = Org.namespace("Kaazing");
-var $rootModule = Org.Kaazing;
  

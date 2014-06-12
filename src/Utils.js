@@ -71,7 +71,7 @@ var decodeByteString = function(s) {
     for (var i=0; i<s.length; i++) {
         a.push(s.charCodeAt(i) & 0xFF);
     }
-    var buf = new $rootModule.ByteBuffer(a);
+    var buf = new Org.Kaazing.ByteBuffer(a);
     var v = getStringUnterminated(buf, Charset.UTF8);
     ;;;ULOG.exiting(this, 'Utils.decodeByteString', v);
     return v;
@@ -89,14 +89,14 @@ var decodeArrayBuffer = function(array) {
     for (var i=0; i<buf.length; i++) {
         a.push(buf[i]);
     }
-    var buf = new $rootModule.ByteBuffer(a);
+    var buf = new Org.Kaazing.ByteBuffer(a);
     var s = getStringUnterminated(buf, Charset.UTF8);
     ;;;ULOG.exiting(this, 'Utils.decodeArrayBuffer', s);
     return s;
 }
 
 /**
- * Given an arrayBuffer, decode as a $rootModule.ByteBuffer
+ * Given an arrayBuffer, decode as a Org.Kaazing.ByteBuffer
  * @private
  * @ignore
  */
@@ -108,7 +108,7 @@ var decodeArrayBuffer2ByteBuffer = function(array) {
         a.push(buf[i]);
     }
     ;;;ULOG.exiting(this, 'Utils.decodeArrayBuffer2ByteBuffer');
-    return new $rootModule.ByteBuffer(a);
+    return new Org.Kaazing.ByteBuffer(a);
 }
 
 var ESCAPE_CHAR = String.fromCharCode(0x7F);
@@ -227,4 +227,3 @@ var getStringUnterminated = function(buf, cs) {
       }
   }
 };
-
