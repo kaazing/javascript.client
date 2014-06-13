@@ -1,4 +1,4 @@
-#kaaz-utils.js is a Kaazing javaScript utils library.: ```kaaz-utils.js```
+#kaaz-utils.js is a Kaazing javaScript utils library.
 
 ##Installing Dependencies
 Before you can build amqp-0-9-1.js, you must install and configure the following dependencies on your machine:
@@ -18,3 +18,9 @@ Assumption: node, npm, grunt and bower Command Line Interface(CLI) should be ins
 * Go to the cloned directory: ```cd kaaz-utils.js```
 * Command to install all the dependencies:``` npm install ```
 * Command to run configured tasks: ```grunt```
+
+
+##High level overview of directory structure
+* files: package.json, GruntFile.js, bower.json, README.md, LICENSE
+* src: Source files
+* dist: Distribution directory will be generated which has generated kaaz-utils.js.
