@@ -20,7 +20,7 @@ Assumption: node, npm, grunt and bower Command Line Interface(CLI) should be ins
 * Command to run configured tasks: ```grunt```
 
 
-##High level overview of directory structure
+##Directory structure
 * files: package.json, GruntFile.js, bower.json, README.md, LICENSE
 * src: Source files
 * dist: Distribution directory will be generated which has generated kaaz-utils.js.
