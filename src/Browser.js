@@ -33,8 +33,9 @@ else if (navigator.vendor.indexOf('Apple') != -1) {
     }
 }
 else if (navigator.vendor.indexOf('Google') != -1) {
-    if (navigator.userAgent.indexOf("Android")!=-1) {
-        browser="android";
+    if ((navigator.userAgent.indexOf("Android") != -1) &&
+        (navigator.userAgent.indexOf("Chrome") == -1)) {
+        browser = "android";
     }
     else {
         browser="chrome";
