@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2007-2013, Kaazing Corporation. All rights reserved.
+ * Copyright (c) 2007-2014, Kaazing Corporation. All rights reserved.
  */
 
 (function($module){
@@ -266,6 +266,6 @@
 		$module.ByteOrder = ByteOrder;
    }
 
-})(Org.Kaazing);
+})(Kaazing);
 
 

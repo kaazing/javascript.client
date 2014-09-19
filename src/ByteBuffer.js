@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2007-2013, Kaazing Corporation. All rights reserved.
+ * Copyright (c) 2007-2014, Kaazing Corporation. All rights reserved.
  */
     
 (function($module) {
@@ -1375,5 +1375,5 @@
 	    
 	    $module.ByteBuffer = ByteBuffer;        
     }
-    
-})(Org.Kaazing);
+   
+})(Kaazing);

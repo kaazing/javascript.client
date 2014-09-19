@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2007-2013, Kaazing Corporation. All rights reserved.
+ * Copyright (c) 2007-2014, Kaazing Corporation. All rights reserved.
  */
 
 // latest published draft:
@@ -226,4 +226,4 @@ BlobUtils.fromString = function fromString(s, endings) {
 
 $module.BlobUtils = BlobUtils;
 
-})(Org.Kaazing);
+})(Kaazing);

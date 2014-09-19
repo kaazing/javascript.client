@@ -1,22 +1,22 @@
 /**
- * Copyright (c) 2007-2013, Kaazing Corporation. All rights reserved.
+ * Copyright (c) 2007-2014, Kaazing Corporation. All rights reserved.
  */
 
 /**
  * @private
  */
 // Root Namespace Object
-var Org = Org || {};
+var Kaazing = Kaazing || {};
 
-if (Org.namespace !== "function") {
+if (Kaazing.namespace !== "function") {
     // The implementation is nondestructive i.e. if a namespace exists, it won't be created.
-	Org.namespace = function(namespace_string) {
+	Kaazing.namespace = function(namespace_string) {
 	    var parts = namespace_string.split('.'), 
-	    parent = Org, 
+	    parent = Kaazing, 
 	    i;
 	    
 	    // strip redundant leading global
-	    if (parts[0] === Org) {
+	    if (parts[0] === Kaazing) {
 	        parts = parts.slice(1);
 	    }
 	    
@@ -31,6 +31,3 @@ if (Org.namespace !== "function") {
 	    return parent;
 	}
 }
-
-Org.Kaazing = Org.namespace("Kaazing");
- 
