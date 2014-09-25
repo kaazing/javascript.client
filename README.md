@@ -1,7 +1,7 @@
 #kaaz-utils.js is a Kaazing javaScript utils library.
 
 ##Installing Dependencies
-Before you can build amqp-0-9-1.js, you must install and configure the following dependencies on your machine:
+Before you can build kaaz-utils.js, you must install and configure the following dependencies on your machine:
 
 * [Git](http://git-scm.com/): The [Github Guide to Installing Git](https://help.github.com/articles/set-up-git) is a good source of information.
 * [Node.js](http://nodejs.org/): We use Node to generate the documentation, run a development web server, run tests, and generate distributable files. Depending on your system, you can install Node either from source or as a pre-packaged bundle.
