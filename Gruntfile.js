@@ -1,37 +1,30 @@
 module.exports = function(grunt) {
 
-  // Project configuration.
-  grunt.initConfig({
-    pkg: grunt.file.readJSON('package.json'), 
+    // Project configuration.
+    grunt.initConfig({
+        pkg: grunt.file.readJSON('package.json'), 
 
-		concat: {
-			kaazUtils: {
-				src: [        
-				   'src/Namespace.js',
-                   'src/Logger.js',
-                   'src/Utils.js',
-                   'src/Browser.js',
-                   'src/ByteOrder.js',
-                   'src/ByteBuffer.js',
-                   'src/Charset.js',        
-                   'src/URI.js',
-                 /*'src/BlobUtils.js',
-                   'src/Events.js',*/
-				],
-				dest: 'dist/kaaz-utils.js'
-			},
-		},
+        clean: {
+            build: {
+                src: ['dist/']
+            },
+        },
 
-	    clean: {
-	        build: {
-	          src: ['dist/']
-	        },
+	concat: {
+	    main: {
+                // The .js file is really not intended for direct
+                // use (rather, the source files are to be used
+                // individually), so we'll just concat everything.
+		src: ['src/**/*.js'],
+		dest: 'dist/kaaz-utils.js'
 	    },
-      
-});
+	},
 
-	grunt.loadNpmTasks('grunt-contrib-concat');
+    });
+    
+    grunt.loadNpmTasks('grunt-contrib-concat');
+	
     grunt.loadNpmTasks('grunt-contrib-clean');
 	
-	grunt.registerTask('default', [ 'clean', 'concat']);
+    grunt.registerTask('default', [ 'clean', 'concat']);
 };

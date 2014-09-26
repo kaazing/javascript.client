@@ -55,11 +55,12 @@ BlobUtils.asString = function asString(blob, start, end) {
 }
 
 /**
-    Read an Array of JavaScript Numbers from a Blob instance.
+    Read an Array of JavaScript Numbers from a Blob instance and passes it as a
+    parameter to the specified callback function.
     Each Number is an integer in the range 0..255 equal to the
     value of the corresponding byte in the Blob.
 
-    @return {Array} the Number Array
+    @return {void}
 
 
     @name asNumberArray
@@ -72,34 +73,65 @@ BlobUtils.asString = function asString(blob, start, end) {
     @param  {Function}  callback
     @param  {Blob}      blob
 */
-BlobUtils.asNumberArray = function asNumberArray(cb, blob) {
-    // check impl of blob
-    if (blob._array) {
-        setTimeout(function() {
-            cb(blob._array);
-        }, 0);
-    } else if (FileReader) {
-        var reader = new FileReader();
-        reader.readAsArrayBuffer(blob);
-        reader.onload = function() {
-            var dataview = new DataView(reader.result);
-            var a = [];
-            for (var i=0; i<reader.result.byteLength; i++) {
-                a.push(dataview.getUint8(i));
+BlobUtils.asNumberArray = (function () {
+    // For our implementation of Blob i.e. MemoryBlob, rather than immediately 
+    // calling setTimeout and adding more pressure to the browser event loop on each call 
+    // to asNumber array, we hold on to the data in an internal queue if data 
+    // already dispatched to the callback via setTimeout is in progress. 
+    // Once the preceding data gets processed and callback returns,
+    // data from the queue is dispatched via setTimeout.
+    var blobQueue = [];
+    var processBlobs = function() {
+        if (blobQueue.length > 0) {
+            try {
+                var nextBlob = blobQueue.shift();
+                nextBlob.cb(nextBlob.blob._array);
+                
+            } finally {
+                if (blobQueue.length > 0) {
+                    setTimeout(function () {
+                        processBlobs();
+                    }, 0);
+                }
             }
-            cb(a);
         }
-    } else {
-        throw new Error("Cannot convert Blob to binary string");
-    }
-}
+    };
+
+    var asNumberArray = function (cb, blob) {
+        // check impl of blob
+        if (blob._array) {
+            blobQueue.push({cb:cb, blob:blob});
+            if (blobQueue.length == 1) {
+                setTimeout(function() {
+                    processBlobs();
+                }, 0);
+            }
+        } else if (FileReader) {
+            var reader = new FileReader();
+            reader.readAsArrayBuffer(blob);
+            reader.onload = function() {
+                var dataview = new DataView(reader.result);
+                var a = [];
+                for (var i=0; i<reader.result.byteLength; i++) {
+                    a.push(dataview.getUint8(i));
+                }
+                cb(a);
+            }
+        } else {
+            throw new Error("Cannot convert Blob to binary string");
+        }
+    };
+
+    return asNumberArray;
+})();
 
 /**
-    Reads a string from a Blob.
+    Reads a string from a Blob and passes it as a parameter to the specified 
+    callback function.
     Each character in the resulting string has a character code equal to the
     unsigned byte value of the corresponding byte in the Blob.
 
-    @return {String} the byte string
+    @return {void}
 
 
     @name asBinaryString
