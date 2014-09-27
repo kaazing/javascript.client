@@ -1,13 +1,13 @@
 {
-  "name": "kaaz-utils.js",
+  "name": "gateway.client.javascript.utils",
   "version": "5.0.0",
   "authors": [
     "Kaazing"
   ],
   "description": "Utilities source files built into Kaazing Gateway Javascript clients.",
-  "main": "dist/kaaz-utils.js",
+  "main": "dist/gateway.client.javascript.utils.js",
   "license": "Apache",
-  "homepage": "https://github.com/kaazing/kaaz-utils.js",
+  "homepage": "https://github.com/kaazing/gateway.client.javascript.utils",
   "private": true,
   "ignore": [
     "**/.*",
