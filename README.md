@@ -1,4 +1,4 @@
-#kaaz-utils.js is a Kaazing javaScript utils library.
+#gateway.client.javascript.utils
 
 ##Installing Dependencies
 Before you can build kaaz-utils.js, you must install and configure the following dependencies on your machine:
