@@ -1,5 +1,5 @@
 {
-    "name": "gateway.client.javascript.utils",
+    "name": "gateway.client.javascript.util",
     "description": "Utility files included in various Kaazing WebSocket Gateway Javascript client technologies.",
     "author": "Kaazing",
     "dependencies": {},
@@ -12,6 +12,6 @@
     "repository" :
     { 
         "type" : "git",
-        "url" : "https://github.com/kaazing/gateway.client.javascript.utils"
+        "url" : "https://github.com/kaazing/gateway.client.javascript.util"
     }
 }

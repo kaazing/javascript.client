@@ -16,7 +16,7 @@ module.exports = function(grunt) {
                 // use (rather, the source files are to be used
                 // individually), so we'll just concat everything.
 		src: ['src/**/*.js'],
-		dest: 'dist/gateway.client.javascript.utils.js'
+		dest: 'dist/gateway.client.javascript.util.js'
 	    },
 	},
 
