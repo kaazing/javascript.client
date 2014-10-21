@@ -10,21 +10,19 @@ module.exports = function(grunt) {
             },
         },
 
-	concat: {
+	copy: {
 	    main: {
-                // The .js file is really not intended for direct
-                // use (rather, the source files are to be used
-                // individually), so we'll just concat everything.
-		src: ['src/**/*.js'],
-		dest: 'dist/gateway.client.javascript.util.js'
+                files: [
+                    {expand:true, cwd: 'src/kaazing/', src:['**'], dest: 'dist/'}
+                ]
 	    },
 	},
 
     });
     
-    grunt.loadNpmTasks('grunt-contrib-concat');
+    grunt.loadNpmTasks('grunt-contrib-copy');
 	
     grunt.loadNpmTasks('grunt-contrib-clean');
 	
-    grunt.registerTask('default', [ 'clean', 'concat']);
+    grunt.registerTask('default', [ 'clean', 'copy']);
 };

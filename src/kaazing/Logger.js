@@ -5,9 +5,9 @@
 /**
  * @private
  */
-var KzLogger = function(name) {
+var Logger = function(name) {
     this._name = name;
-    this._level = KzLogger.Level.INFO; // default to INFO 
+    this._level = Logger.Level.INFO; // default to INFO 
 };
         
 (function() {
@@ -16,7 +16,7 @@ var KzLogger = function(name) {
      * See http://java.sun.com/javase/6/docs/api/java/util/logging/Level.html
      * @ignore
      */
-    KzLogger.Level = {
+    Logger.Level = {
         OFF:8,
         SEVERE:7,
         WARNING:6,
@@ -37,36 +37,36 @@ var KzLogger = function(name) {
             break;
         }
     }
-    KzLogger._logConf = {};
+    Logger._logConf = {};
     if (logConfString) {
         var tokens = logConfString.split(',');
         for (var i = 0; i < tokens.length; i++) {
             var logConfItems = tokens[i].split('=');
-            KzLogger._logConf[logConfItems[0]] = logConfItems[1];
+            Logger._logConf[logConfItems[0]] = logConfItems[1];
         }
     }
     
     var loggers = {};
     
-    KzLogger.getLogger = function(name) {
+    Logger.getLogger = function(name) {
         var logger = loggers[name];
         if (logger === undefined) {
-            logger = new KzLogger(name);
+            logger = new Logger(name);
             loggers[name] = logger;
         }
         return logger; 
     }
     
-    var $prototype = KzLogger.prototype;
+    var $prototype = Logger.prototype;
     
     /**
      * Set the log level specifying which message levels will be logged.
      * @param level the log level
      * @ignore
-     * @memberOf KzLogger
+     * @memberOf Logger
      */
     $prototype.setLevel = function(level) {
-        if (level && level >= KzLogger.Level.ALL && level <= KzLogger.Level.OFF) {
+        if (level && level >= Logger.Level.ALL && level <= Logger.Level.OFF) {
             this._level = level;
         }
     }    
@@ -76,15 +76,15 @@ var KzLogger = function(name) {
      * @param level the log level
      * @return whether loggable
      * @ignore
-     * @memberOf KzLogger
+     * @memberOf Logger
      */
     $prototype.isLoggable = function(level) {
-        for (var logKey in KzLogger._logConf) {
-            if (KzLogger._logConf.hasOwnProperty(logKey)) {
+        for (var logKey in Logger._logConf) {
+            if (Logger._logConf.hasOwnProperty(logKey)) {
                 if (this._name.match(logKey)) {
-                    var logVal = KzLogger._logConf[logKey];
+                    var logVal = Logger._logConf[logKey];
                     if (logVal) {
-                        return (KzLogger.Level[logVal] <= level);
+                        return (Logger.Level[logVal] <= level);
                     }
                 }
             }
@@ -95,26 +95,26 @@ var KzLogger = function(name) {
     var noop = function() {};
     
     var delegates = {};
-    delegates[KzLogger.Level.OFF] = noop;
-    delegates[KzLogger.Level.SEVERE] = (window.console) ? (console.error || console.log || noop) : noop;
-    delegates[KzLogger.Level.WARNING] = (window.console) ? (console.warn || console.log || noop) : noop;
-    delegates[KzLogger.Level.INFO] = (window.console) ? (console.info || console.log || noop) : noop;
-    delegates[KzLogger.Level.CONFIG] = (window.console) ? (console.info || console.log || noop) : noop;
-    delegates[KzLogger.Level.FINE] = (window.console) ? (console.debug || console.log || noop) : noop;
-    delegates[KzLogger.Level.FINER] = (window.console) ? (console.debug || console.log || noop) : noop;
-    delegates[KzLogger.Level.FINEST] = (window.console) ? (console.debug || console.log || noop) : noop;
-    delegates[KzLogger.Level.ALL] = (window.console) ? (console.log || noop) : noop;
+    delegates[Logger.Level.OFF] = noop;
+    delegates[Logger.Level.SEVERE] = (window.console) ? (console.error || console.log || noop) : noop;
+    delegates[Logger.Level.WARNING] = (window.console) ? (console.warn || console.log || noop) : noop;
+    delegates[Logger.Level.INFO] = (window.console) ? (console.info || console.log || noop) : noop;
+    delegates[Logger.Level.CONFIG] = (window.console) ? (console.info || console.log || noop) : noop;
+    delegates[Logger.Level.FINE] = (window.console) ? (console.debug || console.log || noop) : noop;
+    delegates[Logger.Level.FINER] = (window.console) ? (console.debug || console.log || noop) : noop;
+    delegates[Logger.Level.FINEST] = (window.console) ? (console.debug || console.log || noop) : noop;
+    delegates[Logger.Level.ALL] = (window.console) ? (console.log || noop) : noop;
     
     $prototype.config = function(source, message) {
-        this.log(KzLogger.Level.CONFIG, source, message);
+        this.log(Logger.Level.CONFIG, source, message);
     };
 
     $prototype.entering = function(source, name, params) {
-        if (this.isLoggable(KzLogger.Level.FINER)) {
+        if (this.isLoggable(Logger.Level.FINER)) {
             if (browser == 'chrome' || browser == 'safari') {
                 source = console;
             }
-            var delegate = delegates[KzLogger.Level.FINER];
+            var delegate = delegates[Logger.Level.FINER];
             if (params) {
                 if (typeof(delegate) == 'object') {
                     delegate('ENTRY ' + name, params);
@@ -132,8 +132,8 @@ var KzLogger = function(name) {
     };
 
     $prototype.exiting = function(source, name, value) {
-        if (this.isLoggable(KzLogger.Level.FINER)) {
-            var delegate = delegates[KzLogger.Level.FINER];
+        if (this.isLoggable(Logger.Level.FINER)) {
+            var delegate = delegates[Logger.Level.FINER];
             if (browser == 'chrome' || browser == 'safari') {
                 source = console;
             }
@@ -154,19 +154,19 @@ var KzLogger = function(name) {
     };
     
     $prototype.fine = function(source, message) {
-        this.log(KzLogger.Level.FINE, source, message);
+        this.log(Logger.Level.FINE, source, message);
     };
 
     $prototype.finer = function(source, message) {
-        this.log(KzLogger.Level.FINER, source, message);
+        this.log(Logger.Level.FINER, source, message);
     };
 
     $prototype.finest = function(source, message) {
-        this.log(KzLogger.Level.FINEST, source, message);
+        this.log(Logger.Level.FINEST, source, message);
     };
 
     $prototype.info = function(source, message) {
-        this.log(KzLogger.Level.INFO, source, message);
+        this.log(Logger.Level.INFO, source, message);
     };
 
     $prototype.log = function(level, source, message) {
@@ -184,11 +184,11 @@ var KzLogger = function(name) {
     };
 
     $prototype.severe = function(source, message) {
-        this.log(KzLogger.Level.SEVERE, source, message);
+        this.log(Logger.Level.SEVERE, source, message);
     };
 
     $prototype.warning = function(source, message) {
-        this.log(KzLogger.Level.WARNING, source, message);
+        this.log(Logger.Level.WARNING, source, message);
     };
 
 })();
