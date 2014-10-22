@@ -2,7 +2,7 @@
  * Copyright (c) 2007-2014, Kaazing Corporation. All rights reserved.
  */
 
-;;;var ULOG = KzLogger.getLogger('kaazing.Utils');
+;;;var ULOG = Logger.getLogger('com.kaazing.gateway.client.loader.Utils');
     
 /**
  * Given a key, returns the value of the content attribute of the first
@@ -227,4 +227,3 @@ var getStringUnterminated = function(buf, cs) {
       }
   }
 };
-

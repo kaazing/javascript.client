@@ -1,24 +1,5 @@
 {
-  "name": "gateway.client.javascript.util",
-  "version": "5.0.0",
-  "authors": [
-    "Kaazing"
-  ],
-  "description": "Utilities source files built into Kaazing Gateway Javascript clients.",
-  "main": "dist/gateway.client.javascript.util.js",
-  "license": "Apache",
-  "homepage": "https://github.com/kaazing/gateway.client.javascript.util",
-  "private": true,
-  "ignore": [
-    "**/.*",
-    ".*",
-    "Gruntfile.js",
-    "node_modules",
-    "bower_components",
-    "test",
-    "*.json",
-    "LICENSE",
-    "package.json",
-    "README.md"
-  ]
+    "name": "kaazing.gateway.client.javascript.util",
+    "devDependencies": {
+    }
 }

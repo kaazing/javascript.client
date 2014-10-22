@@ -85,5 +85,5 @@ DerivedData
 ### JavaScript ###
 node_modules/*
 bower_components/*
+dist/*
 npm-debug.log
-/dist/*
