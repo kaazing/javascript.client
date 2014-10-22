@@ -1,5 +1,5 @@
 {
-    "name": "kaazing.gateway.client.javascript.util",
+    "name": "kaazing-client-javascript-util",
     "devDependencies": {
     }
 }
