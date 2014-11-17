@@ -30,7 +30,8 @@ In your project's Gruntfile, add a section named `stripbanner` to the data objec
 grunt.initConfig({
   stripbanner: {
     options: {
-      // Task-specific options go here.
+      cwd: '.',
+      content: 'Copyright (c)'
     },
     your_target: {
       // Target-specific file lists and/or options go here.
