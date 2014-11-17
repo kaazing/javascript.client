@@ -28,10 +28,41 @@ module.exports = function(grunt) {
             }
         },
 
+        stripbanner: {
+            tmpFiles: {
+                options: {
+                    cwd: './dist/tmp'
+                }
+            }
+        },
+
         // The *-debug.js files are just the concatenated source files, with no 
         // mangling of variable names or compression of the output or removal of 
         // debug (;;;) lines.
         concat: {
+            options: {
+                banner: 
+                    '/**\n' + 
+                    ' * Copyright (c) 2007-2014 Kaazing Corporation. All rights reserved.\n' + 
+                    ' * \n' + 
+                    ' * Licensed to the Apache Software Foundation (ASF) under one\n' + 
+                    ' * or more contributor license agreements.  See the NOTICE file\n' + 
+                    ' * distributed with this work for additional information\n' + 
+                    ' * regarding copyright ownership.  The ASF licenses this file\n' + 
+                    ' * to you under the Apache License, Version 2.0 (the\n' + 
+                    ' * "License"); you may not use this file except in compliance\n' + 
+                    ' * with the License.  You may obtain a copy of the License at\n' + 
+                    ' * \n' + 
+                    ' *   http://www.apache.org/licenses/LICENSE-2.0\n' + 
+                    ' * \n' + 
+                    ' * Unless required by applicable law or agreed to in writing,\n' + 
+                    ' * software distributed under the License is distributed on an\n' + 
+                    ' * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY\n' + 
+                    ' * KIND, either express or implied.  See the License for the\n' + 
+                    ' * specific language governing permissions and limitations\n' + 
+                    ' * under the License.\n' + 
+                    ' */\n'
+            },
             PostMessage: {
                 src: [ 
                     'dist/tmp/utils/Browser.js',
@@ -205,6 +236,7 @@ module.exports = function(grunt) {
             }
         },
 
+
         uglify: {
             options: {
                 compress: {
@@ -252,31 +284,6 @@ module.exports = function(grunt) {
             }
         },
 
-        /*
-          jsdoc2md: {
-          jsdoc: {
-          files: [
-          {src: "dist/tmp/BasicChallengeHandler.js", dest: "dist/jsdoc/BasicChallengeHandler.md"},
-          {src: "dist/tmp/Blob.js", dest: "dist/jsdoc/Blob.md"},
-          {src: "dist/tmp/utils/BlobUtils.js", dest: "dist/jsdoc/BlobUtils.md"},
-          {src: "dist/tmp/utils/ByteBuffer.js", dest: "dist/jsdoc/ByteBuffer.md"},
-          {src: "dist/tmp/ChallengeRequest.js", dest: "dist/jsdoc/ChallengeRequest.md"},
-          {src: "dist/tmp/utils/Charset.js", dest: "dist/jsdoc/Charset.md"},
-          {src: "dist/tmp/ChallengeResponse.js", dest: "dist/jsdoc/ChallengeResponse.md"},
-          {src: "dist/tmp/CloseEvent.js", dest: "dist/jsdoc/CloseEvent.md"},
-          {src: "dist/tmp/DispatchChallengeHandler.js", dest: "dist/jsdoc/DispatchChallengeHandler.md"},
-          {src: "dist/tmp/MessageEvent.js", dest: "dist/jsdoc/MessageEvent.md"},
-          {src: "dist/tmp/NegotiableChallengeHandler.js", dest: "dist/jsdoc/NegotiableChallengeHandler.md"},
-          {src: "dist/tmp/NegotiateChallengeHandler.js", dest: "dist/jsdoc/NegotiateChallengeHandler.md"},
-          {src: "dist/tmp/Oid.js", dest: "dist/jsdoc/Oid.md"},
-          {src: "dist/tmp/PasswordAuthentication.js", dest: "dist/jsdoc/Oid.md"},
-          {src: "dist/tmp/WebSocketFactory.js", dest: "dist/jsdoc/WebSocketFactory.md"},
-          {src: "dist/tmp/WebSocket.js", dest: "dist/jsdoc/WebSocket.md"}
-          ]
-          }
-          },
-        */
-
         jsdoc: {
             dist: {
                 options: {
@@ -312,7 +319,9 @@ module.exports = function(grunt) {
 
     grunt.loadNpmTasks('grunt-contrib-uglify');
 
-    grunt.registerTask('default', ['clean', 'copy', 'concat', 'lineremover', 'uglify', 'jsdoc', 'clean:tmp']);
+    grunt.loadNpmTasks('grunt-stripbanner');
+
+    grunt.registerTask('default', ['clean', 'copy', 'stripbanner', 'concat', 'lineremover', 'uglify', 'jsdoc', 'clean:tmp']);
     
     grunt.registerTask('test', ['karma']);
 
