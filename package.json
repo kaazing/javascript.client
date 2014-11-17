@@ -1,0 +1,30 @@
+{
+  "name": "grunt-stripbanner",
+  "version": "0.0.1",
+  "description": "Plugin to strip comments that match a particular form from files in a directory tree",
+  "repository": "https://github.com/kaazing/grunt-stripbanner.git",
+  "author": {
+    "name": "Kaazing Corporation",
+    "email": "support@kaazing.com",
+    "url": "http://kaazing.com"
+  },
+  "keywords": [
+    "gruntplugin"
+  ],
+  "main": "Gruntfile.js",
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "license": "Apache 2.0",
+  "devDependencies": {
+    "grunt-contrib-clean": "~0.5.0",
+    "grunt-contrib-jshint": "~0.8.0",
+    "grunt-contrib-nodeunit": "~0.3.0",
+    "grunt": "~0.4.2",
+    "jshint-stylish": "~0.1.5",
+    "load-grunt-tasks": "~0.3.0"
+  },
+  "scripts": {
+    "test": "grunt test"
+  }
+}
