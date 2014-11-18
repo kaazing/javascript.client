@@ -1,5 +1,38 @@
 module.exports = function(grunt) {
 
+    /**
+     * Build up several Javascript artifacts by combining source JS files from the
+     * repo with files from kaazing-client-javascript-util loaded through bower.json.
+     * The process is:
+     *   Copy files from src/kaazing and the bower download into dist/tmp
+     *   Remove existing banner comments using grunt-stripbanner from all
+     *     files in dist/tmp
+     *   Use concat to combine files into the final artifacts and add a banner comment
+     *     to each constructed file.
+     */
+
+    // The banner comment to be added to the concatenated JS files.
+    var banner = '/**\n' + 
+                 ' * Copyright (c) 2007-2014 Kaazing Corporation. All rights reserved.\n' + 
+                 ' * \n' + 
+                 ' * Licensed to the Apache Software Foundation (ASF) under one\n' + 
+                 ' * or more contributor license agreements.  See the NOTICE file\n' + 
+                 ' * distributed with this work for additional information\n' + 
+                 ' * regarding copyright ownership.  The ASF licenses this file\n' + 
+                 ' * to you under the Apache License, Version 2.0 (the\n' + 
+                 ' * "License"); you may not use this file except in compliance\n' + 
+                 ' * with the License.  You may obtain a copy of the License at\n' + 
+                 ' * \n' + 
+                 ' *   http://www.apache.org/licenses/LICENSE-2.0\n' + 
+                 ' * \n' + 
+                 ' * Unless required by applicable law or agreed to in writing,\n' + 
+                 ' * software distributed under the License is distributed on an\n' + 
+                 ' * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY\n' + 
+                 ' * KIND, either express or implied.  See the License for the\n' + 
+                 ' * specific language governing permissions and limitations\n' + 
+                 ' * under the License.\n' + 
+                 ' */\n';
+
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'), 
 
@@ -12,7 +45,6 @@ module.exports = function(grunt) {
             },
         },
 
-        // copy all the source files we're going to combine to a temporary directory
         copy: {
             src: {
                 cwd: 'src/kaazing/gateway',
@@ -36,32 +68,13 @@ module.exports = function(grunt) {
             }
         },
 
+        // Concatenate local source and util files into final artifacts.
         // The *-debug.js files are just the concatenated source files, with no 
         // mangling of variable names or compression of the output or removal of 
-        // debug (;;;) lines.
+        // debug (;;;) lines. The non-debug files have been mangled and compressed.
         concat: {
             options: {
-                banner: 
-                    '/**\n' + 
-                    ' * Copyright (c) 2007-2014 Kaazing Corporation. All rights reserved.\n' + 
-                    ' * \n' + 
-                    ' * Licensed to the Apache Software Foundation (ASF) under one\n' + 
-                    ' * or more contributor license agreements.  See the NOTICE file\n' + 
-                    ' * distributed with this work for additional information\n' + 
-                    ' * regarding copyright ownership.  The ASF licenses this file\n' + 
-                    ' * to you under the Apache License, Version 2.0 (the\n' + 
-                    ' * "License"); you may not use this file except in compliance\n' + 
-                    ' * with the License.  You may obtain a copy of the License at\n' + 
-                    ' * \n' + 
-                    ' *   http://www.apache.org/licenses/LICENSE-2.0\n' + 
-                    ' * \n' + 
-                    ' * Unless required by applicable law or agreed to in writing,\n' + 
-                    ' * software distributed under the License is distributed on an\n' + 
-                    ' * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY\n' + 
-                    ' * KIND, either express or implied.  See the License for the\n' + 
-                    ' * specific language governing permissions and limitations\n' + 
-                    ' * under the License.\n' + 
-                    ' */\n'
+                banner: banner
             },
             PostMessage: {
                 src: [ 
@@ -244,27 +257,7 @@ module.exports = function(grunt) {
                 },
                 mangle: true,
                 unused: false,
-                banner: 
-                    '/**\n' + 
-                    ' * Copyright (c) 2007-2014 Kaazing Corporation. All rights reserved.\n' + 
-                    ' * \n' + 
-                    ' * Licensed to the Apache Software Foundation (ASF) under one\n' + 
-                    ' * or more contributor license agreements.  See the NOTICE file\n' + 
-                    ' * distributed with this work for additional information\n' + 
-                    ' * regarding copyright ownership.  The ASF licenses this file\n' + 
-                    ' * to you under the Apache License, Version 2.0 (the\n' + 
-                    ' * "License"); you may not use this file except in compliance\n' + 
-                    ' * with the License.  You may obtain a copy of the License at\n' + 
-                    ' * \n' + 
-                    ' *   http://www.apache.org/licenses/LICENSE-2.0\n' + 
-                    ' * \n' + 
-                    ' * Unless required by applicable law or agreed to in writing,\n' + 
-                    ' * software distributed under the License is distributed on an\n' + 
-                    ' * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY\n' + 
-                    ' * KIND, either express or implied.  See the License for the\n' + 
-                    ' * specific language governing permissions and limitations\n' + 
-                    ' * under the License.\n' + 
-                    ' */\n'
+                banner: banner
             },
             PostMessage: {
                 src: 'dist/js/PostMessage.js',
