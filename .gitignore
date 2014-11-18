@@ -82,3 +82,6 @@ DerivedData
 *.x86_64
 *.hex
 
+# Javascript
+node_modules
+bower_components
