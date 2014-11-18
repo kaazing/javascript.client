@@ -4,7 +4,7 @@
 Before you can build kaazing-client-javascript-util, you must install and configure the following dependencies on your machine:
 
 * [Git](http://git-scm.com/): The [Github Guide to Installing Git](https://help.github.com/articles/set-up-git) is a good source of information.
-* [Node.js](http://nodejs.org/): Node(npm) is used to install necessary dependancies. Depending on your system, you can install Node either from source or as a pre-packaged bundle.
+* [Node.js](http://nodejs.org/): Node(npm) is used to install necessary dependencies. Depending on your system, you can install Node either from source or as a pre-packaged bundle.
 * [Bower](http://bower.io/): Bower is used to manage project dependancies. Install the bower command-line tool globally with:  ```npm install -g bower```
 * [Grunt](http://gruntjs.com/): Grunt is used to build the project. In this case there are only source files, which are copied to the dist/ directory. Install the grunt command-line tool globally with: ```npm install -g grunt-cli```
 
