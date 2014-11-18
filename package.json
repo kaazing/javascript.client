@@ -4,7 +4,7 @@
     "description": "Files necessary to develop a Javascript-based client for a Kaazing WebSocket Gateway.",
     "repository": {
         "type" : "git",
-        "url" : "http://stash.kaazing.wan/scm/kgexport/gateway.client.javascript.git"
+        "url" : "https://github.com/kaazing/kaazing-client-javascript.git"
     },
     "licenses": [
         {
