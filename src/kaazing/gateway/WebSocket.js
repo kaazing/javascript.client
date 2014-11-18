@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2007-2014 Kaazing Corporation. All rights reserved.
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -8,9 +8,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -23,16 +23,16 @@
 /**
     Creates a new ArrayBuffer of the given length in bytes.
     For details, click <a href="http://www.khronos.org/registry/typedarray/specs/latest/#5" target="_blank">here</a>.
-    
+
     @constructor
     @name  ArrayBuffer
     @param {Number} length The length of the ArrayBuffer in bytes.
     @class The ArrayBuffer type describes a buffer used to store data for the array buffer views.
            Kaazing JavaScript client library supports ArrayBuffer only if the browser supports it.
-           <BR /> 
+           <BR />
            It does not provide any custom implementation of ArrayBuffer for browsers that does not support ArrayBuffer.
            <BR />
-           The recommended practice is to use either <a href="./Blob.html">Blob</a> or <a href="./ByteBuffer.html">ByteBuffer</a> 
+           The recommended practice is to use either <a href="./Blob.html">Blob</a> or <a href="./ByteBuffer.html">ByteBuffer</a>
            as a binary type for browsers that do not provide support for ArrayBuffer.
            For details on ArrayBuffer and ArrayBufferView, click <a href="http://www.khronos.org/registry/typedarray/specs/latest/#5" target="_blank">here</a>.
 */
@@ -57,17 +57,17 @@
     @param  url {String}
     @param  protocols {String|String[]}
 
-    @class WebSocket provides a bidirectional communication channel. <b>Application 
+    @class WebSocket provides a bidirectional communication channel. <b>Application
     developers should use <code>WebSocketFactory#createWebSocket()</code> function to
     create an instance of WebSocket. </b>
-    
+
     @see {@link WebSocketFactory#createWebSocket}
     See <a href="./WebSocketFactory.html">WebSocketFactory</a>.
 */
 
 /**
     Disconnects the WebSocket. If code is not an integer equal to 1000
-    or in the range 3000..4999, close() will throw an 
+    or in the range 3000..4999, close() will throw an
     <code>InvalidAccessError</code>.
 
     The reason string must be at most 123 bytes when UTF-8 encoded. If the
@@ -104,8 +104,8 @@
 /**
     Gets the ChallengeHandler that is used during authentication both at the
     connect-time as well as at subsequent revalidation-time that occurs at
-    regular intervals. 
-    
+    regular intervals.
+
     @name      getChallengeHandler
     @return {ChallengeHandler}
 
@@ -117,8 +117,8 @@
 /**
     Sets the ChallengeHandler that is used during authentication both at the
     connect-time as well as at subsequent revalidation-time that occurs at
-    regular intervals. 
-    
+    regular intervals.
+
     @name      setChallengeHandler
     @return {void}
 
@@ -154,9 +154,9 @@
 */
 
 /**
-    <B>(Read only)</B> Connect timeout in milliseconds. The timeout will expire if 
-    there is no exchange of packets(for example, 100% packet loss) while 
-    establishing the connection. A timeout value of zero indicates 
+    <B>(Read only)</B> Connect timeout in milliseconds. The timeout will expire if
+    there is no exchange of packets(for example, 100% packet loss) while
+    establishing the connection. A timeout value of zero indicates
     no timeout.
 
     @field
@@ -166,7 +166,7 @@
  */
 
 /**
-    <B>(Read only)</B> State of the connection. 
+    <B>(Read only)</B> State of the connection.
     It can be one of the following constants - <BR /><BR />
     <B>CONNECTING(0):</B> The connection is not yet open.<BR />
     <B>OPEN(1):</B> The connection is open and ready to communicate.<BR />
@@ -220,16 +220,16 @@
 
 /**
     Type of binary data for message events. Valid values are "blob", "arraybuffer"
-    and "bytebuffer". Blob and ByteBuffer will work on any supported browser. 
+    and "bytebuffer". Blob and ByteBuffer will work on any supported browser.
     ArrayBuffer is only an allowable value on browsers that support the
     <a href="http://www.khronos.org/registry/typedarray/specs/latest/">
         Typed Array Specification
     </a>.
     If this property is set to an invalid type, a <code>SyntaxError</code> will
     be thrown.
-    
-    NOTE: On older platforms where setter cannot be defined, the value is checked 
-          onmessage is fired. 
+
+    NOTE: On older platforms where setter cannot be defined, the value is checked
+          onmessage is fired.
           If set to an invalid value, the error event is fired.
 
     @field
@@ -320,9 +320,9 @@
 
 (function($rootModule, $module) {
     var _handler = new WebSocketCompositeHandler(); //singleton handler chain.
-    
+
     $module.WebSocket = (function() {
-        
+
         ;;;var CLASS_NAME = "WebSocket";
         ;;;var LOG = Logger.getLogger(CLASS_NAME);
         var webSocketChannelListener = {};
@@ -353,7 +353,7 @@
             // connect
             connect(this, this.url, this.protocol, this.extensions, this._challengeHandler, this.connectTimeout);
         };
-        
+
         // verify single protocol per WebSocket API spec (May 2012)
         var verifyOneProtocol = function(s) {
             if (s.length == 0) {
@@ -412,27 +412,27 @@
             $this._channel._webSocket = $this;
             $this._channel._webSocketChannelListener = webSocketChannelListener;
             $this._channel._extensions = extensions;
-            
+
             if (typeof(challengeHandler) != "undefined") {
                 $this._channel.challengeHandler = challengeHandler;
             }
-            
+
             if ((typeof(connectTimeout) != "undefined") && (connectTimeout > 0)) {
                 var $channel = $this._channel;
                 var connectTimer = new ResumableTimer(function() {
                                                           if ($channel.readyState == WebSocket.CONNECTING) {
                                                               // Inform the app by raising the CLOSE event.
                                                               _handler.doClose($channel, false, 1006, "Connection timeout");
-                                                              
+
                                                               // Try closing the connection all the way down. This may
-                                                              // block when there is a network loss. That's why we are 
-                                                              // first informing the application about the connection 
+                                                              // block when there is a network loss. That's why we are
+                                                              // first informing the application about the connection
                                                               // timeout.
                                                               _handler.processClose($channel, 0, "Connection timeout");
                                                               $channel.connectTimer = null;
                                                           }
                                                       },
-                                                      connectTimeout, 
+                                                      connectTimeout,
                                                       false);
                 $this._channel.connectTimer = connectTimer;
                 connectTimer.start();
@@ -470,7 +470,7 @@
                     enumerable : true,
                     configurable : true,
                     get: function() { return _binaryType; },
-                    set: function(val){ 
+                    set: function(val){
                         if (val === "blob" || val === "arraybuffer" || val === "bytebuffer" ) {
                             _binaryType = val;
                         } else {
@@ -505,7 +505,7 @@
 
         var $prototype = WebSocket.prototype;
 
-        
+
         /**
          * Sends text-based data to the remote socket location.
          * @private
@@ -518,7 +518,7 @@
                 case 0:
                     ;;;LOG.error("WebSocket.send: Error: Attempt to send message on unopened or closed WebSocket")
                     throw new Error("Attempt to send message on unopened or closed WebSocket");
-                    
+
                 case 1:
                     if (typeof(data) === "string") {
                         _handler.processTextMessage(this._channel, data);
@@ -526,17 +526,17 @@
                         _handler.processBinaryMessage(this._channel, data);
                     }
                     break;
-                    
+
                 case 2:
                 case 3:
                     break;
-                    
+
                 default:
                     ;;;LOG.error("WebSocket.send: Illegal state error");
                     throw new Error("Illegal state error");
             }
         }
-        
+
         /**
          * Disconnects the remote socket location.
          * @private
@@ -565,7 +565,7 @@
                 case 0:
                 case 1:
                     _handler.processClose(this._channel, code, reason);
-                    break;                
+                    break;
                 case 2:
                 case 3:
                     break;
@@ -592,7 +592,7 @@
                 var s = "WebSocket.setChallengeHandler(): Parameter \'challengeHandler\' is required";
                 throw new Error(s);
             }
-            
+
             this._challengeHandler = challengeHandler;
             this._channel.challengeHandler = challengeHandler;
         }
@@ -624,7 +624,7 @@
                 var s = "WebSocket.setConnectTimeout(): connectTimeout should be an integer";
                 throw new Error(s);
             }
-        
+
             if (connectTimeout < 0) {
                 var s = "WebSocket.setConnectTimeout(): Connect timeout cannot be negative";
                 throw new Error(s);
@@ -653,7 +653,7 @@
         var deliver = function($this) {
             var start = new Date().getTime();
             var delay = start + 50; // Deliver messages for up to 50 milliseconds
-    
+
             while ($this._queue.length > 0) {
                 // Reschedule delivery if too much time has passed since we started
                 if (new Date().getTime() > delay) {
@@ -668,7 +668,7 @@
                 try {
                     if ($this.readyState == WebSocket.OPEN) {
                         doMessage($this, buf);
-                        
+
                         // No exception thrown
                         ok = true;
                     }
@@ -697,10 +697,10 @@
             $this._delivering = false;
         }
 
-        
+
         var doClose = function($this, wasClean, code, reason) {
             ;;;LOG.entering($this, 'WebSocket.doClose');
-            
+
             delete $this._channel; //clean up channel
             setTimeout(function() {
                 var closeEvent = new CloseEvent($this, wasClean, code, reason);
@@ -717,12 +717,12 @@
         }
 
         webSocketChannelListener.handleMessage = function($this, obj) {
-            
-            // On platforms where a setter can be defined, we should check 
-            // binary type at the time it is set and throw an exception. On 
-            // older platforms, the value should be checked at the time it 
-            // is relevant, specifically when onmessage is fired. If set 
-            // to an invalid value, the onerror listener can be fired with 
+
+            // On platforms where a setter can be defined, we should check
+            // binary type at the time it is set and throw an exception. On
+            // older platforms, the value should be checked at the time it
+            // is relevant, specifically when onmessage is fired. If set
+            // to an invalid value, the onerror listener can be fired with
             // an error event.
             if (!Object.defineProperty && !(typeof(obj) === "string")) {
                 var binaryType = $this.binaryType;
@@ -732,7 +732,7 @@
                     return;
                 }
             }
-            
+
             //LOG.debug("ENTRY WebSocket.handleMessage with {0}", event)
             $this._queue.push(obj);
             if (!$this._delivering) {
@@ -740,12 +740,12 @@
                 deliver($this);
             }
         }
-        
+
         webSocketChannelListener.handleClose = function($this, wasClean, code, reason) {
             //LOG.debug("ENTRY WebSocket.handleClose with {0}", event)
             doClose($this, wasClean, code, reason);
         }
-        
+
         webSocketChannelListener.handleError = function($this, event) {
             ;;;LOG.entering($this, 'WebSocket.handleError' + event);
             setTimeout(function() {
@@ -827,13 +827,8 @@
 
         return WebSocket;
     })();
-    
-    // Expose impls as package private for flash Loader
-    $module.WebSocket.__impls__ = {};
-    $module.WebSocket.__impls__["flash:wse"] = WebSocketEmulatedFlashProxy;
-
 }(Kaazing,Kaazing.Gateway));
 
-// This will help the rest of the code within the closure to access WebSocket by a 
+// This will help the rest of the code within the closure to access WebSocket by a
 // straight variable name instead of using $module.WebSocket
 var WebSocket = $module.WebSocket;

@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2007-2014 Kaazing Corporation. All rights reserved.
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -8,9 +8,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -19,16 +19,26 @@
  * under the License.
  */
 
-
 /**
  * @private
  */
 var WebSocketStrategy = (function() {
-        
+
     var WebSocketStrategy = function(nativeEquivalent, handler, channelFactory) {
-            this._nativeEquivalent = nativeEquivalent;
-            this._handler = handler;
-            this._channelFactory = channelFactory;
-        };
+        this._nativeEquivalent = nativeEquivalent;
+        this._handler = handler;
+        this._channelFactory = channelFactory;
+    };
+
+    // Map of WebSocketStrategy keyed by strategy specific scheme
+    WebSocketStrategy._strategyMap = {};
+
+    // Map of list of strategies that can be applied when establishing the connection
+    // keyed by the scheme
+    WebSocketStrategy._strategyChoices = {
+					                                 "ws"  : new Array(),
+				                                   "wss" : new Array()
+					                               };
+
     return WebSocketStrategy;
 })();
