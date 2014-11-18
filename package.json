@@ -26,6 +26,6 @@
         "grunt-karma": "^0.9.0",
         "grunt-yuidoc2md": "^0.3.4",
         "grunt-jsdoc-to-markdown": "^0.4.2",
-        "grunt-stripbanner": "kaazing/grunt-stripbanner.git"
+        "grunt-stripbanner": "git+ssh://git@github.com:kaazing/grunt-stripbanner.git"
     }
 }
