@@ -1,6 +1,6 @@
 #kaazing-client-javascript-bridge#
 
-##A library containing files necessary to develop a Javascript-based client for a Kaazing WebSocket Gateway.
+###A library containing files necessary to develop a Javascript-based client for a Kaazing WebSocket Gateway.
 
 ##Installing Dependencies
 Before building kaazing-client-javascript-bridge, please install and configure the following dependencies:
