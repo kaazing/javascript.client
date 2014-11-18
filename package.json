@@ -4,7 +4,7 @@
     "description": "Files necessary to develop a Javascript-based client for a Kaazing WebSocket Gateway.",
     "repository": {
         "type" : "git",
-        "url" : "http://stash.kaazing.wan/scm/kgexport/gateway.client.javascript.git"
+        "url" : "https://github.com/kaazing/kaazing-client-javascript.git"
     },
     "licenses": [
         {
@@ -25,6 +25,7 @@
         "grunt-apidox": "^0.1.4",
         "grunt-karma": "^0.9.0",
         "grunt-yuidoc2md": "^0.3.4",
-        "grunt-jsdoc-to-markdown": "^0.4.2"
+        "grunt-jsdoc-to-markdown": "^0.4.2",
+        "grunt-stripbanner": "git+ssh://git@github.com:kaazing/grunt-stripbanner.git"
     }
 }
