@@ -19,7 +19,7 @@
 * under the License.
 */
 
-function() {
+(function() {
 
 		var JAVASCRIPT_WS =      "javascript:ws";
   	var JAVASCRIPT_WSS =     "javascript:wss";

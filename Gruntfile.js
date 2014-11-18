@@ -114,6 +114,8 @@ module.exports = function(grunt) {
                     'dist/tmp/utils/Charset.js',
                     'dist/tmp/utils/BlobUtils.js',
                     'dist/tmp/utils/PostMessage.js',
+                    'dist/tmp/utils/Logger.js',
+                    'dist/tmp/utils/Utils.js',
 
                     'dist/tmp/internal/xhr/XDRHttpDirect.js',
                     'dist/tmp/internal/xhr/XMLHttpBridge.js',
@@ -122,12 +124,7 @@ module.exports = function(grunt) {
                     'dist/tmp/internal/GatewayNamespace.js',
                     'dist/tmp/internal/loader/StartClosure.js',
 
-                    'dist/tmp/internal/Logger.js',
-                    'dist/tmp/internal/loader/Utils.js',
-
                     'dist/tmp/internal/wsn/WebSocketNativeProxy.js',
-                    'dist/tmp/internal/wsf/WebSocketFlashEmulatedProxy.js',
-                    'dist/tmp/internal/wsr/WebSocketFlashRtmpProxy.js',
 
                     'dist/tmp/internal/security/UriElementKind.js',
                     'dist/tmp/internal/security/RealmUtils.js',
@@ -186,15 +183,10 @@ module.exports = function(grunt) {
                     'dist/tmp/internal/wse/WebSocketEmulatedAuthenticationHandler.js',
                     'dist/tmp/internal/wse/WebSocketEmulatedHandler.js',
 
-                    'dist/tmp/internal/wsf/WebSocketFlashEmulatedDelegateHandler.js',
-                    'dist/tmp/internal/wsf/WebSocketFlashEmulatedHandler.js',
-                    'dist/tmp/internal/wsr/WebSocketFlashRtmpDelegateHandler.js',
-                    'dist/tmp/internal/wsr/WebSocketFlashRtmpHandler.js',
-
                     'dist/tmp/internal/ws/WebSocketSelectedHandler.js',
-                    'dist/tmp/internal/ws/WebSocketStrategy.js',
-                    'dist/tmp/internal/ws/WebSocketNativeStrategy.js',
-                    'dist/tmp/internal/ws/WebSocketEmulatedStrategy.js',
+                    'dist/tmp/internal/strategy/WebSocketStrategy.js',
+                    'dist/tmp/internal/strategy/WebSocketNativeStrategy.js',
+                    'dist/tmp/internal/strategy/WebSocketEmulatedStrategy.js',
                     'dist/tmp/internal/ws/WebSocketCompositeHandler.js',
 
                     'dist/tmp/HttpRedirectPolicy.js',

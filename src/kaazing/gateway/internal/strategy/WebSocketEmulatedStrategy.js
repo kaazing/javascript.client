@@ -19,7 +19,7 @@
 * under the License.
 */
 
-function() {
+(function() {
 
 		var JAVASCRIPT_WSE =     "javascript:wse";
     var JAVASCRIPT_WSE_SSL = "javascript:wse+ssl";

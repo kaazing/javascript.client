@@ -26,7 +26,7 @@
 var WebSocketCompositeHandler = (function() {
 
     ;;;var CLASS_NAME = "WebSocketCompositeHandler";
-    ;;;var _LOG = KzLogger.getLogger(CLASS_NAME);
+    ;;;var _LOG = Logger.getLogger(CLASS_NAME);
 
     //when IE 10 runs as IE 8 mode, Object.defineProperty returns true, but throws exception when called
     // so use a dummyObj to check Object.defineProperty function really works at page load time.
@@ -79,7 +79,9 @@ var WebSocketCompositeHandler = (function() {
             return listener;
         }
 
-        var initDelegate = function(channel, strategyName) {
+        var $prototype = WebSocketCompositeHandler.prototype;
+
+        $prototype.initDelegate = function(channel, strategyName) {
             var strategy = WebSocketStrategy._strategyMap[strategyName];
 
             // inject listener to the handler corresponding to the strategy
@@ -95,8 +97,6 @@ var WebSocketCompositeHandler = (function() {
             selectedChannel._handler.processConnect(channel._selectedChannel, location, channel._protocol);
         }
 
-        var $prototype = WebSocketCompositeHandler.prototype;
-
         $prototype.fallbackNext = function(channel) {
             ;;;_LOG.finest(CLASS_NAME, "fallbackNext");
             var strategyName = channel.getNextStrategy();
@@ -104,7 +104,7 @@ var WebSocketCompositeHandler = (function() {
                 this.doClose(channel, false, 1006, "");
             }
             else {
-                initDelegate(channel, strategyName);
+                this.initDelegate(channel, strategyName);
             }
         }
 
@@ -143,7 +143,7 @@ var WebSocketCompositeHandler = (function() {
             }
             var scheme = compositeChannel._compositeScheme;
             if (scheme != "ws" && scheme != "wss") {
-                var strategy = _strategyMap[scheme];
+                var strategy = WebSocketStrategy._strategyMap[scheme];
                 if (strategy == null) {
                     throw new Error("Invalid connection scheme: " + scheme);
                 }
