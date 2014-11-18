@@ -89,7 +89,7 @@ var decodeByteString = function(s) {
         a.push(s.charCodeAt(i) & 0xFF);
     }
     var buf = new Kaazing.ByteBuffer(a);
-    var v = getStringUnterminated(buf, Charset.UTF8);
+    var v = getStringUnterminated(buf, Kaazing.Charset.UTF8);
     ;;;ULOG.exiting(this, 'Utils.decodeByteString', v);
     return v;
 }
@@ -107,7 +107,7 @@ var decodeArrayBuffer = function(array) {
         a.push(buf[i]);
     }
     var buf = new Kaazing.ByteBuffer(a);
-    var s = getStringUnterminated(buf, Charset.UTF8);
+    var s = getStringUnterminated(buf, Kaazing.Charset.UTF8);
     ;;;ULOG.exiting(this, 'Utils.decodeArrayBuffer', s);
     return s;
 }
