@@ -1,23 +1,26 @@
 {
-  "name": "Amqp-0-9-1",
-  "description": "An example of Amqp 0.9.1 library.",
-  "author": "Kaazing",
-  "dependencies": {},
-  "engine": "node >= 0.10",
-  "devDependencies": {
-    "grunt": "^0.4.5",
-    "bower": "^1.3.8",
-    "grunt-contrib-clean": "^0.5.0",
-    "grunt-contrib-concat": "^0.3.0",
-    "grunt-contrib-copy": "^0.4.1",
-    "grunt-contrib-compress": "~0.9.1",
-    "grunt-karma": "~0.6.2",
-    "grunt-contrib-uglify": "~0.6.0",
-    "grunt-yuidoc2md": "^0.3.0"
-  },
-  "repository" :
- { 
-   "type" : "git",
-   "url" : "https://github.com/kaazing/amqp-0-9-1.js"
- }
+    "name": "Amqp-0-9-1",
+    "branchVersion": "5.0.*",
+    "description": "An example of Amqp 0.9.1 library.",
+    "repository" : { 
+        "type" : "git",
+        "url" : "https://github.com/kaazing/kaazing-amqp-0-9-1-client-javascript.git"
+    },
+    "licenses": [
+          {
+              "type": "Apache 2",
+              "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+          }
+    ],
+    "devDependencies": {
+      "grunt": "^0.4.5",
+      "bower": "^1.3.8",
+      "grunt-contrib-clean": "^0.6.0",
+      "grunt-contrib-concat": "^0.5.0",
+      "grunt-contrib-copy": "^0.6.0",
+      "grunt-contrib-compress": "^0.12.0",
+      "grunt-karma": "^0.9.0",
+      "grunt-contrib-uglify": "~0.6.0",
+      "grunt-yuidoc2md": "^0.3.4"
+    }
 }

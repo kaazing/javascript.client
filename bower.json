@@ -1,36 +1,6 @@
 {
-  "name": "amqp-0-9-1.js",
-  "version": "5.0.0",
-  "authors": [
-    "Kaazing"
-  ],
-  "description": "AMQP 0-9-1 over WebSocket JavaScript client.",
-  "main": "dist/amqp-0-9-1.js",
-  
-  "keywords": [
-    "AMQP",
-    "AMQP-0-9-1",
-    "WebSocket"
-  ],
-  
-  "license": "Apache",
-  "homepage": "https://github.com/kaazing/amqp-0-9-1.js",
-  "private": true,
-  
-  "dependencies": {
-    "kaazing-client-javascript-util": "https://github.com/kaazing/bower-kaazing-client-javascript-util.git"
-  },
-  
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "test",
-    "*.json",
-    "Gruntfile.js",
-    "LICENSE",
-    "package.json",
-    "README.md",
-    "tests"
-  ]
+    "name": "kaazing-amqp-0-9-1-client-javascript",
+    "dependencies": {
+        "kaazing-client-javascript-util": "git@github.com:kaazing/bower-kaazing-client-javascript-util.git#>=5.0.0-1 <5.1.0"
+    }
 }
