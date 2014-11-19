@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2007-2014 Kaazing Corporation. All rights reserved.
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -8,9 +8,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -24,24 +24,10 @@
  * @private
  */
 var WebSocketCompositeHandler = (function() {
-    
+
     ;;;var CLASS_NAME = "WebSocketCompositeHandler";
     ;;;var _LOG = Logger.getLogger(CLASS_NAME);
-    
-    var JAVASCRIPT_WS =      "javascript:ws";
-    var JAVASCRIPT_WSS =     "javascript:wss";
-    var JAVASCRIPT_WSE =     "javascript:wse";
-    var JAVASCRIPT_WSE_SSL = "javascript:wse+ssl";
-    var FLASH_WSE =          "flash:wse";
-    var FLASH_WSE_SSL =      "flash:wse+ssl";
-    var FLASH_WSR =          "flash:wsr";
-    var FLASH_WSR_SSL =      "flash:wsr+ssl";
-    
-    var _strategyMap/*<String,WebSocketStrategy>*/ = {}/*<String,WebSocketStrategy>*/;        
-    var _strategyChoices/*<String,Array/*String>*/ = {}/*<String,ArrayString>*/;
-    /*final*/ var _WEBSOCKET_NATIVE_CHANNEL_FACTORY = new WebSocketNativeChannelFactory();
-    /*final*/ var _WEBSOCKET_EMULATED_CHANNEL_FACTORY = new WebSocketEmulatedChannelFactory();  
-    
+
     //when IE 10 runs as IE 8 mode, Object.defineProperty returns true, but throws exception when called
     // so use a dummyObj to check Object.defineProperty function really works at page load time.
     var legacyBrowser = true;
@@ -57,53 +43,11 @@ var WebSocketCompositeHandler = (function() {
         }
         catch(e) {}
    }
-            
-           
 
     var WebSocketCompositeHandler = function() {
         this._handlerListener = createListener(this);
-        this._nativeHandler = createNativeHandler(this);
-        this._emulatedHandler = createEmulatedHandler(this);
-        this._emulatedFlashHandler = createFlashEmulatedHandler(this);
-        this._rtmpFlashHandler = createFlashRtmpHandler(this);
-        
-        ;;;_LOG.finest(CLASS_NAME, "<init>");
-        pickStrategies(); //pick strategies based on browser type and version
-        _strategyMap[JAVASCRIPT_WS] = new WebSocketStrategy("ws", this._nativeHandler, _WEBSOCKET_NATIVE_CHANNEL_FACTORY);
-        _strategyMap[JAVASCRIPT_WSS] = new WebSocketStrategy("wss", this._nativeHandler, _WEBSOCKET_NATIVE_CHANNEL_FACTORY);
-        _strategyMap[JAVASCRIPT_WSE] = new WebSocketStrategy("ws", this._emulatedHandler, _WEBSOCKET_EMULATED_CHANNEL_FACTORY);
-        _strategyMap[JAVASCRIPT_WSE_SSL] = new WebSocketStrategy("wss", this._emulatedHandler, _WEBSOCKET_EMULATED_CHANNEL_FACTORY);
-        _strategyMap[FLASH_WSE] = new WebSocketStrategy("ws", this._emulatedFlashHandler, _WEBSOCKET_EMULATED_CHANNEL_FACTORY);
-        _strategyMap[FLASH_WSE_SSL] = new WebSocketStrategy("wss", this._emulatedFlashHandler, _WEBSOCKET_EMULATED_CHANNEL_FACTORY);
-        _strategyMap[FLASH_WSR] = new WebSocketStrategy("ws", this._rtmpFlashHandler, _WEBSOCKET_EMULATED_CHANNEL_FACTORY);
-        _strategyMap[FLASH_WSR_SSL] = new WebSocketStrategy("wss", this._rtmpFlashHandler, _WEBSOCKET_EMULATED_CHANNEL_FACTORY);
-
     };
-    
-    function isIE6orIE7() {
-        if (browser != "ie") {
-            return false;
-        }
 
-        var appVersion = navigator.appVersion;
-        return (appVersion.indexOf("MSIE 6.0") >= 0 || appVersion.indexOf("MSIE 7.0") >= 0);
-    }
-
-    function pickStrategies() {
-        if (isIE6orIE7()) {
-            // Prefer Flash for IE6/IE7
-            _strategyChoices["ws"] = new Array(JAVASCRIPT_WS, FLASH_WSE, JAVASCRIPT_WSE);
-            _strategyChoices["wss"] = new Array(JAVASCRIPT_WSS, FLASH_WSE_SSL, JAVASCRIPT_WSE_SSL);
-        }
-        else {
-            // KG-3686, KG-4445: Prefer javascript; Do not use Flash for all modern (or unknown) browsers
-            // Includes browser value of chrome, firefox, safari, android, opera and others
-            // KG-3686: Flash loader.swf is prevented from loading in Loader.js (detectFlashVersion)
-            _strategyChoices["ws"] = new Array(JAVASCRIPT_WS,  JAVASCRIPT_WSE);
-            _strategyChoices["wss"] = new Array(JAVASCRIPT_WSS, JAVASCRIPT_WSE_SSL);
-        }
-    }
-   
          function createListener($this) {
             var listener = {};
             listener.connectionOpened = function(channel, protocol) {
@@ -134,41 +78,15 @@ var WebSocketCompositeHandler = (function() {
             }
             return listener;
         }
-        
-        /*final*/function createNativeHandler($this) {
-            var selectedHandler = new WebSocketSelectedHandler();
-            var nativeHandler = new WebSocketNativeHandler();
-            selectedHandler.setListener($this._handlerListener);
-            selectedHandler.setNextHandler(nativeHandler);
-            return selectedHandler;
-        }
 
-        /*final*/function createEmulatedHandler($this) {
-            var selectedHandler = new WebSocketSelectedHandler();
-            var emulatedHandler = new WebSocketEmulatedHandler();
-            selectedHandler.setListener($this._handlerListener);
-            selectedHandler.setNextHandler(emulatedHandler);
-            return selectedHandler;
-        }
-        
-        /*final*/function createFlashEmulatedHandler($this) {
-            var selectedHandler = new WebSocketSelectedHandler();
-            var emulatedFlashHandler = new WebSocketFlashEmulatedHandler();
-            selectedHandler.setListener($this._handlerListener);
-            selectedHandler.setNextHandler(emulatedFlashHandler);
-            return selectedHandler;
-        }
-        
-        /*final*/function createFlashRtmpHandler($this) {
-            var selectedHandler = new WebSocketSelectedHandler();
-            var rtmpFlashHandler = new WebSocketFlashRtmpHandler();
-            selectedHandler.setListener($this._handlerListener);
-            selectedHandler.setNextHandler(rtmpFlashHandler);
-            return selectedHandler;
-        }
+        var $prototype = WebSocketCompositeHandler.prototype;
 
-        var initDelegate = function(channel, strategyName) {
-            var strategy = _strategyMap[strategyName];
+        $prototype.initDelegate = function(channel, strategyName) {
+            var strategy = WebSocketStrategy._strategyMap[strategyName];
+
+            // inject listener to the handler corresponding to the strategy
+            strategy._handler.setListener(this._handlerListener);
+
             var channelFactory = strategy._channelFactory;
             var location = channel._location;
             var selectedChannel = channelFactory.createChannel(location, channel._protocol);
@@ -178,9 +96,7 @@ var WebSocketCompositeHandler = (function() {
             selectedChannel._handler = strategy._handler;
             selectedChannel._handler.processConnect(channel._selectedChannel, location, channel._protocol);
         }
-        
-        var $prototype = WebSocketCompositeHandler.prototype;
-        
+
         $prototype.fallbackNext = function(channel) {
             ;;;_LOG.finest(CLASS_NAME, "fallbackNext");
             var strategyName = channel.getNextStrategy();
@@ -188,7 +104,7 @@ var WebSocketCompositeHandler = (function() {
                 this.doClose(channel, false, 1006, "");
             }
             else {
-                initDelegate(channel, strategyName);
+                this.initDelegate(channel, strategyName);
             }
         }
 
@@ -202,7 +118,7 @@ var WebSocketCompositeHandler = (function() {
             }
         }
 
-        
+
         $prototype.doClose = function(channel, wasClean, code, reason) {
             if (channel.readyState  === WebSocket.CONNECTING || channel.readyState  === WebSocket.OPEN || channel.readyState  === WebSocket.CLOSING) {
                 channel.readyState = WebSocket.CLOSED;
@@ -227,7 +143,7 @@ var WebSocketCompositeHandler = (function() {
             }
             var scheme = compositeChannel._compositeScheme;
             if (scheme != "ws" && scheme != "wss") {
-                var strategy = _strategyMap[scheme];
+                var strategy = WebSocketStrategy._strategyMap[scheme];
                 if (strategy == null) {
                     throw new Error("Invalid connection scheme: " + scheme);
                 }
@@ -235,7 +151,7 @@ var WebSocketCompositeHandler = (function() {
                 compositeChannel._connectionStrategies.push(scheme);
             }
             else {
-                var connectionStrategies = _strategyChoices[scheme];
+                var connectionStrategies = WebSocketStrategy._strategyChoices[scheme];
                 if (connectionStrategies != null) {
                     for (var i = 0; i < connectionStrategies.length; i++) {
                         compositeChannel._connectionStrategies.push(connectionStrategies[i]);
@@ -247,7 +163,7 @@ var WebSocketCompositeHandler = (function() {
             }
             this.fallbackNext(compositeChannel);
         }
-        
+
         /*synchronized*/
         $prototype.processTextMessage = function(channel, message) {
             ;;;_LOG.finest(CLASS_NAME, "send", message);
@@ -260,7 +176,7 @@ var WebSocketCompositeHandler = (function() {
             selectedChannel._handler.processTextMessage(selectedChannel, message);
         }
 
-        
+
         /*synchronized*/
         $prototype.processBinaryMessage = function(channel, message) {
             ;;;_LOG.finest(CLASS_NAME, "send", message);
@@ -284,7 +200,7 @@ var WebSocketCompositeHandler = (function() {
                     channel._webSocket.readyState = WebSocket.CLOSING;
                 }
             }
- 
+
             // When the connection timeout expires due to network loss, we first
             // invoke doClose() to inform the application immediately. Then, we
             // invoke processClose() to close the connection but it may take a
@@ -295,7 +211,7 @@ var WebSocketCompositeHandler = (function() {
             // comment.
             var selectedChannel = parent._selectedChannel;
             selectedChannel._handler.processClose(selectedChannel, code, reason);
- 
+
         }
 
         $prototype.setListener = function(listener) {
@@ -311,7 +227,7 @@ var WebSocketCompositeHandler = (function() {
             var parent = channel.parent;
             switch (parent.readyState) {
                 case WebSocket.OPEN:
-                     /* 
+                     /*
                       * convert obj to correct datatype base on binaryType
                       */
                       if (parent._webSocket.binaryType  === "blob" && obj.constructor  == $rootModule.ByteBuffer) {
@@ -382,12 +298,12 @@ var WebSocketCompositeHandler = (function() {
 
             if (parent.readyState  === WebSocket.CONNECTING && !channel.authenticationReceived && !channel.preventFallback) {
                 this.fallbackNext(parent);
-            } 
+            }
             else {
                 this.doClose(parent, false, closeCode, closeReason);
             }
         }
-        
+
         $prototype.handleConnectionError = function(channel, e) {
             var parent = channel.parent;
             parent._webSocketChannelListener.handleError(parent._webSocket, e);

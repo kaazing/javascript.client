@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2007-2014 Kaazing Corporation. All rights reserved.
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -8,9 +8,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -23,30 +23,30 @@
 /**
  * @private
  */
-var WebSocketNativeBalancingHandler = (function() /*extends WebSocketHandlerAdapter*/ {
+var WebSocketNativeBalancingHandler = (function($module) /*extends WebSocketHandlerAdapter*/ {
 		;;;var CLASS_NAME = "WebSocketNativeBalancingHandler";
 		;;;var LOG = Logger.getLogger(CLASS_NAME);
 
 		var WebSocketNativeBalancingHandler = function() {
 			;;;LOG.finest(CLASS_NAME, "<init>");
 		};
-		
+
         var handleRedirect = function($this, channel, redirectUri) {
             channel._redirecting = true;
             channel._redirectUri = redirectUri;
             $this._nextHandler.processClose(channel);
         }
-        
+
 		/**
 		 * @private
 		 */
 		var $prototype = WebSocketNativeBalancingHandler.prototype = new WebSocketHandlerAdapter();
-	
+
         $prototype.processConnect = function(channel, uri, protocol) {
             channel._balanced = 0;
             this._nextHandler.processConnect(channel, uri, protocol);
         }
-        
+
         $prototype.handleConnectionClosed = function(channel, wasClean, code, reason) {
             if (channel._redirecting == true) {
                 channel._redirecting = false;
@@ -79,7 +79,7 @@ var WebSocketNativeBalancingHandler = (function() /*extends WebSocketHandlerAdap
                 this._listener.connectionClosed(channel, wasClean, code, reason);
             }
         }
-        
+
 		$prototype.handleMessageReceived = function(channel, obj) {
 			;;;LOG.finest(CLASS_NAME, "handleMessageReceived", obj);
 
@@ -114,9 +114,9 @@ var WebSocketNativeBalancingHandler = (function() /*extends WebSocketHandlerAdap
             }
             else {
                 this._listener.binaryMessageReceived(channel, obj);
-            }                    
+            }
 		}
-		
+
 		$prototype.setNextHandler = function(nextHandler) {
 			this._nextHandler = nextHandler;
 			var listener = new WebSocketHandlerListener(this);
@@ -161,7 +161,7 @@ var WebSocketNativeBalancingHandler = (function() /*extends WebSocketHandlerAdap
             }
             else {
                 outer._listener.textMessageReceived(channel, message);
-            } 
+            }
             }
             listener.binaryMessageReceived = function(channel, obj) {
                 outer.handleMessageReceived(channel, obj);
@@ -170,12 +170,12 @@ var WebSocketNativeBalancingHandler = (function() /*extends WebSocketHandlerAdap
                outer.handleConnectionClosed(channel, wasClean, code, reason);
             }
 			nextHandler.setListener(listener);
-            
+
 		}
-		
+
 		$prototype.setListener = function(listener) {
 			this._listener = listener;
-		} 
-		
+		}
+
 	return WebSocketNativeBalancingHandler;
-})()
+})(Kaazing.Gateway)

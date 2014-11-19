@@ -1,40 +1,7 @@
 module.exports = function(grunt) {
 
-    /**
-     * Build up several Javascript artifacts by combining source JS files from the
-     * repo with files from kaazing-client-javascript-util loaded through bower.json.
-     * The process is:
-     *   Copy files from src/kaazing and the bower download into dist/tmp
-     *   Remove existing banner comments using grunt-stripbanner from all
-     *     files in dist/tmp
-     *   Use concat to combine files into the final artifacts and add a banner comment
-     *     to each constructed file.
-     */
-
-    // The banner comment to be added to the concatenated JS files.
-    var banner = '/**\n' + 
-                 ' * Copyright (c) 2007-2014 Kaazing Corporation. All rights reserved.\n' + 
-                 ' * \n' + 
-                 ' * Licensed to the Apache Software Foundation (ASF) under one\n' + 
-                 ' * or more contributor license agreements.  See the NOTICE file\n' + 
-                 ' * distributed with this work for additional information\n' + 
-                 ' * regarding copyright ownership.  The ASF licenses this file\n' + 
-                 ' * to you under the Apache License, Version 2.0 (the\n' + 
-                 ' * "License"); you may not use this file except in compliance\n' + 
-                 ' * with the License.  You may obtain a copy of the License at\n' + 
-                 ' * \n' + 
-                 ' *   http://www.apache.org/licenses/LICENSE-2.0\n' + 
-                 ' * \n' + 
-                 ' * Unless required by applicable law or agreed to in writing,\n' + 
-                 ' * software distributed under the License is distributed on an\n' + 
-                 ' * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY\n' + 
-                 ' * KIND, either express or implied.  See the License for the\n' + 
-                 ' * specific language governing permissions and limitations\n' + 
-                 ' * under the License.\n' + 
-                 ' */\n';
-
     grunt.initConfig({
-        pkg: grunt.file.readJSON('package.json'), 
+        pkg: grunt.file.readJSON('package.json'),
 
         clean: {
             dist: {
@@ -45,6 +12,7 @@ module.exports = function(grunt) {
             },
         },
 
+        // copy all the source files we're going to combine to a temporary directory
         copy: {
             src: {
                 cwd: 'src/kaazing/gateway',
@@ -68,16 +36,35 @@ module.exports = function(grunt) {
             }
         },
 
-        // Concatenate local source and util files into final artifacts.
-        // The *-debug.js files are just the concatenated source files, with no 
-        // mangling of variable names or compression of the output or removal of 
-        // debug (;;;) lines. The non-debug files have been mangled and compressed.
+        // The *-debug.js files are just the concatenated source files, with no
+        // mangling of variable names or compression of the output or removal of
+        // debug (;;;) lines.
         concat: {
             options: {
-                banner: banner
+                banner:
+                    '/**\n' +
+                    ' * Copyright (c) 2007-2014 Kaazing Corporation. All rights reserved.\n' +
+                    ' * \n' +
+                    ' * Licensed to the Apache Software Foundation (ASF) under one\n' +
+                    ' * or more contributor license agreements.  See the NOTICE file\n' +
+                    ' * distributed with this work for additional information\n' +
+                    ' * regarding copyright ownership.  The ASF licenses this file\n' +
+                    ' * to you under the Apache License, Version 2.0 (the\n' +
+                    ' * "License"); you may not use this file except in compliance\n' +
+                    ' * with the License.  You may obtain a copy of the License at\n' +
+                    ' * \n' +
+                    ' *   http://www.apache.org/licenses/LICENSE-2.0\n' +
+                    ' * \n' +
+                    ' * Unless required by applicable law or agreed to in writing,\n' +
+                    ' * software distributed under the License is distributed on an\n' +
+                    ' * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY\n' +
+                    ' * KIND, either express or implied.  See the License for the\n' +
+                    ' * specific language governing permissions and limitations\n' +
+                    ' * under the License.\n' +
+                    ' */\n'
             },
             PostMessage: {
-                src: [ 
+                src: [
                     'dist/tmp/utils/Browser.js',
                     'dist/tmp/utils/Events.js',
                     'dist/tmp/utils/URI.js',
@@ -86,7 +73,7 @@ module.exports = function(grunt) {
                 dest: 'dist/js/PostMessage-debug.js'
             },
             XmlHttpRequest: {
-                src: [ 
+                src: [
                     'dist/tmp/utils/Browser.js',
                     'dist/tmp/utils/Events.js',
                     'dist/tmp/utils/URI.js',
@@ -99,7 +86,7 @@ module.exports = function(grunt) {
                 dest: 'dist/js/XMLHttpRequest-debug.js'
             },
             ServerSentEvents: {
-                src: [ 
+                src: [
                     'dist/tmp/utils/Browser.js',
                     'dist/tmp/utils/Events.js',
                     'dist/tmp/utils/URI.js',
@@ -114,7 +101,7 @@ module.exports = function(grunt) {
                 dest: 'dist/js/ServerSentEvents-debug.js'
             },
             WebSocket: {
-                src: [ 
+                src: [
                     'dist/tmp/utils/KaazingNamespace.js',
                     'dist/tmp/utils/Browser.js',
                     'dist/tmp/utils/Events.js',
@@ -127,6 +114,8 @@ module.exports = function(grunt) {
                     'dist/tmp/utils/Charset.js',
                     'dist/tmp/utils/BlobUtils.js',
                     'dist/tmp/utils/PostMessage.js',
+                    'dist/tmp/utils/Logger.js',
+                    'dist/tmp/utils/Utils.js',
 
                     'dist/tmp/internal/xhr/XDRHttpDirect.js',
                     'dist/tmp/internal/xhr/XMLHttpBridge.js',
@@ -134,17 +123,8 @@ module.exports = function(grunt) {
 
                     'dist/tmp/internal/GatewayNamespace.js',
                     'dist/tmp/internal/loader/StartClosure.js',
-                    'dist/tmp/internal/loader/WebSocketVariables.js',
-                    
-                    'dist/tmp/internal/Logger.js',
-                    'dist/tmp/internal/loader/Utils.js',
 
                     'dist/tmp/internal/wsn/WebSocketNativeProxy.js',
-                    'dist/tmp/internal/wsf/WebSocketFlashEmulatedProxy.js',
-                    'dist/tmp/internal/wsr/WebSocketFlashRtmpProxy.js',
-
-                    'dist/tmp/internal/loader/FlashBridge.js',
-                    'dist/tmp/internal/loader/Loader.js',
 
                     'dist/tmp/internal/security/UriElementKind.js',
                     'dist/tmp/internal/security/RealmUtils.js',
@@ -154,7 +134,7 @@ module.exports = function(grunt) {
                     'dist/tmp/internal/security/Token.js',
                     'dist/tmp/Oid.js',
                     'dist/tmp/internal/security/BasicChallengeResponseFactory.js',
-                    'dist/tmp/internal/security/InternalDefaultChallengeHandler.js',        
+                    'dist/tmp/internal/security/InternalDefaultChallengeHandler.js',
                     'dist/tmp/PasswordAuthentication.js',
                     'dist/tmp/ChallengeRequest.js',
                     'dist/tmp/ChallengeResponse.js',
@@ -165,7 +145,7 @@ module.exports = function(grunt) {
                     'dist/tmp/internal/ws/WebSocketHandshakeObject.js',
                     'dist/tmp/internal/ws/WebSocketExtension.js',
                     'dist/tmp/internal/ws/WebSocketRevalidateExtension.js',
-                    
+
                     'dist/tmp/internal/Windows1252.js',
 
                     'dist/tmp/CloseEvent.js',
@@ -189,7 +169,7 @@ module.exports = function(grunt) {
                     'dist/tmp/internal/ws/WebSocketCompositeChannel.js',
                     'dist/tmp/internal/ws/WebSocketControlFrameHandler.js',
                     'dist/tmp/internal/ws/WebSocketRevalidateHandler.js',
-                    
+
                     'dist/tmp/internal/wsn/WebSocketNativeDelegateHandler.js',
                     'dist/tmp/internal/wsn/WebSocketNativeBalancingHandler.js',
                     'dist/tmp/internal/wsn/WebSocketNativeHandshakeHandler.js',
@@ -202,21 +182,17 @@ module.exports = function(grunt) {
                     'dist/tmp/internal/wse/WebSocketEmulatedDelegateHandler.js',
                     'dist/tmp/internal/wse/WebSocketEmulatedAuthenticationHandler.js',
                     'dist/tmp/internal/wse/WebSocketEmulatedHandler.js',
-                    
-                    'dist/tmp/internal/wsf/WebSocketFlashEmulatedDelegateHandler.js',
-                    'dist/tmp/internal/wsf/WebSocketFlashEmulatedHandler.js',
-                    'dist/tmp/internal/wsr/WebSocketFlashRtmpDelegateHandler.js',
-                    'dist/tmp/internal/wsr/WebSocketFlashRtmpHandler.js',
 
                     'dist/tmp/internal/ws/WebSocketSelectedHandler.js',
-                    'dist/tmp/internal/ws/WebSocketStrategy.js',
+                    'dist/tmp/internal/strategy/WebSocketStrategy.js',
+                    'dist/tmp/internal/strategy/WebSocketNativeStrategy.js',
+                    'dist/tmp/internal/strategy/WebSocketEmulatedStrategy.js',
                     'dist/tmp/internal/ws/WebSocketCompositeHandler.js',
 
                     'dist/tmp/HttpRedirectPolicy.js',
                     'dist/tmp/WebSocket.js',
-                    'dist/tmp/WebSocketFactory.js',      
-                    
-                    'dist/tmp/internal/loader/KickStart.js',
+                    'dist/tmp/WebSocketFactory.js',
+
                     'dist/tmp/internal/WebSocketRequireJSModule.js',
                     'dist/tmp/internal/loader/EndClosure.js'
                 ],
@@ -257,7 +233,27 @@ module.exports = function(grunt) {
                 },
                 mangle: true,
                 unused: false,
-                banner: banner
+                banner:
+                    '/**\n' +
+                    ' * Copyright (c) 2007-2014 Kaazing Corporation. All rights reserved.\n' +
+                    ' * \n' +
+                    ' * Licensed to the Apache Software Foundation (ASF) under one\n' +
+                    ' * or more contributor license agreements.  See the NOTICE file\n' +
+                    ' * distributed with this work for additional information\n' +
+                    ' * regarding copyright ownership.  The ASF licenses this file\n' +
+                    ' * to you under the Apache License, Version 2.0 (the\n' +
+                    ' * "License"); you may not use this file except in compliance\n' +
+                    ' * with the License.  You may obtain a copy of the License at\n' +
+                    ' * \n' +
+                    ' *   http://www.apache.org/licenses/LICENSE-2.0\n' +
+                    ' * \n' +
+                    ' * Unless required by applicable law or agreed to in writing,\n' +
+                    ' * software distributed under the License is distributed on an\n' +
+                    ' * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY\n' +
+                    ' * KIND, either express or implied.  See the License for the\n' +
+                    ' * specific language governing permissions and limitations\n' +
+                    ' * under the License.\n' +
+                    ' */\n'
             },
             PostMessage: {
                 src: 'dist/js/PostMessage.js',
@@ -315,7 +311,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-stripbanner');
 
     grunt.registerTask('default', ['clean', 'copy', 'stripbanner', 'concat', 'lineremover', 'uglify', 'jsdoc', 'clean:tmp']);
-    
+
     grunt.registerTask('test', ['karma']);
 
 };
