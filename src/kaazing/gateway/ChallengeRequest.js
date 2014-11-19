@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2007-2014 Kaazing Corporation. All rights reserved.
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -8,9 +8,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -68,9 +68,11 @@
             }
         }
     };
-    
+
+    $module.ChallengeRequest = ChallengeRequest;
+
     /**
-     * <B>(Read only)</B> The authentication scheme with which the server is 
+     * <B>(Read only)</B> The authentication scheme with which the server is
      *                    challenging.
      *   @field
      *   @name authenticationScheme
@@ -78,7 +80,7 @@
      *   @memberOf ChallengeRequest
      */
     /**
-     * <B>(Read only)</B> The string after the space separator, not including the 
+     * <B>(Read only)</B> The string after the space separator, not including the
      *                    authentication scheme nor the space itself, or null if
      *                    no such string exists.
      *   @field
@@ -87,9 +89,9 @@
      *   @memberOf ChallengeRequest
      */
     /**
-     * <B>(Read only)</B> The protected URI the access of which triggered this 
+     * <B>(Read only)</B> The protected URI the access of which triggered this
      *                    challenge.
-     * 
+     *
      *   @field
      *   @name location
      *   @type String
@@ -98,6 +100,6 @@
     return ChallengeRequest;
 })(Kaazing.Gateway);
 
-// This will help the rest of the code within the closure to access ChallengeRequest by a 
+// This will help the rest of the code within the closure to access ChallengeRequest by a
 // straight variable name instead of using $module.ChallengeRequest
 var ChallengeRequest = Kaazing.Gateway.ChallengeRequest;
