@@ -32,4 +32,4 @@ Assumptions: node, npm, grunt and bower Command Line Interface(CLI) are already 
   the contents of this directory are released to https://github.com/kaazing/bower-kaazing-client-javascript-demo.
 
 ##Notes
-
+* During release the contents of this repo are released to https://github.com/kaazing/bower-kaazing-client-javascript-demo repository.
