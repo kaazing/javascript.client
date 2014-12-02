@@ -1,6 +1,6 @@
 #kaazing-client-javascript 
 
-kaazing-client-javascript is an implementation of the WebSocket specification [RFC-6455] (https://tools.ietf.org/html/rfc6455) in Javascript. Developers can use the Javascript library to develop brower-based clients for a Kaazing WebSocket Gateway.
+kaazing-client-javascript delivers WebSocket.js Javascript library which is an implementation of the WebSocket specification [RFC-6455] (https://tools.ietf.org/html/rfc6455). Developers can use the Javascript library to develop brower-based clients for a Kaazing WebSocket Gateway.
 
 ##Installing Dependencies
 Before building kaazing-client-javascript, please install and configure the following dependencies:
@@ -33,3 +33,4 @@ Assumptions: node, npm, grunt and bower Command Line Interface(CLI) are already 
   the contents of this directory are released to https://github.com/kaazing/bower-kaazing-client-javascript.
 
 ##Notes
+* During release the contents of this repo are released to https://github.com/kaazing/bower-kaazing-client-javascript repository.
