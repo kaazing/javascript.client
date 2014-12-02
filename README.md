@@ -1,4 +1,6 @@
-#kaazing-client-javascript is a library containing files necessary to develop a Javascript-based client for a Kaazing WebSocket Gateway.
+#kaazing-client-javascript 
+
+kaazing-client-javascript is an implementation of the WebSocket specification [RFC-6455] (https://tools.ietf.org/html/rfc6455) in Javascript. Developers can use the Javascript library to develop brower-based clients for a Kaazing WebSocket Gateway.
 
 ##Installing Dependencies
 Before building kaazing-client-javascript, please install and configure the following dependencies:
