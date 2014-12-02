@@ -1,0 +1,6 @@
+{
+    "name": "kaazing-client-javascript-demo",
+    "dependencies": {
+        "kaazing-client-javascript": "git@github.com:kaazing/bower-kaazing-client-javascript.git#>=5.0.0-1 <5.1.0"
+    }
+}

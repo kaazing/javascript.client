@@ -82,3 +82,9 @@ DerivedData
 *.x86_64
 *.hex
 
+### JavaScript ###
+node_modules/*
+bower_components/*
+npm-debug.log
+/dist/*
+
