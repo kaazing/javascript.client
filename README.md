@@ -1,6 +1,6 @@
 #Welcome to Amqp-0-9-1.js
 
-```Amqp-0-9-1.js``` is an AMQP 0-9-1 over WebSocket JavaScript Client. This demo uses an AMQP client library to send and receive messages using the AMQP protocol which communicates with a message broker such as Rabbit MQ or Apache Qpid by way of the Kaazing Gateway AMQP Proxy service.
+```Amqp-0-9-1.js``` is a Javascript library for running AMQP 0-9-1 over WebSocket. Using the Javascript library, one would be able to send and receive AMQP messages from within a browser and communicate with an AMQP 0-9-1 compliant message broker such as Apache QPid or Pivotal RabbitMQ by way of the Kaazing Gateway AMQP Proxy service.
 
 ##Installing Dependencies
 Before building Amqp-0-9-1.js, please install and configure the following dependencies:
