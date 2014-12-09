@@ -3,11 +3,13 @@
 This repository contains the source code for the ```Amqp-0-9-1.js``` library for running AMQP 0-9-1 Javascript clients over WebSocket. Using the library, you will be able to send and receive AMQP messages from within a browser and communicate with an AMQP 0-9-1 compliant message broker such as Apache Qpid or Pivotal RabbitMQ by way of the Kaazing Gateway AMQP Proxy service.
 
 ##Installing Dependencies
+Being a Github-based Javascript project, kaazing-amqp-0-9-1-client-javascript follows the common javascript-project build paradigm, using [npm](http://nodejs.org/), [bower](http://bower.io/) and [grunt](http://gruntjs.com/) to generate the amqp-0-9-1.js distribution file.
+
 Before building Amqp-0-9-1.js, please install and configure the following dependencies:
 
 * [Git](http://git-scm.com/): The [Github Guide to Installing Git](https://help.github.com/articles/set-up-git) is a good source of information.
-* [Node.js](http://nodejs.org/): Node(npm) is used to install necessary dependencies. Depending on your system, you can install Node either from source or as a pre-packaged bundle.
-* [Bower](http://bower.io/): Bower is used to manage project dependencies. Install the bower command-line tool globally with:  ```npm install -g bower```
+* [Node.js](http://nodejs.org/): Node (npm) is used to install necessary dependencies. Depending on your system, you can install Node either from source or as a pre-packaged bundle.
+* [Bower](http://bower.io/): Bower is used to manage Javascript project dependencies. Install the bower command-line tool globally with:  ```npm install -g bower```
 * [Grunt](http://gruntjs.com/): Grunt is used to build Amqp-0-9-1.js, generate the documentation and run tests. Install the grunt command-line tool globally with: ```npm install -g grunt-cli```
 
 **Note**: These may need elevated privileges requiring the use of either sudo (for OSX, *nix, BSD etc) or running the command shell as an Administrator (for Windows) to install Grunt & Bower globally.
