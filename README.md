@@ -1,6 +1,6 @@
 #kaazing-amqp-0-9-1-client-javascript
 
-kaazing-amqp-0-9-1-client-javascript delivers ```Amqp-0-9-1.js``` Javascript library for running AMQP 0-9-1 over WebSocket. Using the Javascript library, developers will be able to send and receive AMQP messages from within a browser and communicate with an AMQP 0-9-1 compliant message broker such as Apache QPid or Pivotal RabbitMQ by way of the Kaazing Gateway AMQP Proxy service.
+This repository contains the source code for the ```Amqp-0-9-1.js``` library for running AMQP 0-9-1 Javascript clients over WebSocket. Using the library, developers will be able to send and receive AMQP messages from within a browser and communicate with an AMQP 0-9-1 compliant message broker such as Apache QPid or Pivotal RabbitMQ by way of the Kaazing Gateway AMQP Proxy service.
 
 ##Installing Dependencies
 Before building Amqp-0-9-1.js, please install and configure the following dependencies:
