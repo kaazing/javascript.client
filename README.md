@@ -17,7 +17,12 @@ Being a Github-based Javascript project, kaazing-amqp-0-9-1-client-javascript fo
 ##Directory structure
 The repository is made up of the following files and directories:
 
-* base-directory files: package.json, bower.json, Gruntfile.js, README.md, LICENSE.txt
+* base-directory files: 
+    * package.json - the control file used by 'npm install' to install build dependencies
+    * bower.json - the control file used by bower to install project dependencies
+    * Gruntfile.js - the control file used by grunt to build the project
+    * README.md - the file describing the project
+    * LICENSE.txt - the project's Apache 2.0 license
 * src: Source files for the javascript library
 * demo: Demo files
 * test: Test files and karma configuration to run tests. Test can be run by using ```grunt karma``` commnd.
