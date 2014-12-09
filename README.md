@@ -15,6 +15,8 @@ Being a Github-based Javascript project, kaazing-amqp-0-9-1-client-javascript fo
 **Note**: These may need elevated privileges requiring the use of either sudo (for OSX, *nix, BSD etc) or running the command shell as an Administrator (for Windows) to install Grunt & Bower globally.
 
 ##Directory structure
+The repository is made up of the following files and directories:
+
 * base-directory files: package.json, bower.json, Gruntfile.js, README.md, LICENSE.txt
 * src: Source files for the javascript library
 * demo: Demo files
