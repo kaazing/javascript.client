@@ -14,18 +14,18 @@ You can get started by installing git (see the [Github Guide to Installing Git](
 * src: Source files
 * demo: Demo files
 * test: Test files and karma config to run tests. Test can be run by using ```grunt karma``` commnd.
-* dist: Distribution directory will be generated which has javascript and jsdoc directories.
-    * javascript: Has the complete demo package, which includes generated Amqp-0-9-1.js library, amqp.html demo file, resources directory which has css and image files.
-    * jsdoc: API doc generated from source files
+* dist: This directory of distribution artifacts will be generated as needed. It contains:
+    * javascript: The complete demo package, including the generated Amqp-0-9-1.js library, the amqp.html demo file, and resources and images directories.
+    * jsdoc: API documentation generated from the Amqp-0-9-1.js file.
 
-##Steps to build Amqp-0-9-1.js project
-Assumption: node, npm, grunt and bower Command Line Interface(CLI) should be installed. Following steps will build the project and generate files in the dist directory.
+##Building the project
+Once you've installed git and node (npm) globally, you can download the project and build the distribution artifacts:
 
-* Clone the repo: ```git clone https://github.com/kaazing/amqp-0-9-1.client.javascript```
-* Go to the cloned directory: ```cd amqp-0-9-1.client.javascript```
-* Command to install all the dependencies:```npm install ```
-* Command to install project dependencies:```bower install```
-* Command to run configured tasks: ```grunt```
+* Clone the repository: ```git clone https://github.com/kaazing/amqp-0-9-1-client-javascript.git```
+* Go to the cloned directory: ```cd amqp-0-9-1-client-javascript```
+* Install the build dependencies:```npm install ```
+* Install project dependencies:```bower install```
+* Run the build tasks: ```grunt```
 
 **Note**: These may need elevated privileges requiring the use of either sudo (for OSX, *nix, BSD etc) or running the command shell as an Administrator (for Windows) to install Grunt & Bower globally.
 
