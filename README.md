@@ -5,7 +5,7 @@ This repository contains the source code for the ```Amqp-0-9-1.js``` library for
 You can find pre-built versions of all the amqp-0-9-1.js build artifacts (the client library, demo page and jsdoc files) in the github [bower-kaazing-amqp-0-9-1-client-javascript](https://github.com/kaazing/bower-kaazing-amqp-0-9-1-client-javascript) repository.
 
 ##Installing Dependencies
-Being a Github-based Javascript project, kaazing-amqp-0-9-1-client-javascript follows the common javascript-project build paradigm, using [git](http://git-scm.com/), node.js ([npm](http://nodejs.org/)), [bower](http://bower.io/) and [grunt](http://gruntjs.com/) to generate the amqp-0-9-1.js distribution file and documentation and run tests. If you're new to the javascript-project build paradigm, check out the following links for more details:
+Being a Github-based Javascript project, kaazing-amqp-0-9-1-client-javascript follows the common javascript-project tool chain, using [git](http://git-scm.com/), node.js ([npm](http://nodejs.org/)), [bower](http://bower.io/) and [grunt](http://gruntjs.com/) to generate the amqp-0-9-1.js distribution file and documentation and run tests. If you're new to the javascript-project tool chain, check out the following links for more details:
 
 * [Git](http://git-scm.com/): The [Github Guide to Installing Git](https://help.github.com/articles/set-up-git) is a good source of information.
 * [Node.js](http://nodejs.org/): Node(npm) is used to install necessary dependancies. Depending on your system, you can install Node either from source or as a pre-packaged bundle.
