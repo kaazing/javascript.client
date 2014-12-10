@@ -158,7 +158,7 @@
      *
      * @public
      * @field
-     * @type AmqpChannel or AmqpClient
+     * @type AmqpChannel | AmqpClient
      * @name target
      * @memberOf AmqpEvent
      */
