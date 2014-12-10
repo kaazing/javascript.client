@@ -276,11 +276,10 @@ module.exports = function(grunt) {
         jsdoc: {
             dist: {
                 options: {
-                    configure: 'src/kaazing/jsdoc/configure.json'
-                    //   template: 'src/kaazing/jsdoc',
+                    configure: 'src/kaazing/jsdoc/configure.json',
+                    private: false
                 },
                 src: ['dist/js'],
-                //                src: ['dist/tmp'],
                 dest: 'dist/jsdoc'
             }
         },
@@ -299,8 +298,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-clean');
 
     grunt.loadNpmTasks('grunt-karma');
-
-    //    grunt.loadNpmTasks('grunt-jsdoc-to-markdown');
 
     grunt.loadNpmTasks('grunt-jsdoc');
 
