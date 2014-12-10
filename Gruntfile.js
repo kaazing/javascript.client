@@ -72,6 +72,14 @@ module.exports = function(grunt) {
         },
 
         copy : {
+
+            client_js: {
+                cwd: 'bower_components/kaazing-client-javascript/js',
+                src: '**',
+                dest: 'dist/javascript/',
+                expand: true,
+            },
+
             demo : {
                 cwd : 'demo',
                 src : '**',
