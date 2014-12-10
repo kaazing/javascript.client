@@ -82,7 +82,10 @@ module.exports = function(grunt) {
         jsdoc: {
             dist: {
                 src: ['dist/javascript/*-debug.js'],
-                dest: 'dist/jsdoc'
+                dest: 'dist/jsdoc',
+                options: {
+                    private: false
+                }
             }
         },
 
