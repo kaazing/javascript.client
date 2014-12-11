@@ -1,0 +1,2 @@
+# Generated on 2014-12-10 16:42:04-08:00
+kaazing-client-javascript-util: 5.0.0-21
