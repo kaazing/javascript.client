@@ -13,7 +13,7 @@ Before building kaazing-client-javascript-demo, please install and configure the
 **Note**: These may need elevated privileges requiring the use of either sudo (for OSX, *nix, BSD etc) or running the command shell as an Administrator (for Windows) to install Grunt & Bower globally.
 
 
-##Steps to build the kaazing-client-javascript project
+##Steps to build the kaazing-client-javascript-demo project
 Assumptions: node, npm, grunt and bower Command Line Interface(CLI) are already installed. The following steps will build the project and generate files in the ''dist/javascript'' directory.
 
 * Clone the repo: ```git clone https://github.com/kaazing/kaazing-client-javascript-demo.git```
