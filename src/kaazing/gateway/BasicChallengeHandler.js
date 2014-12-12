@@ -70,7 +70,7 @@
      * 
      * @public
      * @alias setRealmLoginHandler
-     * @memberOf BasicChallengeHandler
+     * @memberOf BasicChallengeHandler#
      */
     $prototype.setRealmLoginHandler = function(realm, loginHandler) {
 	if (realm == null) {
@@ -91,7 +91,7 @@
      *                   otherwise false
      * @public
      * @alias canHandle
-     * @memberOf BasicChallengeHandler
+     * @memberOf BasicChallengeHandler#
      */
     $prototype.canHandle = function(challengeRequest) {
 	return challengeRequest != null && "Basic" == challengeRequest.authenticationScheme;
@@ -110,7 +110,7 @@
      *
      * @public
      * @alias handle
-     * @memberOf BasicChallengeHandler
+     * @memberOf BasicChallengeHandler#
      */
     $prototype.handle = function(challengeRequest, callback) {
 	
@@ -148,7 +148,7 @@
      * @return {void}
      * @public
      * @alias loginHandler
-     * @memberOf BasicChallengeHandler
+     * @memberOf BasicChallengeHandler#
      */
     $prototype.loginHandler = function(callback) {
 	callback(null);

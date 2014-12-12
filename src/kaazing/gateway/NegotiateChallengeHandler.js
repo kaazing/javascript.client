@@ -59,12 +59,14 @@
      * @see http://tools.ietf.org/html/rfc2617: RFC 2617 - HTTP Authentication
      * 
      * @class
+     * @alias NegotiateChallengeHandler
+     * @constructor
      */
     var NegotiateChallengeHandler = function()  {
         this.candidateChallengeHandlers = new Array();
     };
-	
-	var Oid = $module.Oid;
+    
+    var Oid = $module.Oid;
 
     var makeSPNEGOInitTokenByOids = function(strings) {
         var oids = new Array();
@@ -90,7 +92,7 @@
      * @public
      * @function
      * @name register
-     * @memberOf NegotiateChallengeHandler
+     * @memberOf NegotiateChallengeHandler#
      */
     $prototype.register = function(handler) {
         if (handler == null) {

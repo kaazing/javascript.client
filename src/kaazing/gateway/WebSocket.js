@@ -74,13 +74,12 @@
     reason string is too long, close() will throw a <code>SyntaxError</code>.
 
     @name       close
-    @return {void}
+    @return     {void}
 
     @function
-    @memberOf   WebSocket
+    @memberOf   WebSocket#
     @param  code {Number}    <B>(Optional)</B> A numeric value indicating close code.
     @param  reason {String}  <B>(Optional)</B> A human readable string indicating why the client is closing the WebSocket
-    @return {void}
 */
 
 /**
@@ -89,15 +88,17 @@
     text WebSocket message is sent. When send() is called with a Blob, ArrayBuffer or
     ByteBuffer, a binary WebSocket message is sent.
 
-    If send() is called with other data types,
-    an invalid type Error will be thrown.
+    If send() is called with other data types an invalid type Error will be thrown.
 
     If send() is called while the WebSocket is in the CONNECTING state,
     an <code>InvalidStateError</code> will be thrown.
 
     @name       send
+    @return     {void}
+
+    @public
     @function
-    @memberOf   WebSocket
+    @memberOf   WebSocket#
     @param  data {String|Blob|ArrayBuffer|ByteBuffer}   message payload
 */
 
@@ -111,7 +112,7 @@
 
     @public
     @function
-    @memberOf  WebSocket
+    @memberOf  WebSocket#
 */
 
 /**
@@ -124,7 +125,7 @@
 
     @public
     @function
-    @memberOf  WebSocket
+    @memberOf  WebSocket#
     @param challengeHandler {ChallengeHandler}  used for authentication
 */
 
@@ -137,7 +138,7 @@
 
     @public
     @function
-    @memberOf  WebSocket
+    @memberOf  WebSocket#
 */
 
 /**
@@ -149,7 +150,7 @@
 
     @public
     @function
-    @memberOf  WebSocket
+    @memberOf  WebSocket#
     @param redirectPolicy {HttpRedirectPolicy}  HTTP redirect policy
 */
 
@@ -160,9 +161,10 @@
     no timeout.
 
     @field
+    @readonly
     @name connectTimeout
     @type Number(Integer)
-    @memberOf WebSocket
+    @memberOf WebSocket#
  */
 
 /**
@@ -174,48 +176,58 @@
     <B>CLOSED(3):</B> The connection is closed or couldn't be opened.<BR />
 
     @field
+    @readonly
     @name       readyState
     @type       Number
-    @memberOf   WebSocket
+    @memberOf   WebSocket#
 */
 
 /**
-    <B>(Read only)</B> Number of bytes that are queued to send but not yet written to the network.
+    <B>(Read only)</B> Number of bytes that are queued to send but not yet written to the 
+    network.
 
     @field
+    @readonly
     @name       bufferedAmount
     @type       Number
-    @memberOf   WebSocket
+    @memberOf   WebSocket#
 */
 
 /**
-    Protocol name selected by the WebSocket server during the connection
+    <B>(Read only)</B> Protocol name selected by the WebSocket server during the connection
     handshake.
 
     @field
+    @readonly
     @name       protocol
     @type       String
-    @memberOf   WebSocket
+    @memberOf   WebSocket#
 */
 
-/**
-    Extensions chosen by the server during the connection handshake. If the
-    connection has not yet been established, or if no extensions were selected,
+/*
+    <B>(Read only)</B> Extensions chosen by the server during the connection handshake. If
+    the connection has not yet been established, or if no extensions were selected,
     this property will be the empty string.
+   
+    Ignore for time being as we should figure out our extension strategy before exposing
+    anything publicly.
 
+    @ignore
     @field
+    @readonly
     @name       extensions
     @type       String
-    @memberOf   WebSocket
+    @memberOf   WebSocket#
 */
 
 /**
-    <B>(Read only)</B> The location of the WebSocket.
+    <B>(Read only)</B> WebSocket end-point or location.
 
     @field
+    @readonly
     @name       url
     @type       String
-    @memberOf   WebSocket
+    @memberOf   WebSocket#
 */
 
 /**
@@ -235,12 +247,10 @@
     @field
     @name       binaryType
     @type       String
-    @memberOf   WebSocket
+    @memberOf   WebSocket#
 */
 
-
-
-// callbacks
+// Callbacks
 
 /**
     MessageEvent handler property.
@@ -249,18 +259,38 @@
     @field
     @name       onmessage
     @type       Function
-    @memberOf   WebSocket
+    @memberOf   WebSocket#
 */
 
 /**
-    Event fired when the WebSocket connection opens.
+    OpenEvent handler property.
 
     @field
     @name       onopen
     @type       Function
-    @memberOf   WebSocket
-    @param  {OpenEvent}    event fired when the WebSocket connection opens
+    @memberOf   WebSocket#
 */
+
+/**
+    ErrorEvent handler property.
+
+    @field
+    @name       onerror
+    @type       Function
+    @memberOf   WebSocket#
+*/
+
+/**
+    CloseEvent handler property.
+    See <a href="./CloseEvent.html">CloseEvent</a>.
+
+    @field
+    @name       onclose
+    @type       Function
+    @memberOf   WebSocket#
+*/
+
+// Events
 
 /**
     Event fired when a WebSocket message arrives.
@@ -271,7 +301,7 @@
 
     @event
     @name       message
-    @memberOf   WebSocket
+    @memberOf   WebSocket#
 */
 
 /**
@@ -279,16 +309,7 @@
 
     @event
     @name       open
-    @memberOf   WebSocket
-*/
-
-/**
-    ErrorEvent handler property.
-
-    @field
-    @name       onerror
-    @type       Function
-    @memberOf   WebSocket
+    @memberOf   WebSocket#
 */
 
 /**
@@ -296,17 +317,7 @@
 
     @event
     @name       error
-    @memberOf   WebSocket
-*/
-
-/**
-    CloseEvent handler property.
-    See <a href="./CloseEvent.html">CloseEvent</a>.
-
-    @field
-    @name       onclose
-    @type       Function
-    @memberOf   WebSocket
+    @memberOf   WebSocket#
 */
 
 /**
@@ -315,7 +326,7 @@
 
     @event
     @name       close
-    @memberOf   WebSocket
+    @memberOf   WebSocket#
 */
 
 (function($rootModule, $module) {

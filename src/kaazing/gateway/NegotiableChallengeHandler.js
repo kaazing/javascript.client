@@ -37,6 +37,8 @@ $module.NegotiableChallengeHandler = (function() {
      * @see NegotiateChallengeHandler
      * 
      * @class
+     * @alias NegotiableChallengeHandler
+     * @constructor
      */
     var NegotiableChallengeHandler = function() {
         this.loginHandler = undefined;
@@ -56,7 +58,7 @@ $module.NegotiableChallengeHandler = (function() {
      * @public
      * @function
      * @name getSupportedOids
-     * @memberOf NegotiableChallengeHandler
+     * @memberOf NegotiableChallengeHandler#
      */
     NegotiableChallengeHandler.prototype.getSupportedOids = function() {
         return new Array();

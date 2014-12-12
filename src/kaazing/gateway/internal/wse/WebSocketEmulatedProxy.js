@@ -60,77 +60,84 @@ var WebSocketEmulatedProxy = (function() {
     /**
      * The ready state indicates the connection status.
      *
-     * @public
+     * @private
+     * @ignore
      * @field
      * @name readyState
      * @type Number
-     * @memberOf WebSocket
+     * @memberOf WebSocketEmulatedProxy
      */
     $prototype.readyState = 0;
 
     /**
      * The number of bytes queued to be sent.
      *
-     * @public
+     * @private
+     * @ignore
      * @field
      * @name bufferedAmount
      * @type Number
-     * @memberOf WebSocket
+     * @memberOf WebSocketEmulatedProxy
      */
     $prototype.bufferedAmount = 0;
 
     /**
      * The URL with which the WebSocket was constructed.
      *
-     * @public
+     * @private
+     * @ignore
      * @field
      * @name URL
      * @type String
-     * @memberOf WebSocket
+     * @memberOf WebSocketEmulatedProxy
      */
     $prototype.URL = "";
 
     /**
      * The onopen handler is called when the connection is established.
      *
-     * @public
+     * @private
+     * @ignore
      * @field
      * @name onopen
      * @type Function
-     * @memberOf WebSocket
+     * @memberOf WebSocketEmulatedProxy
      */
     $prototype.onopen = function() {};
 
     /**
      * The onopen handler is called when the connection is established.
      *
-     * @internal
+     * @private
+     * @ignore
      * @field
      * @name onopen
      * @type Function
-     * @memberOf WebSocket
+     * @memberOf WebSocketEmulatedProxy
      */
     $prototype.onerror = function() {};
 
     /**
      * The onmessage handler is called when data arrives.
      *
-     * @public
+     * @private
+     * @ignore
      * @field
      * @name onmessage
      * @type Function
-     * @memberOf WebSocket
+     * @memberOf WebSocketEmulatedProxy
      */
     $prototype.onmessage = function(event) {};
     
     /**
      * The onclose handler is called when the connection is terminated.
      *
-     * @public
+     * @private
+     * @ignore
      * @field
      * @name onclose
      * @type Function
-     * @memberOf WebSocket
+     * @memberOf WebSocketEmulatedProxy
      */
     $prototype.onclose = function() {};
 
@@ -191,10 +198,11 @@ var WebSocketEmulatedProxy = (function() {
      *
      * @return {bool}
      *
-     * @public
+     * @private
+     * @ignore
      * @function
      * @name send
-     * @memberOf WebSocket
+     * @memberOf WebSocketEmulatedProxy
      */
     $prototype.send = function(data) {
         var $this = this;
@@ -271,10 +279,11 @@ var WebSocketEmulatedProxy = (function() {
      *
      * @return {void}
      *
-     * @public
+     * @private
+     * @ignore
      * @function
      * @name close
-     * @memberOf WebSocket
+     * @memberOf WebSocketEmulatedProxy
      */
     $prototype.close = function(code, reason) {
         ;;;WSEBLOG.entering(this, 'WebSocketEmulatedProxy.close');

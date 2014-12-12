@@ -29,6 +29,10 @@
      * Represents a user name and password as a model object, used in <code>BasicChallengeHandler</code> instances.
      * 
      * @class
+     * @alias PasswordAuthentication
+     * @param username {String}    user name
+     * @param password {String}    password
+     * @constructor
      */
     var PasswordAuthentication = function(username, password) {
         this.username = username;
@@ -36,10 +40,10 @@
     }
     
     /**
-     * clear user name and password
+     * Clears the username and the password.
      * 
      * @function
-     * @memberOf PasswordAuthentication
+     * @memberOf PasswordAuthentication#
      */
     PasswordAuthentication.prototype.clear = function() {
         this.username = null;

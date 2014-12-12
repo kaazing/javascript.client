@@ -53,13 +53,18 @@
           Gets the specified extension from the list of registered extensions. A null is
           returned if no extension with the specified name has been registered for this factory. 
           
+          Ignore for time being as we should figure out our extension strategy before exposing
+          anything publicly.
+ 
+          @ignore
+
           @name getExtension
           @param name {String} extension name
           @return {WebSocketExtension}  the registered extension with the specified name
 
           @public
           @function
-          @memberOf WebSocketFactory
+          @memberOf WebSocketFactory#
          */
         $prototype.getExtension = function(name) {
             return this.extensions[name];
@@ -73,6 +78,10 @@
           instance using <code>WebSocket.extensions</code> property after the connection has 
           been established. 
           <p>
+          Ignore for time being as we should figure out our extension strategy before exposing
+          anything publicly.
+ 
+          @ignore
           @name setExtension
           @param extension  {WebSocketExtension} extension to be inherited by all the WebSockets 
                                                  created using this factory
@@ -80,7 +89,7 @@
 
           @public
           @function
-          @memberOf WebSocketFactory         
+          @memberOf WebSocketFactory#
          */
         $prototype.setExtension = function(extension) {
             this.extensions[extension.name] = extension;
@@ -99,7 +108,7 @@
 
           @public
           @function
-          @memberOf WebSocketFactory
+          @memberOf WebSocketFactory#
          */
         $prototype.setChallengeHandler = function(challengeHandler) {
             if (typeof(challengeHandler) == "undefined") {
@@ -120,7 +129,7 @@
                     
           @public
           @function
-          @memberOf WebSocketFactory
+          @memberOf WebSocketFactory#
          */
         $prototype.getChallengeHandler = function() {
             return this.challengeHandler || null;
@@ -148,7 +157,7 @@
       
           @public
           @function
-          @memberOf WebSocketFactory
+          @memberOf WebSocketFactory#
         */
        $prototype.createWebSocket = function(url, protocols) {
            var ext = [];
@@ -179,7 +188,7 @@
 
          @public
          @function
-         @memberOf WebSocketFactory
+         @memberOf WebSocketFactory#
          */
         $prototype.setDefaultConnectTimeout = function(connectTimeout) {
             if (typeof(connectTimeout) == "undefined") {
@@ -209,7 +218,7 @@
                     
           @public
           @function
-          @memberOf WebSocketFactory
+          @memberOf WebSocketFactory#
          */
         $prototype.getDefaultConnectTimeout = function() {
             return this.connectTimeout || 0;
@@ -226,7 +235,7 @@
 
           @public
           @function
-          @memberOf WebSocketFactory
+          @memberOf WebSocketFactory#
         */
         $prototype.setDefaultRedirectPolicy = function(redirectPolicy) {
             if (typeof(redirectPolicy) == "undefined") {
@@ -251,7 +260,7 @@
 
           @public
           @function
-          @memberOf WebSocketFactory
+          @memberOf WebSocketFactory#
         */
         $prototype.getDefaultRedirectPolicy = function() {
             return this.redirectPolicy;

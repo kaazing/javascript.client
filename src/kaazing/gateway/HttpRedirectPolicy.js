@@ -42,6 +42,7 @@
     origin, host, domain, etc. 
 
     @field
+    @readonly
     @name HttpRedirectPolicy.ALWAYS
     @type HttpRedirectPolicy
     @memberOf HttpRedirectPolicy
@@ -51,6 +52,7 @@
     <B>(Read only)</B> Do not follow HTTP redirects. 
 
     @field
+    @readonly
     @name HttpRedirectPolicy.NEVER
     @type HttpRedirectPolicy
     @memberOf HttpRedirectPolicy
@@ -90,6 +92,7 @@
      ws://marketing.example.co.uk:8001 and ws://sales.example.co.uk:8002 are examples of
      URIs with peer-domains.
     @field
+    @readonly
     @name HttpRedirectPolicy.PEER_DOMAIN
     @type HttpRedirectPolicy
     @memberOf HttpRedirectPolicy
@@ -107,6 +110,7 @@
      ws://production.example.com:8002.
 
     @field
+    @readonly
     @name HttpRedirectPolicy.SAME_DOMAIN
     @type HttpRedirectPolicy
     @memberOf HttpRedirectPolicy
@@ -119,6 +123,7 @@
      Note that authority includes the hostname and the port.
 
     @field
+    @readonly
     @name HttpRedirectPolicy.SAME_ORIGIN
     @type HttpRedirectPolicy
     @memberOf HttpRedirectPolicy
@@ -141,6 +146,7 @@
      sub-domain of the domain in ws://example.com:9001. 
 
     @field
+    @readonly
     @name HttpRedirectPolicy.SUB_DOMAIN
     @type HttpRedirectPolicy
     @memberOf HttpRedirectPolicy
@@ -181,7 +187,7 @@
         
             @public
             @function
-            @memberOf HttpRedirectPolicy
+            @memberOf HttpRedirectPolicy#
         */
         $prototype.toString = function() {
             return "HttpRedirectPolicy." + this.name;
@@ -198,7 +204,7 @@
            
            @public
            @function
-           @memberOf HttpRedirectPolicy
+           @memberOf HttpRedirectPolicy#
          */
         $prototype.isRedirectionAllowed = function(originalLoc, redirectLoc) {
             if (arguments.length < 2) {

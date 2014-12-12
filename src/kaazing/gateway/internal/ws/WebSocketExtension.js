@@ -23,6 +23,8 @@
 /**
   Creates a new WebSocketExtension instance.
 
+  @ignore
+  @private
   @constructor
   @name  WebSocketExtension
   @class WebSocketExtension represents an extension as defined by RFC-6455 that 
@@ -53,9 +55,9 @@
           @param name {String} parmaeter name
           @return {String}  the value of the parameter with the specified name
 
-	      @public
-   	      @function
-          @memberOf WebSocketExtension
+          @public
+          @function
+          @memberOf WebSocketExtension#
          */
         $prototype.getParameter = function(pname) {
             return this.parameters[pname];
@@ -69,9 +71,9 @@
           @param pvalue {String} parmaeter value
           @return {void}
 
-	      @public
-   	      @function
-          @memberOf WebSocketExtension
+          @public
+          @function
+          @memberOf WebSocketExtension#
          */
         $prototype.setParameter = function(pname, pvalue) {
             this.parameters[pname] = pvalue;
@@ -84,11 +86,11 @@
           @name getParameters
           @return {Array}  names of all the parameters
 
-	      @public
-   	      @function
-          @memberOf WebSocketExtension
+          @public
+          @function
+          @memberOf WebSocketExtension#
          */
-	    $prototype.getParameters = function() {
+         $prototype.getParameters = function() {
             var arr = [];
             for(var name in this.parameters) {
                 if (this.parameters.hasOwnProperty(name)) {
@@ -116,9 +118,9 @@
           @name toString
           @return {String}  string representation of the extension
 
-	      @public
-   	      @function
-          @memberOf WebSocketExtension
+          @public
+          @function
+          @memberOf WebSocketExtension#
          */
         $prototype.toString = function() {
             var arr = [this.name];
