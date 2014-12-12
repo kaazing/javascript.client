@@ -27,7 +27,7 @@ var AmqpClientFactory = function() {
      *
      * @public
      * @function
-     * @memberOf AmqpClientFactory
+     * @memberOf AmqpClientFactory#
      */
     $prototype.createAmqpClient = function() {
         return new AmqpClient(this);
@@ -45,7 +45,7 @@ var AmqpClientFactory = function() {
      * @public
      * @function
      * @name getWebSocketFactory
-     * @memberOf AmqpClientFactory
+     * @memberOf AmqpClientFactory#
      */
     $prototype.getWebSocketFactory = function() {
         return (this._webSocketFactory || null);
@@ -63,7 +63,7 @@ var AmqpClientFactory = function() {
      * @public
      * @function
      * @name setWebSocketFactory
-     * @memberOf AmqpClientFactory
+     * @memberOf AmqpClientFactory#
      */
     $prototype.setWebSocketFactory = function(factory) {
         if ((factory === null) || (typeof(factory) === "undefined")) {

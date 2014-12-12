@@ -44,7 +44,7 @@ _prototype.setReadyState = function(state) {
  * @field
  * @type Function
  * @name onopen
- * @memberOf AmqpClient
+ * @memberOf AmqpClient#
  */
 _prototype.onopen = function(e) {};
 
@@ -57,7 +57,7 @@ _prototype.onopen = function(e) {};
  * @field
  * @type Function
  * @name onclose
- * @memberOf AmqpClient
+ * @memberOf AmqpClient#
  */
 _prototype.onclose = function(e) {};
 
@@ -70,7 +70,7 @@ _prototype.onclose = function(e) {};
  * @field
  * @type Function
  * @name onerror
- * @memberOf AmqpClient
+ * @memberOf AmqpClient#
  */
 _prototype.onerror = function(e) {};
 
@@ -201,7 +201,7 @@ var _protocolHeaders = {"0-9-1" : [65, 77, 81, 80, 0, 0, 9, 1] };
  * @private
  * @function
  * @name connect
- * @memberOf AmqpClient
+ * @memberOf AmqpClient#
  */
 _prototype.connect = function connect(url, virtualHost, credentials, callback) {
     if (this._socket) {
@@ -259,14 +259,13 @@ _prototype.connect = function connect(url, virtualHost, credentials, callback) {
  *  Note that 'url', 'virtualHost' and 'credentials' are required properties
  *  and valid values must be passed in. A JavaScript error is thrown if the
  *  aforementioned arguments are undefined, null, or empty string.
- *  
- * @param {Function} callback   Optional param specifies the function that is 
- *                              to be invoked on success.
+ * <p>
+ * @param {Function} callback   Optional param specifies the function that is to be invoked on success.
  * @return {void}
  * @public
  * @function
  * @name connect
- * @memberOf AmqpClient
+ * @memberOf AmqpClient#
  */
 var clientConnFunc = _prototype.connect;
 _prototype.connect = function(config, callback) {
@@ -302,13 +301,13 @@ _prototype.connect = function(config, callback) {
 };
 
 /**
- * Disconnect from the AMQP broker
+ * Disconnect from the AMQP broker.
  * @return {void}
  *
  * @public
  * @function
  * @name disconnect 
- * @memberOf AmqpClient
+ * @memberOf AmqpClient#
  */
 _prototype.disconnect = function disconnect() {
     if (this.getReadyState() == this.OPEN) {
@@ -329,14 +328,13 @@ _prototype.disconnect = function disconnect() {
 /**
  * Opens an AMQP Channel
  *
- * @param {Function} callback   Optional param specifies the function that is 
- *                              to be invoked on success. 
+ * @param {Function} callback   Optional param specifies the function that is to be invoked on success.
  * @return {AmqpChannel}
  *
  * @public
  * @function
  * @name openChannel
- * @memberOf AmqpClient
+ * @memberOf AmqpClient#
  */
 _prototype.openChannel = function openChannel(callback) {
     //log2("calling openChannel on ", this);  
@@ -356,7 +354,7 @@ _prototype.openChannel = function openChannel(callback) {
  * @public
  * @function
  * @name getAmqpClientFactory
- * @memberOf AmqpClient
+ * @memberOf AmqpClient#
  */
 _prototype.getAmqpClientFactory = function getAmqpClientFactory(callback) {
     return (this._amqpClientFactory || null);

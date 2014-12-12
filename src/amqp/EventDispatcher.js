@@ -26,14 +26,15 @@ $prototype._initEventDispatcher = function() {
  * Adds an event listener for the specified type.
  *
  * @param {String}            type      the event type
+ *<p>
  * @param {Function}            listener      the listener
- *
+ *<p>
  * @return {void}
  *
  * @public
  * @function
  * @name addEventListener
- * @memberOf EventDispatcher
+ * @memberOf EventDispatcher#
  */
 $prototype.addEventListener = function(type, listener) {
     var listeners = this._eventListeners[type];
@@ -48,14 +49,16 @@ $prototype.addEventListener = function(type, listener) {
  * Removes the specified event listener.
  *
  * @param {String}            type      the event type
+ *<p>
  * @param {Function}            listener      the listener
+ *<p>
  *
  * @return {void}
  *
  * @public
  * @function
  * @name removeEventListener
- * @memberOf EventDispatcher
+ * @memberOf EventDispatcher#
  */
 $prototype.removeEventListener = function(type, listener) {
     var listeners = this._eventListeners[type];
@@ -80,7 +83,7 @@ $prototype.removeEventListener = function(type, listener) {
  * @public
  * @function
  * @name hasEventListener
- * @memberOf EventDispatcher
+ * @memberOf EventDispatcher#
  */
 $prototype.hasEventListener = function(type) {
     var listeners = this._eventListeners[type];
@@ -95,7 +98,7 @@ $prototype.hasEventListener = function(type) {
  * @public
  * @function
  * @name dispatchEvent
- * @memberOf EventDispatcher
+ * @memberOf EventDispatcher#
  */
 $prototype.dispatchEvent = function(e) {
     var listeners = this._eventListeners[e.type];

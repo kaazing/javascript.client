@@ -33,6 +33,7 @@ AmqpArguments.prototype = new Array();
      * Adds a long string value to an AmqpArguments table.
      *
      * @param {String} key
+     * <p>
      * @param {String} value
      *
      * @return {AmqpArguments}
@@ -40,7 +41,7 @@ AmqpArguments.prototype = new Array();
      * @public
      * @function
      * @name addLongString
-     * @memberOf AmqpArguments
+     * @memberOf AmqpArguments#
      */
     $prototype.addLongString = function(key, value) {
         _add(this, key, value, "longstr");
@@ -51,6 +52,7 @@ AmqpArguments.prototype = new Array();
      * Adds an integer value to an AmqpArguments table.
      *
      * @param {String}  key
+     * <p>
      * @param {Number} value
      *
      * @return {AmqpArguments}
@@ -58,7 +60,7 @@ AmqpArguments.prototype = new Array();
      * @public
      * @function
      * @name addInteger
-     * @memberOf AmqpArguments
+     * @memberOf AmqpArguments#
      */
     $prototype.addInteger = function(key, value) {
         _add(this, key, value, "int");
@@ -72,7 +74,7 @@ AmqpArguments.prototype = new Array();
      * @function
      * @return {String}
      * @name toString
-     * @memberOf AmqpArguments
+     * @memberOf AmqpArguments#
      */
     $prototype.toString = function() {
         var buffer = [];

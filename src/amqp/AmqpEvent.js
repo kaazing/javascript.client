@@ -113,7 +113,7 @@
      * @field
      * @type String
      * @name type
-     * @memberOf AmqpEvent
+     * @memberOf AmqpEvent#
      */
     $prototype.type;
 
@@ -124,7 +124,7 @@
      * @field
      * @type String
      * @name errorMessage
-     * @memberOf AmqpEvent
+     * @memberOf AmqpEvent#
      */
     $prototype.message;
 
@@ -136,7 +136,7 @@
      * @field
      * @type Object
      * @name headers
-     * @memberOf AmqpEvent
+     * @memberOf AmqpEvent#
      * @deprecated  -- Please use 'properties' field of type AmqpProperties
      */
     $prototype.headers;
@@ -149,7 +149,7 @@
      * @field
      * @type AmqpProperties
      * @name properties
-     * @memberOf AmqpEvent
+     * @memberOf AmqpEvent#
      */
     $prototype.properties;
     
@@ -160,7 +160,7 @@
      * @field
      * @type AmqpChannel | AmqpClient
      * @name target
-     * @memberOf AmqpEvent
+     * @memberOf AmqpEvent#
      */
     $prototype.target;
 
@@ -173,7 +173,7 @@
      * @public
      * @function
      * @name getBodyAsArrayBuffer
-     * @memberOf AmqpEvent
+     * @memberOf AmqpEvent#
      */
     $prototype.getBodyAsArrayBuffer = function() {
         if (typeof(ArrayBuffer) === "undefined") {
@@ -195,7 +195,7 @@
      * @public
      * @function
      * @name getBodyAsByteBuffer
-     * @memberOf AmqpEvent
+     * @memberOf AmqpEvent#
      */
     $prototype.getBodyAsByteBuffer = function() {
         return (this._body || null);
