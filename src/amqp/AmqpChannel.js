@@ -6,6 +6,7 @@
  * AmqpChannel
  *
  * @class  AmqpChannel is a channel opened with the AMQP broker. Use AmqpClient.openChannel() to create a new AmqpChannel.
+ * @alias AmqpChannel
  * @constructor
  */
 var AmqpChannel = function() {
