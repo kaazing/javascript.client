@@ -22,6 +22,12 @@
 (function($module){
    
    if (typeof $module.ByteOrder === "undefined") {
+        /**
+         * A typesafe enumeration for byte orders.
+         *
+         * @class ByteOrder
+         * @alias ByteOrder
+         */
        var ByteOrder = function() {};
     
 	    // Note:
@@ -42,7 +48,7 @@
 	     * @public
 	     * @function
 	     * @name toString
-	     * @memberOf ByteOrder
+	     * @memberOf ByteOrder#
 	     */
 	    $prototype.toString = function() {
 	        throw new Error ("Abstract");
