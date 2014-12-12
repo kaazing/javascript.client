@@ -130,7 +130,7 @@ var AmqpProperties = function(headers) {
      * @function
      * @return {String}
      * @name getAppId
-     * @memberOf AmqpProperties
+     * @memberOf AmqpProperties#
      * @return String value for "appId" property
      */
     $prototype.getAppId = function() {
@@ -145,7 +145,7 @@ var AmqpProperties = function(headers) {
      * @function
      * @return {String}
      * @name getContentType
-     * @memberOf AmqpProperties
+     * @memberOf AmqpProperties#
      * @return String value for "contentType" property
      */
     $prototype.getContentType = function() {
@@ -160,7 +160,7 @@ var AmqpProperties = function(headers) {
      * @function
      * @return {String}
      * @name getContentEncoding
-     * @memberOf AmqpProperties
+     * @memberOf AmqpProperties#
      * @return String value for "contentEncoding" property
      */
     $prototype.getContentEncoding = function() {
@@ -175,7 +175,7 @@ var AmqpProperties = function(headers) {
      * @function
      * @return {String}
      * @name getCorrelationId
-     * @memberOf AmqpProperties
+     * @memberOf AmqpProperties#
      * @return String value for "correlationId" property
      */
     $prototype.getCorrelationId = function() {
@@ -192,7 +192,7 @@ var AmqpProperties = function(headers) {
      * @function
      * @return {Number}
      * @name getDeliveryMode
-     * @memberOf AmqpProperties
+     * @memberOf AmqpProperties#
      * @return Integer value between 0 and 9 for "deliveryMode" property
      */
     $prototype.getDeliveryMode = function() {
@@ -207,7 +207,7 @@ var AmqpProperties = function(headers) {
      * @function
      * @return {Number}
      * @name getExpiration
-     * @memberOf AmqpProperties
+     * @memberOf AmqpProperties#
      * @return String value for "expiration" property
      */
     $prototype.getExpiration = function() {
@@ -222,7 +222,7 @@ var AmqpProperties = function(headers) {
      * @function
      * @return {object}
      * @name getHeaders
-     * @memberOf AmqpProperties
+     * @memberOf AmqpProperties#
      * @return AmqpArguments as value for "headers" property
      */
     $prototype.getHeaders = function() {
@@ -237,7 +237,7 @@ var AmqpProperties = function(headers) {
      * @function
      * @return {String}
      * @name getMessageId
-     * @memberOf AmqpProperties
+     * @memberOf AmqpProperties#
      * @return String value for the "messageId" property
      */
     $prototype.getMessageId = function() {
@@ -252,7 +252,7 @@ var AmqpProperties = function(headers) {
      * @function
      * @return {Number}
      * @name getPriority
-     * @memberOf AmqpProperties
+     * @memberOf AmqpProperties#
      * @return Integer value for "priority" property between 0 and 9
      */
     $prototype.getPriority = function() {
@@ -266,7 +266,7 @@ var AmqpProperties = function(headers) {
      * @function
      * @return {object}
      * @name getProperties
-     * @memberOf AmqpProperties
+     * @memberOf AmqpProperties#
      * @return Object with the name-value pairs
      */
     $prototype.getProperties = function() {
@@ -290,7 +290,7 @@ var AmqpProperties = function(headers) {
      * @function
      * @return {String}
      * @name getReplyTo
-     * @memberOf AmqpProperties
+     * @memberOf AmqpProperties#
      * @return String value for "replyTo" property
      */
     $prototype.getReplyTo = function() {
@@ -305,7 +305,7 @@ var AmqpProperties = function(headers) {
      * @function
      * @return {Number}
      * @name getTimestamp
-     * @memberOf AmqpProperties
+     * @memberOf AmqpProperties#
      * @return Timestamp value for "timestamp" property
      */
     $prototype.getTimestamp = function() {
@@ -320,7 +320,7 @@ var AmqpProperties = function(headers) {
      * @function
      * @return {String}
      * @name getType
-     * @memberOf AmqpProperties
+     * @memberOf AmqpProperties#
      * @return String value for "type" property
      */
     $prototype.getType = function() {
@@ -335,7 +335,7 @@ var AmqpProperties = function(headers) {
      * @function
      * @return {String}
      * @name getUserId
-     * @memberOf AmqpProperties
+     * @memberOf AmqpProperties#
      * @return String value for  "userId" property
      */
     $prototype.getUserId = function() {
@@ -350,7 +350,7 @@ var AmqpProperties = function(headers) {
      * @function
      * @name setAppId
      * @param  appId    value of "appId" property
-     * @memberOf AmqpProperties
+     * @memberOf AmqpProperties#
      */
     $prototype.setAppId = function(appId) {
         this._properties["appId"] = appId;
@@ -364,7 +364,7 @@ var AmqpProperties = function(headers) {
      * @function
      * @name setContentType
      * @param  contentType    value of "contentType" property
-     * @memberOf AmqpProperties
+     * @memberOf AmqpProperties#
      */
     $prototype.setContentType = function(contentType) {
         this._properties["contentType"] = contentType;
@@ -378,7 +378,7 @@ var AmqpProperties = function(headers) {
      * @function
      * @name setContentEncoding
      * @param  encoding    value of "contentEncoding" property
-     * @memberOf AmqpProperties
+     * @memberOf AmqpProperties#
      */
     $prototype.setContentEncoding = function(encoding) {
         this._properties["contentEncoding"] = encoding;
@@ -392,7 +392,7 @@ var AmqpProperties = function(headers) {
      * @function
      * @name setCorrelationId
      * @param  correlationId    value of "correlationId" property
-     * @memberOf AmqpProperties
+     * @memberOf AmqpProperties#
      */
     $prototype.setCorrelationId = function(correlationId) {
         this._properties["correlationId"] = correlationId;
@@ -405,7 +405,7 @@ var AmqpProperties = function(headers) {
      * @public
      * @function
      * @name setDeliveryMode
-     * @memberOf AmqpProperties
+     * @memberOf AmqpProperties#
      * @param  deliveryMode    value of "deliveryMode" property
      */
     $prototype.setDeliveryMode = function(deliveryMode) {
@@ -433,7 +433,7 @@ var AmqpProperties = function(headers) {
      * @public
      * @function
      * @name setExpiration
-     * @memberOf AmqpProperties
+     * @memberOf AmqpProperties#
      * @param  expiration    value of "expiration" property
      */
     $prototype.setExpiration = function(expiration) {
@@ -447,7 +447,7 @@ var AmqpProperties = function(headers) {
      * @public
      * @function
      * @name setHeaders
-     * @memberOf AmqpProperties
+     * @memberOf AmqpProperties#
      * @param  headers    value of "headers" property
      */
     $prototype.setHeaders = function(headers) {
@@ -461,7 +461,7 @@ var AmqpProperties = function(headers) {
      * @public
      * @function
      * @name setMessageId
-     * @memberOf AmqpProperties
+     * @memberOf AmqpProperties#
      * @param  messageId    value of "messageId" property
      */
     $prototype.setMessageId = function(messageId) {
@@ -475,7 +475,7 @@ var AmqpProperties = function(headers) {
      * @public
      * @function
      * @name setPriority
-     * @memberOf AmqpProperties
+     * @memberOf AmqpProperties#
      * @param  priority    value of "priority" property
      */
     $prototype.setPriority = function(priority) {        
@@ -499,7 +499,7 @@ var AmqpProperties = function(headers) {
      * @public
      * @function
      * @name setReplyTo
-     * @memberOf AmqpProperties
+     * @memberOf AmqpProperties#
      * @param  replyTo    value of "replyTo" property
      */
     $prototype.setReplyTo = function(replyTo) {
@@ -513,7 +513,7 @@ var AmqpProperties = function(headers) {
      * @public
      * @function
      * @name setTimestamp
-     * @memberOf AmqpProperties
+     * @memberOf AmqpProperties#
      * @param  date    of type Date
      */
     $prototype.setTimestamp = function(date) {
@@ -532,7 +532,7 @@ var AmqpProperties = function(headers) {
      * @public
      * @function
      * @name setType
-     * @memberOf AmqpProperties
+     * @memberOf AmqpProperties#
      * @param  type    value of "type" property
      */
     $prototype.setType = function(type) {
@@ -546,7 +546,7 @@ var AmqpProperties = function(headers) {
      * @public
      * @function
      * @name setUserId
-     * @memberOf AmqpProperties
+     * @memberOf AmqpProperties#
      * @param  userId    value of "userId" property
      */
     $prototype.setUserId = function(userId) {
@@ -560,7 +560,7 @@ var AmqpProperties = function(headers) {
      * @function
      * @return {String}
      * @name toString
-     * @memberOf AmqpProperties
+     * @memberOf AmqpProperties#
      *
      */
     $prototype.toString = function() {

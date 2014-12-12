@@ -10,6 +10,20 @@ module.exports = function(grunt) {
             },
         },
 
+        yuidoc2md : {
+             jsdoc : {
+                src : "src/amqp/*.js",
+                expand : true,
+                rename : function(dest, src) {
+                    var path = require("path");
+                    var basename = path.basename(src),
+                    newFileName = basename.replace(".js", ".md"),
+                    dirname = path.dirname(src);
+                    return path.resolve(dirname, "../../dist/jsdoc", newFileName);
+                }
+            }
+        },
+
         concat : {
             amqp : {
                 src : [
@@ -112,13 +126,13 @@ module.exports = function(grunt) {
 
     grunt.loadNpmTasks('grunt-karma');
 
-    grunt.loadNpmTasks('grunt-jsdoc');
+    grunt.loadNpmTasks('grunt-yuidoc2md');
 
     grunt.loadNpmTasks('grunt-contrib-compress');
 
     grunt.loadNpmTasks('grunt-contrib-uglify');
 
-    grunt.registerTask('default', [ 'clean', 'concat', 'uglify', 'jsdoc', 'copy', 'compress',  ]);
+    grunt.registerTask('default', [ 'clean', 'yuidoc2md', 'concat', 'uglify', 'copy', 'compress',  ]);
 
     grunt.registerTask('test', [ 'karma' ]);
 
