@@ -1,6 +1,6 @@
 #kaazing-client-javascript-demo 
 
-kaazing-client-javascript-demo is a demo for [Kaazing Javascript WebSocket library](https://github.com/kaazing/kaazing-client-javascript).
+kaazing-client-javascript-demo is a demo for [Kaazing WebSocket Javascript  library](https://github.com/kaazing/kaazing-client-javascript).
 
 ##Installing Dependencies
 Before building kaazing-client-javascript-demo, please install and configure the following dependencies:
