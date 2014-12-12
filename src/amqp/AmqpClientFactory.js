@@ -6,7 +6,6 @@
   Creates a new AmqpClientFactory instance.
 
   @constructor
-  @name  AmqpClientFactory
   @class AmqpClientFactory is used to create instances of AmqpClient.
 */
 var AmqpClientFactory = function() {
@@ -22,11 +21,10 @@ var AmqpClientFactory = function() {
      * Creates an instance of AmqpClient to run AMQP 0-9-1 protocol over a 
      * full-duplex WebSocket connection.
      *
-     * @name createAmqpClient
-     * @return {AmqpClient} the AmqpClient
-     *
      * @public
      * @function
+     * @name createAmqpClient
+     * @return {AmqpClient} the AmqpClient
      * @memberOf AmqpClientFactory#
      */
     $prototype.createAmqpClient = function() {
@@ -40,11 +38,10 @@ var AmqpClientFactory = function() {
      * WebSocketFactory instance can be used to set WebSocket related
      * characteristics such as connection-timeout, challenge handlers, etc.
      *
-     * @return {WebSocketFactory}
-     *
      * @public
      * @function
      * @name getWebSocketFactory
+     * @return {WebSocketFactory}
      * @memberOf AmqpClientFactory#
      */
     $prototype.getWebSocketFactory = function() {
@@ -57,12 +54,11 @@ var AmqpClientFactory = function() {
      * error if the parameter is null, undefined or not an instance of 
      * WebSocketFactory.
      *
-     * @param factory {WebSocketFactory}  instance of WebSocketFactory
-     * @return {void}
-     *
      * @public
      * @function
      * @name setWebSocketFactory
+     * @param factory {WebSocketFactory}  instance of WebSocketFactory
+     * @return {void}
      * @memberOf AmqpClientFactory#
      */
     $prototype.setWebSocketFactory = function(factory) {
