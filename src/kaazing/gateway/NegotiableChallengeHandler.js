@@ -37,6 +37,8 @@ $module.NegotiableChallengeHandler = (function() {
      * @see NegotiateChallengeHandler
      * 
      * @class
+     * @alias NegotiableChallengeHandler
+     * @constructor
      */
     var NegotiableChallengeHandler = function() {
         this.loginHandler = undefined;

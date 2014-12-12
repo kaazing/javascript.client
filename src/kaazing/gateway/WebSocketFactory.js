@@ -53,6 +53,11 @@
           Gets the specified extension from the list of registered extensions. A null is
           returned if no extension with the specified name has been registered for this factory. 
           
+          Ignore for time being as we should figure out our extension strategy before exposing
+          anything publicly.
+ 
+          @ignore
+
           @name getExtension
           @param name {String} extension name
           @return {WebSocketExtension}  the registered extension with the specified name
@@ -73,6 +78,10 @@
           instance using <code>WebSocket.extensions</code> property after the connection has 
           been established. 
           <p>
+          Ignore for time being as we should figure out our extension strategy before exposing
+          anything publicly.
+ 
+          @ignore
           @name setExtension
           @param extension  {WebSocketExtension} extension to be inherited by all the WebSockets 
                                                  created using this factory

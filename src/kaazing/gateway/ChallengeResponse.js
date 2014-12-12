@@ -21,38 +21,39 @@
 
 
 (function($module) {
-	/**
-	 * @ignore
-	 */
-	$module.ChallengeResponse = (function() {
+    /**
+     * @ignore
+     */
+    $module.ChallengeResponse = (function() {
 
-		/**
-		 * A challenge response contains a byte array representing the response to the server,
-		 * and a reference to the next challenge handler to handle any further challenges for the request.
-                 *
-		 * Constructor from a set of credentials to send to the server in an 'Authorization:' header
-		 * and the next challenge handler responsible for handling any further challenges for the request.
-		 * @class
-		 * @constructor
-		 * @param credentials a set of credentials to send to the server in an 'Authorization:' header
-		 * @param nextChallengeHandler the next challenge handler responsible for handling any further challenges for the request.
-		 */
-		var ChallengeResponse = function(credentials, nextChallengeHandler) {
-			this.credentials = credentials;
-			this.nextChallengeHandler = nextChallengeHandler;
-		};
+        /**
+         * A challenge response contains a byte array representing the response to the server,
+         * and a reference to the next challenge handler to handle any further challenges for the request.
+         *
+         * Constructor from a set of credentials to send to the server in an 'Authorization:' header
+         * and the next challenge handler responsible for handling any further challenges for the request.
+         * @class
+         * @alias ChallengeResponse
+         * @constructor
+         * @param credentials a set of credentials to send to the server in an 'Authorization:' header
+         * @param nextChallengeHandler the next challenge handler responsible for handling any further challenges for the request.
+         */
+        var ChallengeResponse = function(credentials, nextChallengeHandler) {
+            this.credentials = credentials;
+            this.nextChallengeHandler = nextChallengeHandler;
+        };
 
-		var $prototype = ChallengeResponse.prototype;
+        var $prototype = ChallengeResponse.prototype;
 
-		$prototype.clearCredentials = function() {
-			if (this.credentials != null) {
-				//this.credentials.clear();
-				this.credentials = null;
-			}
-		}
+        $prototype.clearCredentials = function() {
+            if (this.credentials != null) {
+                //this.credentials.clear();
+                this.credentials = null;
+            }
+        }
 
-		return ChallengeResponse;
-	})();
+        return ChallengeResponse;
+    })();
 
 })(Kaazing.Gateway);
 

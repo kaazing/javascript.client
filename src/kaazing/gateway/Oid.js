@@ -29,12 +29,11 @@ $module.Oid = (function() {
      * Model an object identifier, and provide facilities to see the object identifier
      * as an array of numbers (e.g. <code>(1,3,2,5,3,2)</code>).
      *
-     * Constructor from an array.
-     * 
-     * @constructor
-     *
-     * @param data the array with object identifier data
      * @class
+     * @alias Oid
+     * 
+     * @param data    the array with object identifier
+     * @constructor
      */ 
     var Oid = function(data) {
         this.rep = data;

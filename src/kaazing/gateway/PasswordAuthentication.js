@@ -29,6 +29,10 @@
      * Represents a user name and password as a model object, used in <code>BasicChallengeHandler</code> instances.
      * 
      * @class
+     * @alias PasswordAuthentication
+     * @param username {String}    user name
+     * @param password {String}    password
+     * @constructor
      */
     var PasswordAuthentication = function(username, password) {
         this.username = username;

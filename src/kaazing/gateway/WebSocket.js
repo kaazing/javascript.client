@@ -204,11 +204,15 @@
     @memberOf   WebSocket#
 */
 
-/**
+/*
     <B>(Read only)</B> Extensions chosen by the server during the connection handshake. If
     the connection has not yet been established, or if no extensions were selected,
     this property will be the empty string.
+   
+    Ignore for time being as we should figure out our extension strategy before exposing
+    anything publicly.
 
+    @ignore
     @field
     @readonly
     @name       extensions

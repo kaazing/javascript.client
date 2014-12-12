@@ -21,7 +21,7 @@
 
 
 // Create WebSocket module under root module
-/**
+/*
  * @namespace
  */
 Kaazing.Gateway = Kaazing.namespace("Gateway");

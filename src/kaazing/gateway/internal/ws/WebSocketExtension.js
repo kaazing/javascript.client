@@ -23,6 +23,8 @@
 /**
   Creates a new WebSocketExtension instance.
 
+  @ignore
+  @private
   @constructor
   @name  WebSocketExtension
   @class WebSocketExtension represents an extension as defined by RFC-6455 that 
