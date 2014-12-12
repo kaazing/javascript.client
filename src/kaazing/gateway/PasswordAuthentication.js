@@ -36,10 +36,10 @@
     }
     
     /**
-     * clear user name and password
+     * Clears the username and the password.
      * 
      * @function
-     * @memberOf PasswordAuthentication
+     * @memberOf PasswordAuthentication#
      */
     PasswordAuthentication.prototype.clear = function() {
         this.username = null;

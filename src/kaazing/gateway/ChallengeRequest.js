@@ -77,7 +77,7 @@
      *   @field
      *   @name authenticationScheme
      *   @type String
-     *   @memberOf ChallengeRequest
+     *   @memberOf ChallengeRequest#
      */
     /**
      * <B>(Read only)</B> The string after the space separator, not including the
@@ -86,7 +86,7 @@
      *   @field
      *   @name authenticationParameters
      *   @type String
-     *   @memberOf ChallengeRequest
+     *   @memberOf ChallengeRequest#
      */
     /**
      * <B>(Read only)</B> The protected URI the access of which triggered this
@@ -95,7 +95,7 @@
      *   @field
      *   @name location
      *   @type String
-     *   @memberOf ChallengeRequest
+     *   @memberOf ChallengeRequest#
      */
     return ChallengeRequest;
 })(Kaazing.Gateway);

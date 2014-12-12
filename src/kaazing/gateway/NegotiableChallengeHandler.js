@@ -56,7 +56,7 @@ $module.NegotiableChallengeHandler = (function() {
      * @public
      * @function
      * @name getSupportedOids
-     * @memberOf NegotiableChallengeHandler
+     * @memberOf NegotiableChallengeHandler#
      */
     NegotiableChallengeHandler.prototype.getSupportedOids = function() {
         return new Array();

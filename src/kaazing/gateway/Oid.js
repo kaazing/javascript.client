@@ -49,7 +49,7 @@ $module.Oid = (function() {
      * @public
      * @function
      * @name asArray
-     * @memberOf Oid
+     * @memberOf Oid#
      */
     $prototype.asArray = function() {
         return this.rep;
@@ -62,7 +62,7 @@ $module.Oid = (function() {
      * @public
      * @function
      * @name asString
-     * @memberOf Oid
+     * @memberOf Oid#
      */
     $prototype.asString = function() {
         var s = "";
@@ -86,7 +86,7 @@ $module.Oid = (function() {
      * @function
      * @static
      * @name create
-     * @memberOf Oid
+     * @memberOf Oid#
      */
     Oid.create = function(data) {
         return new Oid(data.split("."));

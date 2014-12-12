@@ -42,26 +42,29 @@ function CloseEvent(target_, wasClean_, code_, reason_) {
     True if the WebSocket closed cleanly
 
     @field
+    @readonly
     @name       wasClean
     @type       Boolean
-    @memberOf   CloseEvent
+    @memberOf   CloseEvent#
 */
 
 /**
     WebSocket close message status code
 
     @field
+    @readonly
     @name       code
     @type       Number
-    @memberOf   CloseEvent
+    @memberOf   CloseEvent#
 */
 
 /**
     WebSocket close reason
 
     @field
+    @readonly
     @name       reason
     @type       String
-    @memberOf   CloseEvent
+    @memberOf   CloseEvent#
 */
 

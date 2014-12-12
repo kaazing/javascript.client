@@ -68,7 +68,7 @@ if (coverNativeSSE || typeof(window.EventSource) === "undefined") {
          * @field
          * @name readyState
          * @type Number
-         * @memberOf EventSource
+         * @memberOf EventSource#
          */
         $prototype.readyState = 0;
 
@@ -79,7 +79,7 @@ if (coverNativeSSE || typeof(window.EventSource) === "undefined") {
          * @field
          * @name onopen
          * @type Function
-         * @memberOf EventSource
+         * @memberOf EventSource#
          */
         $prototype.onopen = function() {};
         
@@ -90,7 +90,7 @@ if (coverNativeSSE || typeof(window.EventSource) === "undefined") {
          * @field
          * @name onmessage
          * @type Function
-         * @memberOf EventSource
+         * @memberOf EventSource#
          */
         $prototype.onmessage = function(event) {};
 
@@ -101,7 +101,7 @@ if (coverNativeSSE || typeof(window.EventSource) === "undefined") {
          * @field
          * @name onerror
          * @type Function
-         * @memberOf EventSource
+         * @memberOf EventSource#
          */
         $prototype.onerror = function() {};
 
@@ -113,7 +113,7 @@ if (coverNativeSSE || typeof(window.EventSource) === "undefined") {
          * @public
          * @function
          * @name disconnect
-         * @memberOf EventSource
+         * @memberOf EventSource#
          */
         $prototype.disconnect = function() {
             // disconnect only if not already disconnected

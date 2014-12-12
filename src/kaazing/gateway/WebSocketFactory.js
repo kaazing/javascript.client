@@ -59,7 +59,7 @@
 
           @public
           @function
-          @memberOf WebSocketFactory
+          @memberOf WebSocketFactory#
          */
         $prototype.getExtension = function(name) {
             return this.extensions[name];
@@ -80,7 +80,7 @@
 
           @public
           @function
-          @memberOf WebSocketFactory         
+          @memberOf WebSocketFactory#
          */
         $prototype.setExtension = function(extension) {
             this.extensions[extension.name] = extension;
@@ -99,7 +99,7 @@
 
           @public
           @function
-          @memberOf WebSocketFactory
+          @memberOf WebSocketFactory#
          */
         $prototype.setChallengeHandler = function(challengeHandler) {
             if (typeof(challengeHandler) == "undefined") {
@@ -120,7 +120,7 @@
                     
           @public
           @function
-          @memberOf WebSocketFactory
+          @memberOf WebSocketFactory#
          */
         $prototype.getChallengeHandler = function() {
             return this.challengeHandler || null;
@@ -148,7 +148,7 @@
       
           @public
           @function
-          @memberOf WebSocketFactory
+          @memberOf WebSocketFactory#
         */
        $prototype.createWebSocket = function(url, protocols) {
            var ext = [];
@@ -179,7 +179,7 @@
 
          @public
          @function
-         @memberOf WebSocketFactory
+         @memberOf WebSocketFactory#
          */
         $prototype.setDefaultConnectTimeout = function(connectTimeout) {
             if (typeof(connectTimeout) == "undefined") {
@@ -209,7 +209,7 @@
                     
           @public
           @function
-          @memberOf WebSocketFactory
+          @memberOf WebSocketFactory#
          */
         $prototype.getDefaultConnectTimeout = function() {
             return this.connectTimeout || 0;
@@ -226,7 +226,7 @@
 
           @public
           @function
-          @memberOf WebSocketFactory
+          @memberOf WebSocketFactory#
         */
         $prototype.setDefaultRedirectPolicy = function(redirectPolicy) {
             if (typeof(redirectPolicy) == "undefined") {
@@ -251,7 +251,7 @@
 
           @public
           @function
-          @memberOf WebSocketFactory
+          @memberOf WebSocketFactory#
         */
         $prototype.getDefaultRedirectPolicy = function() {
             return this.redirectPolicy;

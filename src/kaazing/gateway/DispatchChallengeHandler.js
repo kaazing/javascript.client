@@ -288,7 +288,7 @@ $module.DispatchChallengeHandler  = (function(){
      * @public
      * @function
      * @name register
-     * @memberOf DispatchChallengeHandler
+     * @memberOf DispatchChallengeHandler#
      */
     $prototype.register  = function(locationDescription, challengeHandler) {
         if (locationDescription == null || locationDescription.length == 0) {
@@ -316,7 +316,7 @@ $module.DispatchChallengeHandler  = (function(){
      * @public
      * @function
      * @name unregister
-     * @memberOf DispatchChallengeHandler
+     * @memberOf DispatchChallengeHandler#
      */
     $prototype.unregister  = function(locationDescription, challengeHandler) {
         if (locationDescription == null || locationDescription.length == 0) {

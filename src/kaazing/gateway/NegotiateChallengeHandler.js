@@ -90,7 +90,7 @@
      * @public
      * @function
      * @name register
-     * @memberOf NegotiateChallengeHandler
+     * @memberOf NegotiateChallengeHandler#
      */
     $prototype.register = function(handler) {
         if (handler == null) {

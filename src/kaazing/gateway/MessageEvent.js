@@ -44,9 +44,10 @@ function MessageEvent(target_, data_, origin_) {
     Contents of the message.
 
     @field
+    @readonly
     @name       data
     @type       Object
-    @memberOf   MessageEvent
+    @memberOf   MessageEvent#
 */
 
 /**
@@ -55,7 +56,8 @@ function MessageEvent(target_, data_, origin_) {
     Concept.
 
     @field
+    @readonly
     @name       origin
     @type       String
-    @memberOf   MessageEvent
+    @memberOf   MessageEvent#
 */

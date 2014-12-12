@@ -137,9 +137,10 @@
                 <B>(Read only)</B> Size (in bytes) of the Blob.
 
                 @field
+                @readonly
                 @name       size
                 @type       Number
-                @memberOf   Blob
+                @memberOf   Blob#
             */
             size: array.length,
 
@@ -150,7 +151,7 @@
                 @readonly
                 @name       type
                 @type       String
-                @memberOf   Blob
+                @memberOf   Blob#
             */
             type: contentType || "",
 
@@ -158,7 +159,7 @@
                 Slice the Blob and return a new Blob.
 
                 @name       slice
-                @memberOf   Blob
+                @memberOf   Blob#
                 @function
                 @return {Blob}
 
