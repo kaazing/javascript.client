@@ -73,19 +73,6 @@ module.exports = function(grunt) {
                 expand : true,
             },
         },
-
-        compress : {
-            zip : {
-                options : {
-                    archive : './dist/Amqp-0-9-1-demo.zip',
-                },
-                files : [ {
-                    expand : true,
-                    src : "**/*",
-                    cwd : "dist/"
-                } ]
-            },
-        },
 	
         jsdoc: {
             dist: {
@@ -114,11 +101,9 @@ module.exports = function(grunt) {
 
     grunt.loadNpmTasks('grunt-jsdoc');
 
-    grunt.loadNpmTasks('grunt-contrib-compress');
-
     grunt.loadNpmTasks('grunt-contrib-uglify');
 
-    grunt.registerTask('default', [ 'clean', 'concat', 'uglify', 'copy', 'jsdoc', 'compress',  ]);
+    grunt.registerTask('default', [ 'clean', 'concat', 'uglify', 'copy', 'jsdoc' ]);
 
     grunt.registerTask('test', [ 'karma' ]);
 
