@@ -27,16 +27,18 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
 
-        <link rel="stylesheet" href="../../../resources/css/normalize.css">
-        <link rel="stylesheet" href="../../../resources/css/dev.css">
-        <link rel="stylesheet" href="../../../resources/css/demo.css">
+        <link rel="stylesheet" href="resources/css/normalize.css">
+        <link rel="stylesheet" href="resources/css/dev.css">
+        <link rel="stylesheet" href="resources/css/demo.css">
         <!--[if lte IE 7]> <link rel="stylesheet" href="../../../resources/css/demo-ie.css"> <![endif]-->
 
-        <script src="../../../resources/js/jquery-1.9.1.min.js"></script>
-        <script src="../../../resources/js/modernizr.js"></script>
+        <script src="resources/js/jquery-1.9.1.min.js"></script>
+        <script src="resources/js/modernizr.js"></script>
 
-  <script src="WebSocket.js"></script>
-  <script src="amqp-0-9-1.js"></script>
+        <!--  Kaazing scripts -->
+        <script type="text/javascript" language="javascript" src="WebSocket.js"></script>
+        <script type="text/javascript" language="javascript" src="Amqp-0-9-1-debug.js"></script>
+
 	<style type="text/css" media="screen">
 	#middle input {
 		width: auto;
@@ -78,6 +80,14 @@
 
     var amqpClientFactory = new AmqpClientFactory();
 
+    // Creating the WebSocketFactory once and decorating it as desired lets
+    // you reuse it for multiple AMQP clients.
+    var webSocketFactory;
+    if ($gatewayModule && typeof($gatewayModule.WebSocketFactory) === "function") {
+        webSocketFactory = new $gatewayModule.WebSocketFactory();
+        amqpClientFactory.setWebSocketFactory(webSocketFactory);
+    }
+
     var stringToArrayBuffer = function(str) {
         var buf = new ArrayBuffer(str.length);
         var bufView = new Uint8Array(buf);
@@ -104,7 +114,7 @@
     }
 
     var setup = function() {
-        $("url").value = location.protocol.replace("http", "ws") + "//" + location.host + "/amqp";
+        $("url").value = "ws://sandbox.kaazing.net:80/amqp091";
         $("username").value = "guest";
         $("password").value = "guest";
         $("virtualhost").value = "/";
@@ -283,10 +293,12 @@
 
             var buffer = null;
 
+            // Older browsers like IE6 or IE7 don't support ArrayBuffer, therefore
+            // the package the using a Kaazing ByteBuffer.
             if (typeof(ArrayBuffer) === "undefined") {
-                buffer = new ByteBuffer();
-                buffer.putString($('textmessagePub').value, Charset.UTF8);
-                buffer.flip();
+                body = new $rootModule.ByteBuffer();
+                body.putString($('textmessagePub').value, $rootModule.Charset.UTF8);
+                body.flip();
             }
             else {
                 buffer = stringToArrayBuffer($('textmessagePub').value);
@@ -504,8 +516,10 @@
         var tag = e.args.deliveryTag;
         var body = null;
 
+        // Check how the payload was packaged since older browsers like IE7 don't
+        // support ArrayBuffer. In those cases, a Kaazing ByteBuffer was used instead.
         if (typeof(ArrayBuffer) === "undefined") {
-            body = e.getBodyAsByteBuffer().getString(Charset.UTF8);
+            body = e.getBodyAsByteBuffer().getString($rootModule.Charset.UTF8);
         }
         else {
             body = arrayBufferToString(e.getBodyAsArrayBuffer())
@@ -547,20 +561,6 @@
 <title>Real-Time Interactive Guide to AMQP</title>
 </head>
 <body>
-        <div class="header-container">
-            <header class="wrapper clearfix">
-                <a href="http://www.kaazing.com" target="_blank"><div class="title logo"></div></a>
-                <nav>
-                    <ul>
-                        <li><a href="../../../../index.html">Demos</a></li>
-                        <li><a class="commandCenterLink" href="#" target="_blank">Command Center</a></li>
-                        <li><a href="http://tech.kaazing.com/documentation/amqp/4.0/index.html" target="_blank">Documentation</a></li>
-                        <li><a href="http://developer.kaazing.com/" target="_blank">Developer Home</a></li>
-                    </ul>
-                </nav>
-            </header>
-        </div>
-
         <div class="main-container ">
             <div class="main wrapper clearfix">
             
@@ -573,9 +573,6 @@
                 <article>
                 
                     <ul class="breadcrumbs clearfix">
-                       <li><a href="../../../index.html">Home</a></li>
-                       <li><a href="../../index.html">Demos</a></li>
-                       <li><a href="../../index.html#javascript">JavaScript</a></li>
                        <li>Real-Time Interactive Guide to AMQP</li>
                     </ul>
 
@@ -626,7 +623,7 @@
 <ol>
   <li>Accept the default values for all text boxes.</li>
   <li><p>Click <strong>Connect</strong>.</p>
-    <p>The status should change from <span class="code_inline">Not connected</span> to <span class="code_inline">Connected</span>. The <strong>Location</strong> text box specifies a WebSocket URL (by default <span class="code_inline">ws://localhost:8001/amqp</span>) to your  AMQP broker. The WebSocket connectivity is enabled by Kaazing WebSocket Gateway.</p></li>
+    <p>The status should change from <span class="code_inline">Not connected</span> to <span class="code_inline">Connected</span>. The <strong>Location</strong> text box specifies a WebSocket URL (by default <span class="code_inline">ws://sandbox.kaazing.net:80/amqp091</span>) to your  AMQP broker. The WebSocket connectivity is enabled by Kaazing WebSocket Gateway.</p></li>
   </ol>
 
     <fieldset>
@@ -966,85 +963,5 @@
 </fieldset>
 <h2><a name="summary"></a>Summary</h2>
 <p>In this interactive, step-by-step document you have seen how the main features of AMQP work. Although not every single protocol feature was explained or shown in this guide,  you should now have a  good overview of what is possible with AMQP and you may be able to think of some practical use cases for AMQP. For more information on how to write your own AMQP Web client, refer to  the document <a href="http://developer.kaazing.com/documentation/amqp/4.0/dev-js/o_dev_js.html">Checklist: How to Build JavaScript Clients Using Kaazing WebSocket Gateway</a>.</p>
-
-        <div class="footer-container">
-            <footer class="wrapper">
-
-<div class="section group">
-	<div class="items col span_1_of_5">
-                           <h3><a href="http://www.kaazing.com/products/">Kaazing.com</a></h3>
-                            <ul>
-                                <li><a href="http://www.kaazing.com/products/kaazing-websocket-gateway/">Overview</a></li>
-                                <li><a href="http://www.kaazing.com/products/editions/">Product Editions</a></li>
-                                <li><a href="http://www.kaazing.com/products/benefits-and-roi/">Benefits & ROI</a></li>
-                                <li><a href="http://www.kaazing.com/products/deployment-options/">Deployment Options</a></li>
-                                <li><a href="http://developer-stage.kaazing.com/product-demos/">Online Demos</a></li>
-                                <li><a href="http://www.kaazing.com/websocket/">WebSocket</a></li>
-                            </ul>
-	</div>
-	<div class="items col span_1_of_5">
-                            <h3><a href="http://developer.kaazing.com/">Developer</a></h3>
-                            <ul>
-                                <li><a href="http://developer.kaazing.com/whykaazing/">Why Kaazing</a></li>
-                                <li><a href="http://developer.kaazing.com/downloads/">Downloads</a></li>
-                                <li><a href="http://developer.kaazing.com/how-tos/">Tech Papers</a></li>
-                                <li><a href="http://developer.kaazing.com/forums/">Forums</a></li>
-                                <li><a href="http://developer.kaazing.com/product-demos/">Product Demos</a></li>
-                                <li><a href="http://tech.kaazing.com/documentation/faq.html">FAQ</a></li>
-                                <li><a href="http://tech.kaazing.com/documentation/index.html">Documentation</a></li>
-                            </ul>
-	</div>
-	<div class="items col span_1_of_5">
-                            <h3><a href="http://www.kaazing.com/services/">Services</a></h3>
-                            <ul>
-                                <li><a href="http://www.kaazing.com/services/kaazing-global-support/">Support</a></li>
-                                <li><a href="http://www.kaazing.com/services/consulting/">Consulting</a></li>
-                                <li><a href="http://www.kaazing.com/services/training/">Training</a></li>
-                            </ul>
-	</div>
-	<div class="items col span_1_of_5">
-                            <h3><a href="http://www.kaazing.com/cloud/">Cloud</a></h3>
-                            <ul>
-                                <li><a href="http://www.kaazing.com/cloud/amis/">AWS AMIS</a></li>
-                                <li><a href="http://www.kaazing.com/cloud/faq/">AWS FAQS</a></li>
-                            </ul>
-	</div>
-	<div id="contact" class="col span_1_of_5">
-                        <h3>Get in Touch</h3>
-                        <div class="contact-details">
-                            <p>T +1 (877)&shy; KAAZING<br />
-                            T +1 (877)&shy; 522-9464<br />
-                            F +1 (650)&shy; 960-8145</p>
-                            
-                            <p>Worldwide Headquarters<br />
-                            Kaazing Corporation<br />
-                            6001 America Center Drive<br/>
-                            Suite 250<br />
-                            San Jose, CA 95002, USA</p>
-                        </div>
-	</div>
-</div>
-           
-                <div class="k-bottom clearfix">
-                        <a href="#">
-			                <div class="logo"></div>
-                        </a>
-                        <div class="copyright"><!--[if lte IE 7]>&copy; 2007 - 2014 Kaazing Corporation. All Rights Reserved.<![endif]--></div>
-		                <div class="powered-footer"></div>
-                </div>
-            </footer>
-        </div>
-
-		<script>
-            $( document ).ready(function() {
-                $('.commandCenterLink').attr('href', "http://"+$(location).attr('hostname')+":8000/commandcenter");
-			
-				if( $("html").hasClass("lt-ie9") ) {
-					// Resize background CSS images for IE8 and lower.
-					$("header div.logo").css({backgroundSize: "contain"});
-					$("footer div.logo").css({backgroundSize: "contain"});
-				};
-            });
-        </script>
 </body>
 </html>
