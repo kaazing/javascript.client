@@ -19,6 +19,9 @@
  * under the License.
  */
 
+/**
+ * @ignore
+ */
 ;;;var ULOG = Logger.getLogger('com.kaazing.gateway.client.loader.Utils');
 
 /**
