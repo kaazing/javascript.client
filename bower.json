@@ -1,7 +1,7 @@
 {
     "name": "kaazing-amqp-0-9-1-client-javascript",
     "dependencies": {
-        "kaazing-client-javascript-util": "git@github.com:kaazing/bower-kaazing-client-javascript-util.git#>=5.0.0-1 <5.1.0",
-        "kaazing-client-javascript": "git@github.com:kaazing/bower-kaazing-client-javascript.git#>=5.0.0-1 <5.1.0"
+        "kaazing-client-javascript-util": ">=5.0.0-1 <5.1.0",
+        "kaazing-client-javascript": ">=5.0.0-1 <5.1.0"
     }
 }
