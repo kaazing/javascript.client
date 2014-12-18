@@ -132,33 +132,6 @@ module.exports = function(grunt) {
             }
         },
 
-        uglify: {
-            options: {
-                compress: {
-                    unused: false,
-                },
-                mangle: true,
-                unused: false,
-                banner: banner
-            },
-            XMLHttpBridge: {
-                src: 'dist/js/XMLHttpBridge.js',
-                dest: 'dist/js/XMLHttpBridge.js'
-            },
-            EventSourceBridge: {
-                src: 'dist/js/EventSourceBridge.js',
-                dest: 'dist/js/EventSourceBridge.js'
-            },
-            PostMessageParentBridge: {
-                src: 'dist/js/PostMessageParentBridge.js',
-                dest: 'dist/js/PostMessageParentBridge.js'
-            },
-            PostMessageChildBridge: {
-                src: 'dist/js/PostMessageChildBridge.js',
-                dest: 'dist/js/PostMessageChildBridge.js'
-            }
-        },
-
         jsdoc: {
             dist: {
                 options: {
@@ -192,11 +165,9 @@ module.exports = function(grunt) {
 
     grunt.loadNpmTasks('grunt-line-remover');
 
-    grunt.loadNpmTasks('grunt-contrib-uglify');
-
     grunt.loadNpmTasks('grunt-stripbanner');
 
-    grunt.registerTask('default', ['clean', 'copy', 'stripbanner', 'concat', 'lineremover', 'uglify', 'jsdoc', 'clean:tmp']);
+    grunt.registerTask('default', ['clean', 'copy', 'stripbanner', 'concat', 'lineremover', 'jsdoc', 'clean:tmp']);
     
     grunt.registerTask('test', ['karma']);
 
