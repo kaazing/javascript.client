@@ -926,7 +926,7 @@ var popupLoginDialog = function(callback) {
 
     // Event handler for when the "OK" button is clicked.
     login.onclick = function() {
-        var credentials = new PasswordAuthentication(ssoUsername.val(), ssoPassword.val());
+        var credentials = new Kaazing.Gateway.PasswordAuthentication(ssoUsername.val(), ssoPassword.val());
 
         // Hide the popup.
         $("#logindiv").slideToggle(100);
