@@ -1,2 +1,2 @@
 # Generated on 
-kaazing-client-javascript-util: 5.0.0-27
+kaazing-client-javascript-util: 5.0.0-28
