@@ -1,5 +1,10 @@
 #kaazing-client-javascript-demo 
 
+[![Build Status][build-status-image]][build-status]
+
+[build-status-image]: https://travis-ci.org/kaazing/kaazing-client-javascript-demo.svg?branch=develop
+[build-status]: https://travis-ci.org/kaazing/kaazing-client-javascript-demo
+
 kaazing-client-javascript-demo is a demo for [Kaazing WebSocket Javascript  library](https://github.com/kaazing/kaazing-client-javascript).
 
 ##Installing Dependencies
