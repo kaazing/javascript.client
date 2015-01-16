@@ -1,5 +1,10 @@
 # grunt-stripbanner
 
+[![Build Status][build-status-image]][build-status]
+
+[build-status-image]: https://travis-ci.org/kaazing/grunt-stripbanner.svg?branch=develop
+[build-status]: https://travis-ci.org/kaazing/grunt-stripbanner
+
 > Plugin to strip banner comments that match a particular form from all Javascript files in a directory tree.
 
 ## Getting Started
