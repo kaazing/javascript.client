@@ -1,5 +1,10 @@
 #kaazing-client-javascript-util
 
+[![Build Status][build-status-image]][build-status]
+
+[build-status-image]: https://travis-ci.org/kaazing/kaazing-client-javascript-util.svg?branch=develop
+[build-status]: https://travis-ci.org/kaazing/kaazing-client-javascript-util
+
 ##Installing Dependencies
 Before you can build kaazing-client-javascript-util, you must install and configure the following dependencies on your machine:
 
