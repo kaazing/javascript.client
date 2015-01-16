@@ -1,5 +1,10 @@
 #kaazing-client-javascript-bridge#
 
+[![Build Status][build-status-image]][build-status]
+
+[build-status-image]: https://travis-ci.org/kaazing/kaazing-client-javascript-bridge-1.svg?branch=develop
+[build-status]: https://travis-ci.org/kaazing/kaazing-client-javascript-bridge-1
+
 ###A library containing bridge file that can be served from Kaazing Gateway to Kaazing JavaScript clients on demand
 
 ##Installing Dependencies
