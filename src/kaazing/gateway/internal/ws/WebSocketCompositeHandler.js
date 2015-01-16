@@ -109,6 +109,10 @@ var WebSocketCompositeHandler = (function() {
         }
 
         $prototype.doOpen = function(channel, protocol) {
+            if (channel._lastErrorEvent !== undefined) {
+                delete channel._lastErrorEvent;
+            }
+
             if (channel.readyState  === WebSocket.CONNECTING) {
                 channel.readyState = WebSocket.OPEN;
                 if (legacyBrowser) {
@@ -120,6 +124,10 @@ var WebSocketCompositeHandler = (function() {
 
 
         $prototype.doClose = function(channel, wasClean, code, reason) {
+            if (channel._lastErrorEvent !== undefined) {
+              channel._webSocketChannelListener.handleError(channel._webSocket, channel._lastErrorEvent);
+            }
+
             if (channel.readyState  === WebSocket.CONNECTING || channel.readyState  === WebSocket.OPEN || channel.readyState  === WebSocket.CLOSING) {
                 channel.readyState = WebSocket.CLOSED;
                 if (legacyBrowser) {
@@ -305,8 +313,7 @@ var WebSocketCompositeHandler = (function() {
         }
 
         $prototype.handleConnectionError = function(channel, e) {
-            var parent = channel.parent;
-            parent._webSocketChannelListener.handleError(parent._webSocket, e);
+            channel.parent._lastErrorEvent = e;
         }
 
      return WebSocketCompositeHandler;
