@@ -276,7 +276,6 @@
                     var factory = new Kaazing.Gateway.WebSocketFactory();
                     setupSSO(factory);
                     websocket = factory.createWebSocket(wsurl.value);
-                    //websocket = new WebSocket(wsurl.value);
 
                     websocket.onopen = function(evt) {
                         log("CONNECTED");
