@@ -103,7 +103,7 @@
             login.onclick = function() {
                 var username = document.getElementById("username");
                 var password = document.getElementById("password");
-                var credentials = new PasswordAuthentication(username.value, password.value);
+                var credentials = new Kaazing.Gateway.PasswordAuthentication(username.value, password.value);
                 //clear user input
                 username.value = "";
                 password.value = "";
@@ -128,7 +128,7 @@
         function setup() {
 
             // var locationURI = new URI(document.URL || location.href);
-            var locationURI = new URI("ws://echo.websocket.org");
+            var locationURI = new Kaazing.Gateway.URI("ws://echo.websocket.org");
             var websocket;
             
             // default port if necessary
