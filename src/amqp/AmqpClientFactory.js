@@ -73,4 +73,4 @@ var AmqpClientFactory = function() {
 
     $module.AmqpClientFactory = AmqpClientFactory;
 
-})(window || Kaazing.AMQP);
+})(Kaazing.AMQP);

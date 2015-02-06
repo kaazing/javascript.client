@@ -78,13 +78,13 @@
     var channels = [];
     var channelLists = ["channelCloseChannel", "publishChannel", "txChannel", "consumeChannel", "exchangesChannel", "queuesChannel", "bindChannel", "flowChannel"];
 
-    var amqpClientFactory = new AmqpClientFactory();
+    var amqpClientFactory = new Kaazing.AMQP.AmqpClientFactory();
 
     // Creating the WebSocketFactory once and decorating it as desired lets
     // you reuse it for multiple AMQP clients.
     var webSocketFactory;
-    if ($gatewayModule && typeof($gatewayModule.WebSocketFactory) === "function") {
-        webSocketFactory = new $gatewayModule.WebSocketFactory();
+    if (Kaazing.Gateway && typeof(Kaazing.Gateway.WebSocketFactory) === "function") {
+        webSocketFactory = new Kaazing.Gateway.WebSocketFactory();
         amqpClientFactory.setWebSocketFactory(webSocketFactory);
     }
 
@@ -291,22 +291,22 @@
             var immediate = $('immediatePub').checked;
 
 
-            var buffer = null;
+            var body = null;
 
             // Older browsers like IE6 or IE7 don't support ArrayBuffer, therefore
             // the package the using a Kaazing ByteBuffer.
             if (typeof(ArrayBuffer) === "undefined") {
-                body = new $rootModule.ByteBuffer();
-                body.putString($('textmessagePub').value, $rootModule.Charset.UTF8);
+                body = new Kaazing.ByteBuffer();
+                body.putString($('textmessagePub').value, Kaazing.Charset.UTF8);
                 body.flip();
             }
             else {
-                buffer = stringToArrayBuffer($('textmessagePub').value);
+                body = stringToArrayBuffer($('textmessagePub').value);
             }
 
             var headers = {};
 
-            channel.publishBasic(buffer, headers, exchangeName, routingkey, mandatory, immediate);
+            channel.publishBasic(body, headers, exchangeName, routingkey, mandatory, immediate);
 
         };
 
@@ -519,7 +519,7 @@
         // Check how the payload was packaged since older browsers like IE7 don't
         // support ArrayBuffer. In those cases, a Kaazing ByteBuffer was used instead.
         if (typeof(ArrayBuffer) === "undefined") {
-            body = e.getBodyAsByteBuffer().getString($rootModule.Charset.UTF8);
+            body = e.getBodyAsByteBuffer().getString(Kaazing.Charset.UTF8);
         }
         else {
             body = arrayBufferToString(e.getBodyAsArrayBuffer())
