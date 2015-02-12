@@ -89,6 +89,6 @@ AmqpArguments.prototype = new Array();
 
     $module.AmqpArguments = AmqpArguments;
     
-})(window || Kaazing.AMQP);
+})(Kaazing.AMQP);
 
 

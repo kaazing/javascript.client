@@ -117,5 +117,5 @@ $prototype.dispatchEvent = function(e) {
 
 $module.EventDispatcher = EventDispatcher;
 // end module closure
-})(window || Kaazing.AMQP);
+})(Kaazing.AMQP);
 

@@ -180,7 +180,7 @@ $( document ).ready(function() {
     // Dynamically create the location URL based on the browser URL.
     if (window.location.protocol != "file:") {
         // construct the WebSocket location
-        var locationURI = new URI(document.URL || location.href);
+        var locationURI = new Kaazing.Gateway.URI(document.URL || location.href);
 
         // default port if necessary
         if (locationURI.port == null) {
@@ -238,12 +238,12 @@ $( document ).ready(function() {
         }
     }
 
-    amqpClientFactory = new AmqpClientFactory();
+    amqpClientFactory = new Kaazing.AMQP.AmqpClientFactory();
 
     // Creating the WebSocketFactory once and decorating it as desired lets
     // you reuse it for multiple AMQP clients.
     var webSocketFactory;
-    if ($gatewayModule && typeof($gatewayModule.WebSocketFactory) === "function") {
+    if (Kaazing.Gateway && typeof(Kaazing.Gateway.WebSocketFactory) === "function") {
         webSocketFactory = createWebSocketFactory();
         amqpClientFactory.setWebSocketFactory(webSocketFactory);
     }
@@ -499,7 +499,7 @@ var handleMessageReceived = function(event) {
     // Check how the payload was packaged since older browsers like IE7 don't
     // support ArrayBuffer. In those cases, a Kaazing ByteBuffer was used instead.
     if (typeof(ArrayBuffer) === "undefined") {
-        body = event.getBodyAsByteBuffer().getString($rootModule.Charset.UTF8);
+        body = event.getBodyAsByteBuffer().getString(Kaazing.Charset.UTF8);
     }
     else {
         body = arrayBufferToString(event.getBodyAsArrayBuffer())
@@ -531,10 +531,10 @@ var handleMessageReceived = function(event) {
 //
 var createWebSocketFactory = function() {
 
-    webSocketFactory = new $gatewayModule.WebSocketFactory();
+    webSocketFactory = new Kaazing.Gateway.WebSocketFactory();
 
     // Add a BasicChallengeHandler in case the service has enabled basic authentication.
-    var basicHandler = new $gatewayModule.BasicChallengeHandler();
+    var basicHandler = new Kaazing.Gateway.BasicChallengeHandler();
     basicHandler.loginHandler = function(callback) {
         popupLoginDialog(callback);
     }
@@ -792,19 +792,19 @@ var doSend = function(channel, exchangeName, routeKey, messageText, logText, cla
     // Older browsers like IE6 or IE7 don't support ArrayBuffer, therefore
     // the package the using a Kaazing ByteBuffer.
     if (typeof(ArrayBuffer) === "undefined") {
-        body = new $rootModule.ByteBuffer();
-        body.putString(messageText, $rootModule.Charset.UTF8);
+        body = new Kaazing.ByteBuffer();
+        body.putString(messageText, Kaazing.Charset.UTF8);
         body.flip();
     }
     else {
         body = stringToArrayBuffer(messageText);
     }
 
-    var props = new AmqpProperties();
+    var props = new Kaazing.AMQP.AmqpProperties();
 
     addProperties(props);
 
-    var customHeaders = new AmqpArguments();
+    var customHeaders = new Kaazing.AMQP.AmqpArguments();
 
     addCustomerHeaders(customHeaders, headerName1.val().trim(), headerType1.val(), headerValue1.val().trim());
     addCustomerHeaders(customHeaders, headerName2.val().trim(), headerType2.val(), headerValue2.val().trim());
@@ -833,7 +833,7 @@ var buildLogMessageRow = function(name, value) {
 // message and its details.
 //
 var logMessageDiv = function(text, divClass, body, props, exchange, routingKey) {
-    // var body = message.body.getString($rootModule.Charset.UTF8);
+    // var body = message.body.getString(Kaazing.Charset.UTF8);
     var messageDiv = $('<div>');
     messageDiv.addClass(divClass);
     messageDiv.text(text + body);

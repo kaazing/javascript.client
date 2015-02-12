@@ -581,4 +581,4 @@ var AmqpProperties = function(headers) {
 
     $module.AmqpProperties = AmqpProperties;
     
-})(window || Kaazing.AMQP);
+})(Kaazing.AMQP);

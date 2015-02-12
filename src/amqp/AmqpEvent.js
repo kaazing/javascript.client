@@ -203,6 +203,6 @@
 
     $module.AmqpEvent = AmqpEvent;
     
-})(window || Kaazing.AMQP);
+})(Kaazing.AMQP);
 
 
