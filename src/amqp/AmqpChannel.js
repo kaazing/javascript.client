@@ -136,7 +136,7 @@ var registerSynchronousRequest = function registerSynchronousRequest(context, in
 
         context._waitingAction = action;
     } else {
-        throw(new Error("AMQP: trying to enter wait state for method that is not sychronous"));
+        throw(new Error("AMQP: trying to enter wait state for method that is not synchronous"));
     }  
 
 }
