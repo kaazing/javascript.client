@@ -39,6 +39,7 @@ var WebSocketEmulatedProxy = (function() {
         this._listener;
         this.closeCode = 1005;
         this.closeReason = "";
+        this.sequence = 0;
     };
 
 
@@ -363,7 +364,7 @@ var WebSocketEmulatedProxy = (function() {
         var numSendPackets = sendQueue.length;
         $this._writeSuspended = (numSendPackets > 0);
         if (numSendPackets > 0) {
-
+            var sequenceNo = $this.sequence++;
            if ($this.useXDR) {
                //console.log("doFlush :" + $this.upstreamXHR);
                var out = new $rootModule.ByteBuffer();
@@ -375,6 +376,7 @@ var WebSocketEmulatedProxy = (function() {
                 out.putBytes(RECONNECT_FRAME_BYTES);
                 out.flip();
                 $this.upstreamXHR.setRequestHeader("Content-Type", "text/plain; charset=utf-8");
+               $this.upstreamXHR.setRequestHeader("X-Sequence-No", sequenceNo.toString());
                 $this.upstreamXHR.send(encodeByteString(out, $this.requiresEscaping));
             }
             else {
@@ -406,6 +408,8 @@ var WebSocketEmulatedProxy = (function() {
 
                 out.putBytes(RECONNECT_FRAME_BYTES);
                 out.flip();
+
+               xhr.setRequestHeader("X-Sequence-No", sequenceNo.toString());
 
                 if (browser == "firefox") {
                     if (xhr.sendAsBinary) {
@@ -493,6 +497,11 @@ var WebSocketEmulatedProxy = (function() {
         // Notify gateway that client supports PING/PONG
         create.setRequestHeader("X-Accept-Commands", "ping");
 
+        // Annotate request with sequence number
+        var sequenceNo = $this.sequence++;
+        create.setRequestHeader("X-Sequence-No", sequenceNo.toString());
+
+
         // join protocol array with comma
         if ($this.protocol.length) {
             var protocol = $this.protocol.join(",");
@@ -576,7 +585,7 @@ var WebSocketEmulatedProxy = (function() {
                         // upstream URL using parts(scheme and authority) from the create URI so that
                         // tools such as Fortify can be satisfied while scanning the JS library.
                         $this._upstream = createURI.scheme + "://" + createURI.authority + upstreamURI.path;
-                        $this._downstream = new WebSocketEmulatedProxyDownstream(downstreamLocation);
+                        $this._downstream = new WebSocketEmulatedProxyDownstream(downstreamLocation, $this.sequence);
 
                         //compare downstreamLocation with channel.location to check for redirected
                         var redirectUrl = downstreamLocation.substring(0, downstreamLocation.indexOf("/;e/"));
