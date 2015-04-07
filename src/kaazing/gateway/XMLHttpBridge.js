@@ -34,7 +34,7 @@
     
     // Cross-site Access Control
     var xsRequestMethods = { "GET":1, "POST":1 };
-    var xsRequestHeaders = { "Accept": 1, "Accept-Language": 1, "Content-Type": 1, "Authorization": 1, "X-WebSocket-Protocol": 1, "X-WebSocket-Extensions": 1, "X-WebSocket-Version": 1, "X-Accept-Commands": 1};
+    var xsRequestHeaders = { "Accept": 1, "Accept-Language": 1, "Content-Type": 1, "Authorization": 1, "X-WebSocket-Protocol": 1, "X-WebSocket-Extensions": 1, "X-WebSocket-Version": 1, "X-Accept-Commands": 1, "X-Sequence-No": 1};
     var xsPostContentTypes = { "application/x-www-form-url-encoded":1, "multipart/form-data":1, "text/plain":1 };
     var xsResponseHeaders = { "Location":1, "Cache-Control":1, "Content-Language":1, "Content-Type":1, "Expires":1, "Last-Modified":1, "Pragma":1, "WWW-Authenticate":1, "X-WebSocket-Protocol": 1, "X-WebSocket-Extensions": 1, "X-WebSocket-Version": 1, "X-Accept-Commands": 1, "X-Idle-Timeout": 1};
     
