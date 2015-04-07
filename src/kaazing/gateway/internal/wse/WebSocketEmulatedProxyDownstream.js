@@ -40,8 +40,9 @@ var WebSocketEmulatedProxyDownstream = (function() {
          * 
          * @class  WebSocketEmulatedProxyDownstream consitutes the downstream half of the binary WebSocket emulation protocol
          */
-    var WebSocketEmulatedProxyDownstream = function(location) {
+    var WebSocketEmulatedProxyDownstream = function(location, sequence) {
         ;;;WSEBDLOG.entering(this, 'WebSocketEmulatedProxyDownstream.<init>', location);
+        this.sequence = sequence;
         this.retry = 3000; // default retry to 3s
 
         // Opera and IE need escaped upstream and downstream
@@ -115,6 +116,10 @@ var WebSocketEmulatedProxyDownstream = (function() {
         var connectURI = new URI($this.location);
 
         var queryParams = [];
+
+        // Annotate request with sequence number
+        var sequenceNo = $this.sequence++;
+        queryParams.push(".ksn=" + sequenceNo);
 
         // set padding required by different browsers
         switch (browser) {
