@@ -1,0 +1,33 @@
+{
+  "name": "kaazing-javascript-client",
+  "version": "5.0.1",
+  "description": "Files necessary to develop a Javascript-based client for a Kaazing Gateway.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pkhanal/javascript.client.git"
+  },
+  "licenses": [
+    {
+      "type": "Apache 2",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  ],
+  "devDependencies": {
+    "bower": "^1.3.8",
+    "grunt": "^0.4.5",
+    "grunt-apidox": "^0.1.4",
+    "grunt-bump": "^0.3.1",
+    "grunt-contrib-clean": "^0.6.0",
+    "grunt-contrib-compress": "^0.12.0",
+    "grunt-contrib-concat": "^0.5.0",
+    "grunt-contrib-copy": "^0.6.0",
+    "grunt-contrib-uglify": "^0.6.0",
+    "grunt-jsdoc": "^0.5.7",
+    "grunt-jsdoc-to-markdown": "^0.4.2",
+    "grunt-karma": "^0.9.0",
+    "grunt-line-remover": "^0.0.2",
+    "grunt-release": "^0.12.0",
+    "grunt-stripbanner": "^0.0.1",
+    "grunt-yuidoc2md": "^0.3.4"
+  }
+}
