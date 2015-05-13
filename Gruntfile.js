@@ -290,6 +290,20 @@ module.exports = function(grunt) {
             }
         },
 
+        bump: {
+            options: {
+                files: ['package.json'],
+                updateConfigs: [],
+                commit: true,
+                commitMessage: 'Release v%VERSION%',
+                commitFiles: ['package.json'],
+                createTag: true,
+                tagName: 'v%VERSION%',
+                tagMessage: 'Version %VERSION%',
+                push: false
+            }
+        },
+
         buildcontrol: {
             options: {
                 dir: 'dist',
@@ -323,6 +337,8 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
 
     grunt.loadNpmTasks('grunt-stripbanner');
+
+    grunt.loadNpmTasks('grunt-bump');
 
     grunt.loadNpmTasks('grunt-build-control');
 
