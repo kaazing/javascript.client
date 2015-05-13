@@ -1,5 +1,7 @@
 module.exports = function(grunt) {
 
+    var pkg = require('./package.json');
+
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
 
@@ -319,7 +321,8 @@ module.exports = function(grunt) {
             publish: {
                 options: {
                     remote: 'git@github.com:pkhanal/javascript-release-test.git',
-                    branch: 'master'
+                    branch: 'master',
+                    tag: pkg.version
                 }
             }
         }
