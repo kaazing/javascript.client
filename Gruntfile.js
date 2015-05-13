@@ -27,7 +27,7 @@ module.exports = function(grunt) {
                 src: '**',
                 dest: 'dist/tmp/utils',
                 expand: true
-            }
+            },
         },
 
         stripbanner: {
