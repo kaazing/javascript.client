@@ -485,4 +485,6 @@ module.exports = function(grunt) {
     });
 
     grunt.registerTask('package', ['clean', 'copy', 'stripbanner', 'concat', 'lineremover', 'uglify', 'jsdoc', 'clean:tmp'])
+
+    grunt.registerTask('release', ['package', 'bump:prerelease', 'json_generator', 'buildcontrol'])
 };
