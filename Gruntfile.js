@@ -444,7 +444,7 @@ module.exports = function(grunt) {
                 commitFiles: ['package.json'], // '-a' for all files
                 createTag: true,
                 tagMessage: 'Version %VERSION%',
-                push: false, // push during the first bump phase is deactivated by default
+                push: true, // push during the first bump phase is deactivated by default
                 gitDescribeOptions: '--tags --always --abbrev=1 --dirty=-d'
             }
         },
