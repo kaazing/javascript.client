@@ -428,7 +428,7 @@ module.exports = function(grunt) {
                 developBranch: 'develop',
                 masterBranch: 'master',
                 tempReleaseBranch: 'release',
-                commitMessagePrefix: '',
+                commitMessagePrefix: 'testing prefix:',
                 mergeToDevelopMsg: 'Merge into develop',
                 mergeToMasterMsg: 'Merge into master',
                 developVersionCommitMsg: 'Increased version for development',
