@@ -82,3 +82,5 @@ DerivedData
 *.x86_64
 *.hex
 
+dist
+node_modules

@@ -1,7 +1,0 @@
-{
-    "name": "kaazing-amqp-0-9-1-client-javascript",
-    "dependencies": {
-        "kaazing-client-javascript-util": ">=5.0.0-1 <5.1.0",
-        "kaazing-client-javascript": ">=5.0.0-1 <5.1.0"
-    }
-}
