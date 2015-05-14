@@ -1,0 +1,148 @@
+<!--
+
+    Copyright (c) 2007-2014, Kaazing Corporation. All rights reserved.
+
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <link rel="shortcut icon" href="http://www.kaazing.com/assets/img/favicon.ico" />
+    <link rel="stylesheet" href="../css/doc-samples.css" />
+    <title>Kaazing Server-Sent Events Demo</title>
+    <!-- TODO1 -->
+
+    <script>
+        function setup() {
+
+            var url = document.getElementById("url");
+            var count = document.getElementById("count");
+            var connect = document.getElementById("connect");
+
+            var eventsTable = document.getElementById("eventsTable");
+            var eventsTableBody = document.getElementById("eventsTableBody");
+
+            var rowCount = 0;
+            var rowCreate = 0;
+
+            function doConnect() {
+
+                <!-- TODO2 -->
+
+
+                var newRow = document.createElement("tr");
+
+                var countCell = document.createElement("td");
+                countCell.style.textAlign = "center";
+                countCell.style.width = "5%";
+                countCell.innerHTML = ++rowCreate;
+                rowCount++;
+
+                var removeCell = document.createElement("td");
+                removeCell.style.textAlign = "center";
+                removeCell.style.width = "5%";
+                var removeLink = document.createElement("a");
+                removeLink.onclick = function() {
+                    eventSource.disconnect();
+                    eventsTableBody.removeChild(newRow);
+                    rowCount--;
+                    if (rowCount < 10)
+                      connect.disabled = false;
+                };
+                removeLink.innerHTML = "<img src='../images/status-alert.png'>";
+                removeCell.appendChild(removeLink);
+
+                var sourceCell = document.createElement("td");
+                sourceCell.style.width = "20%";
+                sourceCell.innerHTML = url.value;
+
+                var statusCell = document.createElement("td");
+                statusCell.style.width = "10%";
+
+                var dataCell = document.createElement("td");
+                dataCell.style.width = "60%";
+                dataCell.innerHTML = "&nbsp;";
+
+                newRow.appendChild(countCell);
+                newRow.appendChild(removeCell);
+                newRow.appendChild(sourceCell);
+                newRow.appendChild(statusCell);
+                newRow.appendChild(dataCell);
+
+                eventsTableBody.appendChild(newRow);
+
+                var updateStatus = function() {
+                    switch (eventSource.readyState) {
+                    case 0:
+                        statusCell.style.color = "#f37333";
+                        statusCell.innerHTML = "Connecting...";
+                        break;
+                    case 1:
+                        statusCell.style.color = "green";
+                        statusCell.innerHTML = "Open";
+                        break;
+                    case 2:
+                        statusCell.style.color = "red";
+                        statusCell.innerHTML = "Closed";
+                        break;
+                    }
+                }
+
+                <!-- TODO3 -->
+
+
+                // initialize status
+                updateStatus();
+
+                if (rowCount >= 10)
+                  connect.disabled = true;
+            }
+
+            connect.onclick = doConnect;
+
+            // detect explicit host:port authority
+            var authority = location.host;
+            if (location.search) {
+                authority = location.search.slice(1) + "." + authority;
+            }
+            else {
+                var parts = authority.split(':');
+                var ports = { http:'80', https:'443' };
+                authority = parts[0] + ':' + (parseInt(parts[1] || ports[location.protocol]));
+            }
+
+            // default the location
+            url.value = location.protocol + "//" + authority + "/sse";
+        }
+
+    </script>
+</head>
+
+
+<body onLoad="setup()" style="background-color:transparent">
+    <h4>Kaazing Server-Sent Events Demo</h4>
+    <p>This is a demo of a server-sent events Web client that receives
+    streaming data directly from a User Datagram Protocol (UDP) newsfeed data source. <strong>Note</strong>: The number of streams you can open depends on your browser's HTTP connection limit. To open additional streams, you must first close an existing stream.</p>
+<div>
+        <label>Location</label><input id="url" size="50">
+    </div>
+    <button id="connect" style="margin-bottom:5px">Connect</button>
+    <table id="eventsTableHeader" class="stockTable" style="width:100%" cellSpacing="0" >
+        <thead>
+            <tr>
+                <th width="5%"></th>
+                <th width="5%"></th>
+                <th width="20%">Source</th>
+                <th width="10%">Status</th>
+                <th width="60%">Last update</th>
+            </tr>
+        </thead>
+    </table>
+    <table id="eventsTable" class="stockTable" style="width:100%;overflow:scroll;" cellSpacing="0" >
+        <tbody id="eventsTableBody">
+          <tr></tr>
+        </tbody>
+    </table>
+</body>
+</html>

@@ -1,0 +1,156 @@
+/**
+ * Copyright (c) 2007-2014, Kaazing Corporation. All rights reserved.
+ */
+
+﻿/**
+ * Copyright (c) 2007-2011, Kaazing Corporation. All rights reserved.
+ */
+ 
+body {
+        font-family: Helvetica, Arial, sans-serif;
+        color:#000000;
+        margin-top: 0px;
+ }
+
+h1, h2, h3, h4, h5 {
+        /* Kaazing blue */
+        color: #44687d;
+        /* setup some more readable header spacing */
+        padding-bottom: 5px;
+        margin: 5px 0 5px 0;
+}
+
+h1 { 
+        font-size: 200%;
+}
+
+h2 {
+        font-size: 175%;
+}
+
+h3 {
+        font-size: 150%;
+        /* Kaazing Web Orange */
+        color: #f37333;
+}
+
+h4 {
+        font-size: 120%;
+}
+
+h5 {
+        font-size: 110%;
+        font-weight: bolder;
+}
+
+p {
+  /* setup some more readable paragraph spacing */
+  margin-top: 0px;
+  margin-bottom: 10px;
+}
+
+label, .label {
+        float: left;
+        width: 120px;
+        font-weight: bold;
+}
+
+input {
+        width: 180px;
+        margin-bottom: 5px;
+        clear:right;
+}
+
+.stockTable {
+    font-size: 14px;
+    border-color: #44687d;
+    border-bottom-width: 1px solid;
+}
+
+.stockTable th {
+    color: #ffffff;
+    background-color: #ff5113;
+    border-color: #cccccc;
+    border-width: 0px 1px 1px 0px;
+    border-style: solid;
+    padding-bottom: 3px;
+}
+
+.stockTable tr td {
+    height: 22px;
+    border-color: #cccccc;
+    border-width: 0px 0px 1px 0px;
+    border-style: solid;
+}
+
+br{
+        clear: left;
+}
+
+/* @group Notice Styles */
+
+span.alert, div.alert,
+span.info, div.info,
+span.download, div.download,
+span.note, div.note {
+        display: block;
+        padding: 10px 0px 10px 45px;
+}
+
+span.alert, div.alert {
+        color: #c00;
+        border-top: 3px solid #fe7b7a;
+        border-bottom: 3px solid #fe7b7a;
+        background: #ffffff url(../images/status-alert.png) 10px 50% no-repeat;
+        margin: 0px 0px 10px 0px;
+}
+
+span.info, div.info {
+        color: #44687d;
+        border-top: 3px solid #44687d;
+        border-bottom: 3px solid #44687d;
+        background: #ffffff url(../images/status-info.png) 10px 50% no-repeat;
+        margin: 0px 0px 10px 0px;
+}
+
+span.note, div.note {
+        color: #cd5a13;
+        border-top: 3px solid #f37333;
+        border-bottom: 3px solid #f37333;
+        background: #ffffff url(../images/status-note.png) 10px 50% no-repeat;
+        margin: 0px 0px 10px 0px;
+}
+
+span.download, div.download {
+        color: #5a8e22;
+        border-top: 3px solid #5a8e22;
+        border-bottom: 3px solid #5a8e22;
+        background: #ffffff url(../images/status-download.png) 10px 50% no-repeat;
+        margin: 0px 0px 10px 0px;
+}
+
+/* @end */
+
+#login_div {
+        position:relative;
+        float:left;
+        padding: 0px 0px 10px 0px;
+        width:380px;
+        height: 200px;
+        }
+        
+#console { 
+        position:relative;
+        float:left;
+        overflow-y: scroll; 
+        width: 420px;
+        height: 170px;
+        }
+		
+#table_header {
+        position:relative;
+        float:left;
+        padding: 0px 0px;
+        width: 800px;
+        height: 470px;
+        }		
