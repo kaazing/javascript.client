@@ -421,7 +421,7 @@ module.exports = function(grunt) {
          }
         },*/
 
-        /*sg_release: {
+        sg_release: {
             options: {
                 // sg_release specific properties
                 skipBowerInstall: false,
@@ -434,37 +434,18 @@ module.exports = function(grunt) {
                 developVersionCommitMsg: 'Increased version for development',
                 // pushTo and tagName are overlapped properties, used by both sg_release and grunt-bump
                 pushTo: 'origin',
-                tagName: 'v%VERSION%'
-            }
-        }, */
-
-        gitFlowBump: {
-            options: {
+                tagName: 'v%VERSION%',
+                // grunt-bump specific options
+                bumpVersion: true,
                 files: ['package.json'],
                 updateConfigs: [], // array of config properties to update (with files)
-
-                majorBranch: 'remotes/origin/release',
-                minorBranch: 'remotes/origin/develop',
-                patchBranch: '*',
-                masterOnly: true,
-
-                forceGitVersion: false,
-                gitDescribeOptions: '--tags --always --abbrev=1 --dirty=-d',
-
-                postBumpTasks: [], //tasks to run between versioning and git tag, commit, push
-
                 commit: true,
                 commitMessage: 'Release v%VERSION%',
-                commitFiles: ['package.json'],
-
+                commitFiles: ['package.json'], // '-a' for all files
                 createTag: true,
-                tagName: 'v%VERSION%',
                 tagMessage: 'Version %VERSION%',
-
-                push: true,
-                pushTo: 'upstream'
-
-
+                push: false, // push during the first bump phase is deactivated by default
+                gitDescribeOptions: '--tags --always --abbrev=1 --dirty=-d'
             }
         },
 
@@ -523,12 +504,12 @@ module.exports = function(grunt) {
     });
 
     grunt.registerTask('package', ['clean', 'copy', 'stripbanner', 'concat', 'lineremover', 'uglify', 'jsdoc', 'clean:tmp']);
-
+/*
     grunt.registerTask('release', 'release', function() {
         grunt.task.run('bump:prerelease');
         grunt.option('releaseVersion', pkg.version);
         grunt.option('developVersion', pkg.version);
         grunt.task.run('sg_release');
     });
-
+*/
 };
