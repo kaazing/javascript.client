@@ -467,7 +467,7 @@ module.exports = function(grunt) {
             },
             publish: {
                 options: {
-                    remote: 'git@github.com:pkhanal/javascript-release-test.git',
+                    remote: 'git@github.com:kaazing/bower-javascript.client.git',
                     branch: 'master',
                     tag: pkg.version
                 }
@@ -476,6 +476,8 @@ module.exports = function(grunt) {
     });
 
     grunt.registerTask('package', ['clean', 'copy', 'stripbanner', 'concat', 'lineremover', 'uglify', 'jsdoc', 'json_generator', 'clean:tmp']);
+
+    grunt.registerTask('default', ['package'])
 
     grunt.registerTask('deploy', 'deploy artifacts', function() {
         grunt.task.run(['package', 'buildcontrol']);
