@@ -411,24 +411,15 @@ module.exports = function(grunt) {
             }
         },
 
-        /*bump: {
+        bump: {
          options: {
-         files: ['package.json'],
-         updateConfigs: [],
-         commit: true,
-         commitMessage: 'Release v%VERSION%',
-         commitFiles: ['package.json'],
-         createTag: true,
-         tagName: 'v%VERSION%',
-         tagMessage: 'Version %VERSION%',
-         push: false,
-         pushTo: 'develop',
-         gitDescribeOptions: '--tags --always --abbrev=1 --dirty=-d',
-         globalReplace: false,
-         prereleaseName: false,
-         regExp: false
+             files: ['package.json'],
+             updateConfigs: [],
+             commit: true,
+             createTag: false,
+             push: false
          }
-         },*/
+        },
 
         sg_release: {
             options: {
@@ -443,18 +434,7 @@ module.exports = function(grunt) {
                 developVersionCommitMsg: 'Increased version for development',
                 // pushTo and tagName are overlapped properties, used by both sg_release and grunt-bump
                 pushTo: 'origin',
-                tagName: 'v%VERSION%',
-                // grunt-bump specific options
-                bumpVersion: true,
-                files: ['package.json'],
-                updateConfigs: [], // array of config properties to update (with files)
-                commit: true,
-                commitMessage: 'Release v%VERSION%',
-                commitFiles: ['package.json'], // '-a' for all files
-                createTag: true,
-                tagMessage: 'Version %VERSION%',
-                push: true,
-                gitDescribeOptions: '--tags --always --abbrev=1 --dirty=-d'
+                tagName: 'v%VERSION%'
             }
         },
 
@@ -515,6 +495,7 @@ module.exports = function(grunt) {
     grunt.registerTask('package', ['clean', 'copy', 'stripbanner', 'concat', 'lineremover', 'uglify', 'jsdoc', 'clean:tmp']);
 
     grunt.registerTask('release', 'release', function() {
+        grunt.task.run('bump:prerelease');
         grunt.option('releaseVersion', pkg.version);
         grunt.option('developVersion', pkg.version);
         grunt.task.run('sg_release');
