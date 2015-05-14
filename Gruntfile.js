@@ -411,7 +411,7 @@ module.exports = function(grunt) {
             }
         },
 
-        bump: {
+        /*bump: {
          options: {
              files: ['package.json'],
              updateConfigs: [],
@@ -419,9 +419,9 @@ module.exports = function(grunt) {
              createTag: false,
              push: false
          }
-        },
+        },*/
 
-        sg_release: {
+        /*sg_release: {
             options: {
                 // sg_release specific properties
                 skipBowerInstall: false,
@@ -435,6 +435,36 @@ module.exports = function(grunt) {
                 // pushTo and tagName are overlapped properties, used by both sg_release and grunt-bump
                 pushTo: 'origin',
                 tagName: 'v%VERSION%'
+            }
+        }, */
+
+        gitFlowBump: {
+            options: {
+                files: ['package.json'],
+                updateConfigs: [], // array of config properties to update (with files)
+
+                majorBranch: 'remotes/origin/release',
+                minorBranch: 'remotes/origin/develop',
+                patchBranch: '*',
+                masterOnly: true,
+
+                forceGitVersion: false,
+                gitDescribeOptions: '--tags --always --abbrev=1 --dirty=-d',
+
+                postBumpTasks: [], //tasks to run between versioning and git tag, commit, push
+
+                commit: true,
+                commitMessage: 'Release v%VERSION%',
+                commitFiles: ['package.json'],
+
+                createTag: true,
+                tagName: 'v%VERSION%',
+                tagMessage: 'Version %VERSION%',
+
+                push: true,
+                pushTo: 'upstream'
+
+
             }
         },
 

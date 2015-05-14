@@ -1,6 +1,6 @@
 {
   "name": "kaazing-javascript-client",
-  "version": "5.0.0-3",
+  "version": "5.0.0-4",
   "description": "Files necessary to develop a Javascript-based client for a Kaazing Gateway.",
   "repository": {
     "type": "git",
@@ -23,6 +23,7 @@
     "grunt-contrib-concat": "^0.5.1",
     "grunt-contrib-copy": "^0.8.0",
     "grunt-contrib-uglify": "^0.9.1",
+    "grunt-git-flow-bump": "0.0.8",
     "grunt-grunt": "^0.2.3",
     "grunt-jsdoc": "^0.5.7",
     "grunt-jsdoc-to-markdown": "^0.4.2",
