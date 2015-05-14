@@ -411,22 +411,50 @@ module.exports = function(grunt) {
             }
         },
 
-        bump: {
+        /*bump: {
+         options: {
+         files: ['package.json'],
+         updateConfigs: [],
+         commit: true,
+         commitMessage: 'Release v%VERSION%',
+         commitFiles: ['package.json'],
+         createTag: true,
+         tagName: 'v%VERSION%',
+         tagMessage: 'Version %VERSION%',
+         push: false,
+         pushTo: 'develop',
+         gitDescribeOptions: '--tags --always --abbrev=1 --dirty=-d',
+         globalReplace: false,
+         prereleaseName: false,
+         regExp: false
+         }
+         },*/
+
+        sg_release: {
             options: {
+                // sg_release specific properties
+                skipBowerInstall: false,
+                developBranch: 'develop',
+                masterBranch: 'master',
+                tempReleaseBranch: 'release',
+                commitMessagePrefix: '',
+                mergeToDevelopMsg: 'Merge into develop',
+                mergeToMasterMsg: 'Merge into master',
+                developVersionCommitMsg: 'Increased version for development',
+                // pushTo and tagName are overlapped properties, used by both sg_release and grunt-bump
+                pushTo: 'origin',
+                tagName: 'v%VERSION%',
+                // grunt-bump specific options
+                bumpVersion: true,
                 files: ['package.json'],
-                updateConfigs: [],
+                updateConfigs: [], // array of config properties to update (with files)
                 commit: true,
                 commitMessage: 'Release v%VERSION%',
-                commitFiles: ['package.json'],
+                commitFiles: ['-a'], // '-a' for all files
                 createTag: true,
-                tagName: 'v%VERSION%',
                 tagMessage: 'Version %VERSION%',
-                push: false,
-                pushTo: 'develop',
-                gitDescribeOptions: '--tags --always --abbrev=1 --dirty=-d',
-                globalReplace: false,
-                prereleaseName: false,
-                regExp: false
+                push: true, // push during the first bump phase is deactivated by default
+                gitDescribeOptions: '--tags --always --abbrev=1 --dirty=-d'
             }
         },
 
@@ -484,7 +512,12 @@ module.exports = function(grunt) {
         }
     });
 
-    grunt.registerTask('package', ['clean', 'copy', 'stripbanner', 'concat', 'lineremover', 'uglify', 'jsdoc', 'clean:tmp'])
+    grunt.registerTask('package', ['clean', 'copy', 'stripbanner', 'concat', 'lineremover', 'uglify', 'jsdoc', 'clean:tmp']);
 
-    grunt.registerTask('release', ['package', 'bump:prerelease', 'json_generator', 'buildcontrol'])
+    grunt.registerTask('release', 'release', function() {
+        grunt.option('releaseVersion', pkg.version);
+        grunt.option('developVersion', pkg.version);
+        grunt.task.run('sg_release');
+    });
+
 };
