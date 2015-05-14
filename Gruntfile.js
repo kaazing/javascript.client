@@ -475,9 +475,7 @@ module.exports = function(grunt) {
         }
     });
 
-    grunt.registerTask('package', ['clean', 'copy', 'stripbanner', 'concat', 'lineremover', 'uglify', 'jsdoc', 'clean:tmp']);
-
-
+    grunt.registerTask('package', ['clean', 'copy', 'stripbanner', 'concat', 'lineremover', 'uglify', 'jsdoc', 'json_generator', 'clean:tmp']);
 
     grunt.registerTask('deploy', 'deploy artifacts', function() {
         grunt.task.run(['package', 'buildcontrol']);
