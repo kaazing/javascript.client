@@ -450,10 +450,10 @@ module.exports = function(grunt) {
                 updateConfigs: [], // array of config properties to update (with files)
                 commit: true,
                 commitMessage: 'Release v%VERSION%',
-                commitFiles: ['-a'], // '-a' for all files
+                commitFiles: ['package.json'], // '-a' for all files
                 createTag: true,
                 tagMessage: 'Version %VERSION%',
-                push: true, // push during the first bump phase is deactivated by default
+                push: false,
                 gitDescribeOptions: '--tags --always --abbrev=1 --dirty=-d'
             }
         },
