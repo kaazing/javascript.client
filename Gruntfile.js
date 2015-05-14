@@ -411,7 +411,7 @@ module.exports = function(grunt) {
             }
         },
 
-        /*bump: {
+        bump: {
          options: {
              files: ['package.json'],
              updateConfigs: [],
@@ -419,34 +419,6 @@ module.exports = function(grunt) {
              createTag: false,
              push: false
          }
-        },*/
-
-        sg_release: {
-            options: {
-                // sg_release specific properties
-                skipBowerInstall: false,
-                developBranch: 'develop',
-                masterBranch: 'master',
-                tempReleaseBranch: 'release',
-                commitMessagePrefix: 'testing prefix:',
-                mergeToDevelopMsg: 'Merge into develop',
-                mergeToMasterMsg: 'Merge into master',
-                developVersionCommitMsg: 'Increased version for development',
-                // pushTo and tagName are overlapped properties, used by both sg_release and grunt-bump
-                pushTo: 'origin',
-                tagName: 'v%VERSION%',
-                // grunt-bump specific options
-                bumpVersion: true,
-                files: ['package.json'],
-                updateConfigs: [], // array of config properties to update (with files)
-                commit: true,
-                commitMessage: 'Release v%VERSION%',
-                commitFiles: ['package.json'], // '-a' for all files
-                createTag: true,
-                tagMessage: 'Version %VERSION%',
-                push: true, // push during the first bump phase is deactivated by default
-                gitDescribeOptions: '--tags --always --abbrev=1 --dirty=-d'
-            }
         },
 
         json_generator: {
