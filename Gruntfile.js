@@ -453,7 +453,7 @@ module.exports = function(grunt) {
                 commitFiles: ['package.json'], // '-a' for all files
                 createTag: true,
                 tagMessage: 'Version %VERSION%',
-                push: false,
+                push: true,
                 gitDescribeOptions: '--tags --always --abbrev=1 --dirty=-d'
             }
         },
