@@ -463,7 +463,7 @@ module.exports = function(grunt) {
                 dir: 'dist',
                 commit: true,
                 push: true,
-                message: 'Built %sourceName% from commit %sourceCommit% on branch %sourceBranch%'
+                message: 'v<%= version %>'
             },
             publish: {
                 options: {
@@ -476,12 +476,10 @@ module.exports = function(grunt) {
     });
 
     grunt.registerTask('package', ['clean', 'copy', 'stripbanner', 'concat', 'lineremover', 'uglify', 'jsdoc', 'clean:tmp']);
-/*
-    grunt.registerTask('release', 'release', function() {
-        grunt.task.run('bump:prerelease');
-        grunt.option('releaseVersion', pkg.version);
-        grunt.option('developVersion', pkg.version);
-        grunt.task.run('sg_release');
+
+
+
+    grunt.registerTask('deploy', 'deploy artifacts', function() {
+        grunt.task.run(['package', 'buildcontrol']);
     });
-*/
 };
