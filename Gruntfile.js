@@ -463,7 +463,7 @@ module.exports = function(grunt) {
                 dir: 'dist',
                 commit: true,
                 push: true,
-                message: 'v<%= version %>'
+                message: 'v' + pkg.version
             },
             publish: {
                 options: {
