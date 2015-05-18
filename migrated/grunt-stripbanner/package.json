@@ -1,0 +1,24 @@
+{
+    "name": "grunt-stripbanner",
+    "version": "0.0.1",
+    "description": "Plugin to strip banner comments (C-style comments of form /* */) that contain a particular string from files in a directory tree",
+    "repository": "https://github.com/kaazing/grunt-stripbanner.git",
+    "author": {
+        "name": "Kaazing Corporation",
+        "email": "developersupport@kaazing.org",
+        "url": "http://kaazing.org"
+    },
+    "keywords": [
+        "gruntplugin"
+    ],
+    "main": "Gruntfile.js",
+    "engines": {
+        "node": ">= 0.8.0"
+    },
+    "license": "Apache 2.0",
+    "devDependencies": {
+        "grunt-contrib-clean": "~0.5.0",
+        "grunt": "~0.4.2",
+        "load-grunt-tasks": "~0.3.0"
+    }
+}
