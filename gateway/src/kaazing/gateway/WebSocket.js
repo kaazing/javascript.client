@@ -338,11 +338,10 @@
         ;;;var LOG = Logger.getLogger(CLASS_NAME);
         var webSocketChannelListener = {};
 
-        var WebSocket = function(url, protocol, extensions, challengeHandler, connectTimeout, redirectPolicy) {
+        var WebSocket = function(url, protocol, challengeHandler, connectTimeout, redirectPolicy) {
             ;;;LOG.entering(this, 'WebSocket.<init>', {'url':url, 'protocol':protocol});
             this.url = url;
             this.protocol = protocol;
-            this.extensions = extensions || [];
             this.connectTimeout = 0;
             this._challengeHandler = challengeHandler;  // _challengeHandler is not public
             this._redirectPolicy = HttpRedirectPolicy.ALWAYS;
@@ -361,8 +360,9 @@
             this._origin = "";
             this._eventListeners = {};
             setProperties(this);
+
             // connect
-            connect(this, this.url, this.protocol, this.extensions, this._challengeHandler, this.connectTimeout);
+            connect(this, this.url, this.protocol, this._challengeHandler, this.connectTimeout);
         };
 
         // verify single protocol per WebSocket API spec (May 2012)
@@ -402,7 +402,7 @@
             }
         }
 
-        var connect = function($this, location, protocol, extensions, challengeHandler, connectTimeout) {
+        var connect = function($this, location, protocol, challengeHandler, connectTimeout) {
             if (!verifyProtocol(protocol)) {
                 throw new Error("SyntaxError: invalid protocol: " + protocol)
             }
@@ -422,7 +422,6 @@
             $this._channel = new WebSocketCompositeChannel(uri, requestedProtocols);
             $this._channel._webSocket = $this;
             $this._channel._webSocketChannelListener = webSocketChannelListener;
-            $this._channel._extensions = extensions;
 
             if (typeof(challengeHandler) != "undefined") {
                 $this._channel.challengeHandler = challengeHandler;

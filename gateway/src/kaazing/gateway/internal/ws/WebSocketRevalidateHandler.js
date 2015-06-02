@@ -30,11 +30,9 @@
 /**
  * @private
  */
-var WebSocketRevalidateHandler = (function($module) {
-        ;;;var LOG = Logger.getLogger("RevalidateHandler");
+var WebSocketRevalidateHandler = (function() {
 
         var WebSocketRevalidateHandler = function(channel) {
-            ;;;LOG.finest("ENTRY Revalidate.<init>")
             this.channel = channel;
         }
 
@@ -106,7 +104,7 @@ var WebSocketRevalidateHandler = (function($module) {
                 challengeLocation = challengeLocation.substring(0, challengeLocation.indexOf("/;ar/"));
             }
 
-    		var challengeRequest = new $module.ChallengeRequest(challengeLocation,  challenge);
+    		var challengeRequest = new Kaazing.Gateway.ChallengeRequest(challengeLocation,  challenge);
 			var challengeHandler;
 			if (this.channel._challengeResponse.nextChallengeHandler != null ) {
 				challengeHandler = this.channel._challengeResponse.nextChallengeHandler;
@@ -129,4 +127,4 @@ var WebSocketRevalidateHandler = (function($module) {
             }
         }
         return WebSocketRevalidateHandler;
-})(Kaazing.Gateway);
+})();

@@ -43,57 +43,10 @@
         ;;;var LOG = Logger.getLogger(CLASS_NAME);
 
         var WebSocketFactory = function() {
-            this.extensions = {};
             this.redirectPolicy = $module.HttpRedirectPolicy.ALWAYS;
         }
 
         var $prototype = WebSocketFactory.prototype;
-        
-        /**
-          Gets the specified extension from the list of registered extensions. A null is
-          returned if no extension with the specified name has been registered for this factory. 
-          
-          Ignore for time being as we should figure out our extension strategy before exposing
-          anything publicly.
- 
-          @ignore
-
-          @name getExtension
-          @param name {String} extension name
-          @return {WebSocketExtension}  the registered extension with the specified name
-
-          @public
-          @function
-          @memberOf WebSocketFactory#
-         */
-        $prototype.getExtension = function(name) {
-            return this.extensions[name];
-        }
-        
-        /**
-          Registers the specified extension. All the registered extensions are inherited by 
-          the WebSocket instances created using this factory. The extensions will be
-          negotiated between the client and the server during the WebSocket handshake.
-          The negotiated extensions can be obtained directly from the WebSocket
-          instance using <code>WebSocket.extensions</code> property after the connection has 
-          been established. 
-          <p>
-          Ignore for time being as we should figure out our extension strategy before exposing
-          anything publicly.
- 
-          @ignore
-          @name setExtension
-          @param extension  {WebSocketExtension} extension to be inherited by all the WebSockets 
-                                                 created using this factory
-          @return {void}
-
-          @public
-          @function
-          @memberOf WebSocketFactory#
-         */
-        $prototype.setExtension = function(extension) {
-            this.extensions[extension.name] = extension;
-        }
 
         /**
           Sets the default ChallengeHandler that is used during
@@ -160,17 +113,10 @@
           @memberOf WebSocketFactory#
         */
        $prototype.createWebSocket = function(url, protocols) {
-           var ext = [];
-           for (var key in this.extensions) {
-               if (this.extensions.hasOwnProperty(key) && this.extensions[key].enabled) {
-                   ext.push(this.extensions[key].toString());
-               }
-           }
-
            var challengeHandler = this.getChallengeHandler();
            var connectTimeout = this.getDefaultConnectTimeout();
            var redirectPolicy = this.getDefaultRedirectPolicy();
-           var ws = new WebSocket(url, protocols, ext, challengeHandler, connectTimeout, redirectPolicy);
+           var ws = new WebSocket(url, protocols, challengeHandler, connectTimeout, redirectPolicy);
 
            return ws;
        }

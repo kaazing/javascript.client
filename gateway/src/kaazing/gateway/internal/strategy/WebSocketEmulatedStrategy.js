@@ -22,7 +22,7 @@
 (function() {
 
 		var JAVASCRIPT_WSE =     "javascript:wse";
-    var JAVASCRIPT_WSE_SSL = "javascript:wse+ssl";
+        var JAVASCRIPT_WSE_SSL = "javascript:wse+ssl";
 
 		var handler = new WebSocketSelectedHandler();
 		var emulatedHandler = new WebSocketEmulatedHandler();
@@ -31,9 +31,9 @@
 		var channelFactory = new WebSocketEmulatedChannelFactory();
 
 		WebSocketStrategy._strategyMap[JAVASCRIPT_WSE] = new WebSocketStrategy("ws", handler, channelFactory);
-    WebSocketStrategy._strategyMap[JAVASCRIPT_WSE_SSL] = new WebSocketStrategy("wss", handler, channelFactory);
+        WebSocketStrategy._strategyMap[JAVASCRIPT_WSE_SSL] = new WebSocketStrategy("wss", handler, channelFactory);
 
-    WebSocketStrategy._strategyChoices["ws"].push(JAVASCRIPT_WSE);
-    WebSocketStrategy._strategyChoices["wss"].push(JAVASCRIPT_WSE_SSL);
+        WebSocketStrategy._strategyChoices["ws"].push(JAVASCRIPT_WSE);
+        WebSocketStrategy._strategyChoices["wss"].push(JAVASCRIPT_WSE_SSL);
 
 })();

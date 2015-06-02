@@ -63,10 +63,10 @@ var WebSocketNativeHandshakeHandler = (function() /*extends WebSocketHandlerAdap
         headerValues.push("");  //for now use Sec-Websockect-Protocol header instead
         headerNames.push(HEADER_SEC_PROTOCOL);
         headerValues.push(channel._protocol.join(","));  //now send the Websockect-Protocol
-        var extensions = [WebSocketHandshakeObject.KAAZING_SEC_EXTENSION_IDLE_TIMEOUT, WebSocketHandshakeObject.KAAZING_SEC_EXTENSION_PING_PONG]
-        var ext = channel._extensions;
-        if (ext.length > 0) {
-        	extensions.push(ext);
+        var extensions = [WebSocketHandshakeObject.KAAZING_SEC_EXTENSION_IDLE_TIMEOUT, WebSocketHandshakeObject.KAAZING_SEC_EXTENSION_PING_PONG];
+        var registeredExtensions = WebSocketExtensionSpi.getRegisteredExtensionNames();
+        if (registeredExtensions.length > 0) {
+            extensions.push(registeredExtensions);
         }
         headerNames.push(HEADER_SEC_EXTENSIONS);
         headerValues.push(extensions.join(","));
@@ -161,12 +161,10 @@ var WebSocketNativeHandshakeHandler = (function() /*extends WebSocketHandlerAdap
             
             // extensions header
             if (extensionsHeader.length > 0) {
-                var negotiatedExtenstions = [];
                 var extensions = extensionsHeader.join(", ").split(", ");
                 for (var j = 0; j < extensions.length; j++) {
                     var tmp = extensions[j].split(";");
                     var ext =  tmp[0].replace(/^\s+|\s+$/g,"");
-                    var extension = new WebSocketExtension(ext);
                     if (WebSocketHandshakeObject.KAAZING_SEC_EXTENSION_IDLE_TIMEOUT === ext) {
                         //x-kaazing-idle-timeout extension, the timeout parameter is like "timeout=500"
                         var timeout = tmp[1].match(/\d+/)[0];
@@ -188,33 +186,13 @@ var WebSocketNativeHandshakeHandler = (function() /*extends WebSocketHandlerAdap
                             throw new Error("failed to parse escape key for x-kaazing-ping-pong extension");
                         }
                     }
-                    else if (tmp.length > 1) {
-                        var escape = tmp[1].replace(/^\s+|\s+$/g,"");
-                        if (escape.length == 8) {
-                            //has escape bytes
-                            try {
-                                var escapeKey = parseInt(escape, 16);
-                                channel._controlFrames[escapeKey] = ext; //control frame for text message
-                                extension.escape = escape;
-                            } catch(e) {
-                                // this is not escape parameter, ignored
-                                ;;;LOG.finest(CLASS_NAME, "parse control frame bytes error");
-                            }
-                        }
-                     }
-                     //add this extension to negotiatedExtenstions array
-                     extension.enabled = true;
-                     extension.negotiated = true;
-                     negotiatedExtenstions.push(extensions[j]);
+                    else {
+                        channel._negotiatedExtensions.push(extensions[j]);
+                    }
                 }//end of extensions loop
-                
-                if (negotiatedExtenstions.length > 0) {
-                    channel.parent._negotiatedExtensions[ext] = negotiatedExtenstions.join(",");
-                }
             }
             //wait balancer message
             return;
-            //listener.connectionOpened(channel, supportProtocol);
         } else if ("401" == httpCode) {
             //receive HTTP/1.1 401 from server, pass event to Authentication handler
             channel.handshakestatus = 2; //handshake completed
@@ -228,7 +206,6 @@ var WebSocketNativeHandshakeHandler = (function() /*extends WebSocketHandlerAdap
             $this._listener.authenticationRequested(channel, channel._location.toString(), challenge);
         } else {
             // Error during handshake, close connect, report connectionFailed
-            //nextHandler.processClose(channel);
             $this._listener.connectionFailed(channel);
         }
     }

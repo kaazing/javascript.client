@@ -22,7 +22,7 @@
 (function() {
 
 		var JAVASCRIPT_WS =      "javascript:ws";
-  	var JAVASCRIPT_WSS =     "javascript:wss";
+  	    var JAVASCRIPT_WSS =     "javascript:wss";
 
 		var handler = new WebSocketSelectedHandler();
 		var nativeHandler = new WebSocketNativeHandler();
@@ -31,9 +31,9 @@
 		var channelFactory = new WebSocketNativeChannelFactory();
 
 		WebSocketStrategy._strategyMap[JAVASCRIPT_WS] = new WebSocketStrategy("ws", handler, channelFactory);
-  	WebSocketStrategy._strategyMap[JAVASCRIPT_WSS] = new WebSocketStrategy("wss", handler, channelFactory);
+  	    WebSocketStrategy._strategyMap[JAVASCRIPT_WSS] = new WebSocketStrategy("wss", handler, channelFactory);
 
-  	WebSocketStrategy._strategyChoices["ws"].push(JAVASCRIPT_WS);
-  	WebSocketStrategy._strategyChoices["wss"].push(JAVASCRIPT_WSS);
+  	    WebSocketStrategy._strategyChoices["ws"].push(JAVASCRIPT_WS);
+  	    WebSocketStrategy._strategyChoices["wss"].push(JAVASCRIPT_WSS);
 
 })();

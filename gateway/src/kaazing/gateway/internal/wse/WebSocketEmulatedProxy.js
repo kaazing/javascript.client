@@ -366,7 +366,6 @@ var WebSocketEmulatedProxy = (function() {
         if (numSendPackets > 0) {
             var sequenceNo = $this.sequence++;
            if ($this.useXDR) {
-               //console.log("doFlush :" + $this.upstreamXHR);
                var out = new $rootModule.ByteBuffer();
 
                 while (sendQueue.length) {
@@ -376,7 +375,7 @@ var WebSocketEmulatedProxy = (function() {
                 out.putBytes(RECONNECT_FRAME_BYTES);
                 out.flip();
                 $this.upstreamXHR.setRequestHeader("Content-Type", "text/plain; charset=utf-8");
-               $this.upstreamXHR.setRequestHeader("X-Sequence-No", sequenceNo.toString());
+                $this.upstreamXHR.setRequestHeader("X-Sequence-No", sequenceNo.toString());
                 $this.upstreamXHR.send(encodeByteString(out, $this.requiresEscaping));
             }
             else {
@@ -508,6 +507,11 @@ var WebSocketEmulatedProxy = (function() {
             create.setRequestHeader("X-WebSocket-Protocol", protocol);
         }
 
+        var registeredExtensions = WebSocketExtensionSpi.getRegisteredExtensionNames();
+        if (registeredExtensions.length > 0) {
+            create.setRequestHeader("X-WebSocket-Extensions", registeredExtensions.join(", "));
+        }
+
         for(var i = 0; i < $this.parent.requestHeaders.length; i++) {
             var requstHdr = $this.parent.requestHeaders[i];
             create.setRequestHeader(requstHdr.label, requstHdr.value);
@@ -620,6 +624,15 @@ var WebSocketEmulatedProxy = (function() {
         $this.readyState = 1;
         var channel = $this.parent;
         channel._acceptedProtocol = channel.responseHeaders["X-WebSocket-Protocol"] || ""; //get protocol
+
+        var negotiatedExtensions = channel.responseHeaders["X-WebSocket-Extensions"];
+        if (negotiatedExtensions) {
+            var extensionArray = negotiatedExtensions.split(",");
+            for (var i = 0; i < extensionArray.length; i++) {
+                channel._negotiatedExtensions.push(extensionArray[i].replace(/^\s+|\s+$/g,""));
+            }
+        }
+
         if ($this.useXDR) {
             this.upstreamXHR = null;
             openUpstream($this);  //open XDR if is IE8,IE9

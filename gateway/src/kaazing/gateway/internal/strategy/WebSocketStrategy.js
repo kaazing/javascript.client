@@ -35,10 +35,7 @@ var WebSocketStrategy = (function() {
 
     // Map of list of strategies that can be applied when establishing the connection
     // keyed by the scheme
-    WebSocketStrategy._strategyChoices = {
-					                                 "ws"  : new Array(),
-				                                   "wss" : new Array()
-					                               };
+    WebSocketStrategy._strategyChoices = { "ws"  : new Array(), "wss" : new Array() };
 
     return WebSocketStrategy;
 })();

@@ -103,40 +103,6 @@ var WebSocketControlFrameHandler = (function() /*extends WebSocketHandlerAdapter
      */
     $prototype.handleConnectionOpened = function(channel, protocol) {
         ;;;LOG.finest(CLASS_NAME, "handleConnectionOpened");
-        var headers = channel.responseHeaders;
-        //get escape bytes for control frames from X-WebSocket-Extensions header, this is for emulated connection
-        if (headers[WebSocketHandshakeObject.HEADER_SEC_EXTENSIONS] != null) {
-            var extensionsHeader = headers[WebSocketHandshakeObject.HEADER_SEC_EXTENSIONS];
-            if (extensionsHeader != null && extensionsHeader.length > 0) {
-                var extensions = extensionsHeader.split(",");
-                for ( var j = 0; j < extensions.length; j++) {
-                    var tmp = extensions[j].split(";");
-                    var ext = tmp[0].replace(/^\s+|\s+$/g, "");
-                    var extension = new WebSocketExtension(ext);
-                    extension.enabled = true;
-                    extension.negotiated = true;
-                    if (tmp.length > 1) {
-                        var escape = tmp[1].replace(/^\s+|\s+$/g, "");
-                        if (escape.length == 8) {
-                            //has escape bytes
-                            try {
-                                var escapeKey = parseInt(escape, 16);
-                                channel._controlFrames[escapeKey] = ext; //control frame for text message
-                                extension.escape = escape;
-                            } catch (e) {
-                                // this is not escape parameter, ignored
-                                ;
-                                ;
-                                ;
-                                LOG.finest(CLASS_NAME,
-                                        "parse control frame bytes error");
-                            }
-                        }
-                    }
-                    channel.parent._negotiatedExtensions[ext] = extension;
-                }
-            }
-        }
         this._listener.connectionOpened(channel, protocol);
     }
 

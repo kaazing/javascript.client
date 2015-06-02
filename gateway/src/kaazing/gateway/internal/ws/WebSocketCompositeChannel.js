@@ -35,7 +35,6 @@ var WebSocketCompositeChannel = (function() {
         this._selectedChannel;
         this.readyState = 0; //WebSocket.CONNECTING;
         this._closing = false;
-        this._negotiatedExtensions = {}; //server accepted extensions 
 
         this._compositeScheme = location._compositeScheme;
     };

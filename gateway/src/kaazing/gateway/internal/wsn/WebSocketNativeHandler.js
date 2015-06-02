@@ -68,6 +68,7 @@ var WebSocketNativeHandler = (function() {
         var _balanceHandler = createNativeBalancingHandler();
         var _delegateHandler = createDelegateHandler();
         var _hixie76Handler = createHixie76Handler();
+        var _extensionHandler = new WebSocketExtensionHandler();
         
         var WebSocketNativeHandler = function() {
             ;;;LOG.finest(CLASS_NAME, "<init>");
@@ -78,11 +79,11 @@ var WebSocketNativeHandler = (function() {
             else {
             	this.setNextHandler(_authHandler);
             }
-            _authHandler.setNextHandler(_handshakeHandler);
+            _authHandler.setNextHandler(_extensionHandler);
+            _extensionHandler.setNextHandler(_handshakeHandler);
             _handshakeHandler.setNextHandler(_controlFrameHandler);
 			_controlFrameHandler.setNextHandler(_balanceHandler);
             _balanceHandler.setNextHandler(_delegateHandler);
-        
         };
 		
         var handleConnectionOpened = function(channel, protocol) {

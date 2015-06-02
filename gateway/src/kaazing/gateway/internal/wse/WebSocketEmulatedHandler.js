@@ -30,11 +30,13 @@ var WebSocketEmulatedHandler = (function() {
         var _authHandler = new WebSocketEmulatedAuthenticationHandler();
         var _controlFrameHandler = new WebSocketControlFrameHandler();
         var _delegateHandler = new WebSocketEmulatedDelegateHandler();
+        var _extensionHandler = new WebSocketExtensionHandler();
 
         var WebSocketEmulatedHandler = function() {
             ;;;LOG.finest(CLASS_NAME, "<init>");
             this.setNextHandler(_authHandler);
-            _authHandler.setNextHandler(_controlFrameHandler);
+            _authHandler.setNextHandler(_extensionHandler);
+            _extensionHandler.setNextHandler(_controlFrameHandler)
             _controlFrameHandler.setNextHandler(_delegateHandler);
         };
 
@@ -44,11 +46,6 @@ var WebSocketEmulatedHandler = (function() {
             var protocols = [];
             for (var i = 0; i < protocol.length; i++) {
                 protocols.push(protocol[i]);
-            }
-            //add extensions header if there is enabled extensions
-            var extensions = channel._extensions;
-            if (extensions.length > 0) {
-                channel.requestHeaders.push(new URLRequestHeader(WebSocketHandshakeObject.HEADER_SEC_EXTENSIONS, extensions.join(";")));
             }
             
             this._nextHandler.processConnect(channel, location, protocols);

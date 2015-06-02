@@ -170,8 +170,6 @@ module.exports = function(grunt) {
                     'dist/tmp/gateway/src/NegotiateChallengeHandler.js',
                     'dist/tmp/gateway/src/NegotiableChallengeHandler.js',
                     'dist/tmp/gateway/src/WebSocketHandshakeObject.js',
-                    'dist/tmp/gateway/src/WebSocketExtension.js',
-                    'dist/tmp/gateway/src/WebSocketRevalidateExtension.js',
 
                     'dist/tmp/gateway/src/Windows1252.js',
 
@@ -180,9 +178,9 @@ module.exports = function(grunt) {
                     'dist/tmp/gateway/src/Blob.js',
 
                     // new handler files
+                    'dist/tmp/gateway/src/Internal.js',
                     'dist/tmp/gateway/src/AsyncActionQueue.js',
                     'dist/tmp/gateway/src/URLRequestHeader.js',
-                    'dist/tmp/gateway/src/HttpURI.js',
                     'dist/tmp/gateway/src/WSURI.js',
                     'dist/tmp/gateway/src/WSCompositeURI.js',
                     'dist/tmp/gateway/src/ResumableTimer.js',
@@ -190,6 +188,7 @@ module.exports = function(grunt) {
                     'dist/tmp/gateway/src/WebSocketChannel.js',
                     'dist/tmp/gateway/src/WebSocketHandlerAdapter.js',
                     'dist/tmp/gateway/src/WebSocketHandlerListener.js',
+                    'dist/tmp/gateway/src/WebSocketExtensionHandler.js',
                     'dist/tmp/gateway/src/WebSocketSelectedChannel.js',
                     'dist/tmp/gateway/src/WebSocketEmulatedChannelFactory.js',
                     'dist/tmp/gateway/src/WebSocketNativeChannelFactory.js',

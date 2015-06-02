@@ -92,7 +92,6 @@ var WebSocketCompositeHandler = (function() {
             var selectedChannel = channelFactory.createChannel(location, channel._protocol);
             channel._selectedChannel = selectedChannel;
             selectedChannel.parent = channel;
-            selectedChannel._extensions = channel._extensions;
             selectedChannel._handler = strategy._handler;
             selectedChannel._handler.processConnect(channel._selectedChannel, location, channel._protocol);
         }

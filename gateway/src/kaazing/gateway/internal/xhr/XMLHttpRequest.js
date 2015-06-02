@@ -359,7 +359,12 @@ var XMLHttpRequest0 = (function() {
         }
 
         var headers = this._responseHeaders;
-        return headers[label];
+        if (headers) {
+            return headers[label];
+        }
+        else {
+            return null;
+        }
     }
     
     /**
