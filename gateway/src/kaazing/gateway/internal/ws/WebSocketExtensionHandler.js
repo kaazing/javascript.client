@@ -39,7 +39,7 @@ var WebSocketExtensionHandler = (function(){
                 var extensionInfo = WebSocketExtensionSpi.getRegisteredExtensionInfo(extensionName);
 
                 if (extensionInfo == null) {
-                    // TODO: error - there should be extension registered for negotiated extension
+                    // error - there should be extension registered for negotiated extension
                     this._listener.connectionFailed(channel);
                     return;
                 }
@@ -80,6 +80,10 @@ var WebSocketExtensionHandler = (function(){
                 // short-circuit
                 return;
             }
+        }
+
+        if (currentMessage != null) {
+            this._listener.binaryMessageReceived(channel, message);
         }
     }
 
