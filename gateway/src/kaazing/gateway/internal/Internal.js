@@ -30,17 +30,17 @@
  */
 Kaazing.Internal = Kaazing.namespace("Internal");
 
-(function($module){
+(function ($module) {
 
-    var WebSocketExtensionSpiFactory = (function(){
-        var factorySpi = function(name, factoryFunction) {
+    var WebSocketExtensionSpiFactory = (function () {
+        var factorySpi = function (name, factoryFunction) {
             this.name = name;
             this.factoryFunction = factoryFunction;
         }
 
         var $prototype = factorySpi.prototype;
 
-        $prototype.create = function(parameter) {
+        $prototype.create = function (parameter) {
             return this.factoryFunction(parameter);
         }
         return factorySpi;
@@ -48,34 +48,34 @@ Kaazing.Internal = Kaazing.namespace("Internal");
 
     Kaazing.Internal.WebSocketExtensionSpiFactory = WebSocketExtensionSpiFactory;
 
-    var WebSocketExtensionSpi = (function(){
-        var spi = function(name) {
+    var WebSocketExtensionSpi = (function () {
+        var spi = function (name) {
             this.name = name;
         }
 
         var $prototype = spi.prototype = new WebSocketHandlerAdapter();
 
-        $prototype.handleConnectionOpened = function(channel, protocol) {
+        $prototype.handleConnectionOpened = function (channel, protocol) {
             this._listener.connectionOpened(channel, protocol);
         }
 
-        $prototype.setNextHandler = function(nextHandler) {
+        $prototype.setNextHandler = function (nextHandler) {
             var $this = this;
             this._nextHandler = nextHandler;
             var listener = new WebSocketHandlerListener(this);
-            listener.connectionOpened = function(channel, protocol) {
+            listener.connectionOpened = function (channel, protocol) {
                 $this.handleConnectionOpened(channel, protocol);
             }
-            listener.textMessageReceived = function(channel, buf) {
+            listener.textMessageReceived = function (channel, buf) {
                 $this.handleTextMessageReceived(channel, buf);
             }
-            listener.binaryMessageReceived = function(channel, buf) {
+            listener.binaryMessageReceived = function (channel, buf) {
                 $this.handleMessageReceived(channel, buf);
             }
             nextHandler.setListener(listener);
         }
 
-        $prototype.setListener = function(listener) {
+        $prototype.setListener = function (listener) {
             this._listener = listener;
         }
 
@@ -84,11 +84,11 @@ Kaazing.Internal = Kaazing.namespace("Internal");
 
     var registeredExtensions = [];
 
-    WebSocketExtensionSpi.register = function(extensionSpiFactory) {
+    WebSocketExtensionSpi.register = function (extensionSpiFactory) {
         registeredExtensions.push(extensionSpiFactory);
     };
 
-    WebSocketExtensionSpi.get = function(name) {
+    WebSocketExtensionSpi.get = function (name) {
         for (var i = 0; i < registeredExtensions.length; i++) {
             if (registeredExtensions[i].name == name) {
                 return registeredExtensions[i];
@@ -97,7 +97,7 @@ Kaazing.Internal = Kaazing.namespace("Internal");
         return null;
     }
 
-    WebSocketExtensionSpi.getRegisteredExtensionNames = function() {
+    WebSocketExtensionSpi.getRegisteredExtensionNames = function () {
         var registeredExtensionNames = [];
         for (var i = 0; i < registeredExtensions.length; i++) {
             registeredExtensionNames.push(registeredExtensions[i].name);

@@ -26,14 +26,17 @@
  * @private
  * @ignore
  */
-var WebSocketEmulatedProxy = (function() {
-    ;;;var WSEBLOG = Logger.getLogger('WebSocketEmulatedProxy');
+var WebSocketEmulatedProxy = (function () {
+    ;
+    ;
+    ;
+    var WSEBLOG = Logger.getLogger('WebSocketEmulatedProxy');
 
     /**
      * @private
      * @ignore
      */
-    var WebSocketEmulatedProxy = function() {
+    var WebSocketEmulatedProxy = function () {
 
         this.parent;
         this._listener;
@@ -46,16 +49,22 @@ var WebSocketEmulatedProxy = (function() {
     var $prototype = WebSocketEmulatedProxy.prototype;
 
 
-    $prototype.connect = function(location, protocol) {
-        ;;;WSEBLOG.entering(this, 'WebSocketEmulatedProxy.connect', {'location':location, 'subprotocol':protocol});
+    $prototype.connect = function (location, protocol) {
+        ;
+        ;
+        ;
+        WSEBLOG.entering(this, 'WebSocketEmulatedProxy.connect', {'location': location, 'subprotocol': protocol});
 
-        this.URL = location.replace("ws","http");
+        this.URL = location.replace("ws", "http");
         this.protocol = protocol;
 
         this._prepareQueue = new AsyncActionQueue();
         this._sendQueue = [];
         connect(this);
-		;;;WSEBLOG.exiting(this, 'WebSocketEmulatedProxy.<init>');
+        ;
+        ;
+        ;
+        WSEBLOG.exiting(this, 'WebSocketEmulatedProxy.<init>');
     }
 
     /**
@@ -104,7 +113,8 @@ var WebSocketEmulatedProxy = (function() {
      * @type Function
      * @memberOf WebSocketEmulatedProxy
      */
-    $prototype.onopen = function() {};
+    $prototype.onopen = function () {
+    };
 
     /**
      * The onopen handler is called when the connection is established.
@@ -116,7 +126,8 @@ var WebSocketEmulatedProxy = (function() {
      * @type Function
      * @memberOf WebSocketEmulatedProxy
      */
-    $prototype.onerror = function() {};
+    $prototype.onerror = function () {
+    };
 
     /**
      * The onmessage handler is called when data arrives.
@@ -128,7 +139,8 @@ var WebSocketEmulatedProxy = (function() {
      * @type Function
      * @memberOf WebSocketEmulatedProxy
      */
-    $prototype.onmessage = function(event) {};
+    $prototype.onmessage = function (event) {
+    };
 
     /**
      * The onclose handler is called when the connection is terminated.
@@ -140,7 +152,8 @@ var WebSocketEmulatedProxy = (function() {
      * @type Function
      * @memberOf WebSocketEmulatedProxy
      */
-    $prototype.onclose = function() {};
+    $prototype.onclose = function () {
+    };
 
     var BYTE_FRAME_START = 0x80;
     var FIXED_LENGTH_TEXT_FRAME_START = 0x81;
@@ -156,8 +169,11 @@ var WebSocketEmulatedProxy = (function() {
      * @private
      * @ignore
      */
-    var encodeLength = function(buf, length) {
-        ;;;WSEBLOG.entering(this, 'WebSocketEmulatedProxy.encodeLength', {'buf': buf, 'length': length});
+    var encodeLength = function (buf, length) {
+        ;
+        ;
+        ;
+        WSEBLOG.entering(this, 'WebSocketEmulatedProxy.encodeLength', {'buf': buf, 'length': length});
         var byteCount = 0;
         var encodedLength = 0;
 
@@ -187,7 +203,7 @@ var WebSocketEmulatedProxy = (function() {
             }
             // write encoded byte
             buf.put(encodedByte);
-            }
+        }
             // decrement and continue if we have more bytes left
         while (--byteCount > 0);
     }
@@ -205,17 +221,26 @@ var WebSocketEmulatedProxy = (function() {
      * @name send
      * @memberOf WebSocketEmulatedProxy
      */
-    $prototype.send = function(data) {
+    $prototype.send = function (data) {
         var $this = this;
-        ;;;WSEBLOG.entering(this, 'WebSocketEmulatedProxy.send', {'data':data});
+        ;
+        ;
+        ;
+        WSEBLOG.entering(this, 'WebSocketEmulatedProxy.send', {'data': data});
         switch (this.readyState) {
             case 0:
-                ;;;WSEBLOG.severe(this, 'WebSocketEmulatedProxy.send: Error: readyState is 0');
+                ;
+                ;
+                ;
+                WSEBLOG.severe(this, 'WebSocketEmulatedProxy.send: Error: readyState is 0');
                 throw new Error("INVALID_STATE_ERR");
 
             case 1:
                 if (data === null) {
-                    ;;;WSEBLOG.severe(this, 'WebSocketEmulatedProxy.send: Error: data is null');
+                    ;
+                    ;
+                    ;
+                    WSEBLOG.severe(this, 'WebSocketEmulatedProxy.send: Error: data is null');
                     throw new Error("data is null");
                 }
 
@@ -224,25 +249,37 @@ var WebSocketEmulatedProxy = (function() {
                 var buf = new $rootModule.ByteBuffer();
 
                 if (typeof data == "string") {
-                    ;;;WSEBLOG.finest(this, 'WebSocketEmulatedProxy.send: Data is string');
+                    ;
+                    ;
+                    ;
+                    WSEBLOG.finest(this, 'WebSocketEmulatedProxy.send: Data is string');
                     var payload = new $rootModule.ByteBuffer();
                     payload.putString(data, Charset.UTF8);
                     buf.put(FIXED_LENGTH_TEXT_FRAME_START);
                     encodeLength(buf, payload.position);
                     buf.putBytes(payload.array);
                 } else if (data.constructor == $rootModule.ByteBuffer) {
-                    ;;;WSEBLOG.finest(this, 'WebSocketEmulatedProxy.send: Data is ByteBuffer');
+                    ;
+                    ;
+                    ;
+                    WSEBLOG.finest(this, 'WebSocketEmulatedProxy.send: Data is ByteBuffer');
                     buf.put(BYTE_FRAME_START);
                     encodeLength(buf, data.remaining());
                     buf.putBuffer(data);
                 } else if (data.byteLength) {
-                	 ;;;WSEBLOG.finest(this, 'WebSocketEmulatedProxy.send: Data is ByteArray');
+                    ;
+                    ;
+                    ;
+                    WSEBLOG.finest(this, 'WebSocketEmulatedProxy.send: Data is ByteArray');
                     buf.put(BYTE_FRAME_START);
                     encodeLength(buf, data.byteLength);
                     buf.putByteArray(data);
                 } else if (data.size) {
-                	 ;;;WSEBLOG.finest(this, 'WebSocketEmulatedProxy.send: Data is Blob');
-                    var cb = this._prepareQueue.enqueue(function(result) {
+                    ;
+                    ;
+                    ;
+                    WSEBLOG.finest(this, 'WebSocketEmulatedProxy.send: Data is Blob');
+                    var cb = this._prepareQueue.enqueue(function (result) {
                         var b = new $rootModule.ByteBuffer();
                         b.put(BYTE_FRAME_START);
                         encodeLength(b, result.length);
@@ -254,13 +291,16 @@ var WebSocketEmulatedProxy = (function() {
                     return true;
                 } else {
                     // TODO handle blob async conversion here OR use blob building to construct framing
-                    ;;;WSEBLOG.severe(this, 'WebSocketEmulatedProxy.send: Error: Invalid type for send');
+                    ;
+                    ;
+                    ;
+                    WSEBLOG.severe(this, 'WebSocketEmulatedProxy.send: Error: Invalid type for send');
                     throw new Error("Invalid type for send");
                 }
                 buf.flip();
 
                 // send the message
-                this._prepareQueue.enqueue(function(result) {
+                this._prepareQueue.enqueue(function (result) {
                     doSend($this, buf);
                 })();
                 return true;
@@ -269,10 +309,16 @@ var WebSocketEmulatedProxy = (function() {
                 return false;
 
             default:
-                ;;;WSEBLOG.severe(this, 'WebSocketEmulatedProxy.send: Error: invalid readyState');
+                ;
+                ;
+                ;
+                WSEBLOG.severe(this, 'WebSocketEmulatedProxy.send: Error: invalid readyState');
                 throw new Error("INVALID_STATE_ERR");
         }
-        ;;;WSEBLOG.exiting(this, 'WebSocketEmulatedProxy.send');
+        ;
+        ;
+        ;
+        WSEBLOG.exiting(this, 'WebSocketEmulatedProxy.send');
     }
 
     /**
@@ -286,8 +332,11 @@ var WebSocketEmulatedProxy = (function() {
      * @name close
      * @memberOf WebSocketEmulatedProxy
      */
-    $prototype.close = function(code, reason) {
-        ;;;WSEBLOG.entering(this, 'WebSocketEmulatedProxy.close');
+    $prototype.close = function (code, reason) {
+        ;
+        ;
+        ;
+        WSEBLOG.entering(this, 'WebSocketEmulatedProxy.close');
         switch (this.readyState) {
             case 0:
                 doClose(this);
@@ -305,7 +354,7 @@ var WebSocketEmulatedProxy = (function() {
         }
     };
 
-    $prototype.setListener = function(listener) {
+    $prototype.setListener = function (listener) {
         this._listener = listener;
     };
 
@@ -318,36 +367,39 @@ var WebSocketEmulatedProxy = (function() {
             clearTimeout($this.idleTimer);
         }
         var xdr = new XMLHttpRequest0();
-        xdr.onreadystatechange = function() {
+        xdr.onreadystatechange = function () {
             //console.log("upstream.onreadystatechange " + $this.upstreamXHR.readyState);
-            if(xdr.readyState == 4) {
-                switch(xdr.status) {
+            if (xdr.readyState == 4) {
+                switch (xdr.status) {
                     case 200:
                         //open a new upstream, if this one if closed
-                        setTimeout(function() {
+                        setTimeout(function () {
                             doFlush($this);
                         }, 0);
                         break;
                 }
             }
         };
-        xdr.onload = function() {
+        xdr.onload = function () {
             //console.log("upstream.onload " + xdr.readyState);
             openUpstream($this);
         }
         xdr.open("POST", $this._upstream + "&.krn=" + Math.random(), true);
         $this.upstreamXHR = xdr;
         //open a new upstream if idle for 30 sec
-        $this.idleTimer = setTimeout(function() {
-             if ($this.upstreamXHR != null) {
-                   $this.upstreamXHR.abort();
-             }
-             openUpstream($this);
+        $this.idleTimer = setTimeout(function () {
+            if ($this.upstreamXHR != null) {
+                $this.upstreamXHR.abort();
+            }
+            openUpstream($this);
         }, 30000);
     }
 
     function doSend($this, buf) {
-        ;;;WSEBLOG.entering(this, 'WebSocketEmulatedProxy.doSend', buf);
+        ;
+        ;
+        ;
+        WSEBLOG.entering(this, 'WebSocketEmulatedProxy.doSend', buf);
         $this.bufferedAmount += buf.remaining();
         $this._sendQueue.push(buf);
         doBufferedAmountChange($this);
@@ -359,14 +411,17 @@ var WebSocketEmulatedProxy = (function() {
     }
 
     function doFlush($this) {
-        ;;;WSEBLOG.entering(this, 'WebSocketEmulatedProxy.doFlush');
+        ;
+        ;
+        ;
+        WSEBLOG.entering(this, 'WebSocketEmulatedProxy.doFlush');
         var sendQueue = $this._sendQueue;
         var numSendPackets = sendQueue.length;
         $this._writeSuspended = (numSendPackets > 0);
         if (numSendPackets > 0) {
             var sequenceNo = $this.sequence++;
-           if ($this.useXDR) {
-               var out = new $rootModule.ByteBuffer();
+            if ($this.useXDR) {
+                var out = new $rootModule.ByteBuffer();
 
                 while (sendQueue.length) {
                     out.putBuffer(sendQueue.shift());
@@ -381,20 +436,23 @@ var WebSocketEmulatedProxy = (function() {
             else {
                 var xhr = new XMLHttpRequest0();
                 xhr.open("POST", $this._upstream + "&.krn=" + Math.random(), true);
-                xhr.onreadystatechange = function() {
-                    if(xhr.readyState == 4) {
-                        ;;;WSEBLOG.finest(this, 'WebSocketEmulatedProxy.doFlush: xhr.status=' + xhr.status);
-                        switch(xhr.status) {
-                        case 200:
-                            // Flush if needed
-                            setTimeout(function() {
-                                doFlush($this);
-                            }, 0);
-                            break;
-                        default:
-                            // failure, close the WebSocket
-                            doClose($this);
-                            break;
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState == 4) {
+                        ;
+                        ;
+                        ;
+                        WSEBLOG.finest(this, 'WebSocketEmulatedProxy.doFlush: xhr.status=' + xhr.status);
+                        switch (xhr.status) {
+                            case 200:
+                                // Flush if needed
+                                setTimeout(function () {
+                                    doFlush($this);
+                                }, 0);
+                                break;
+                            default:
+                                // failure, close the WebSocket
+                                doClose($this);
+                                break;
                         }
                     }
                 };
@@ -408,11 +466,14 @@ var WebSocketEmulatedProxy = (function() {
                 out.putBytes(RECONNECT_FRAME_BYTES);
                 out.flip();
 
-               xhr.setRequestHeader("X-Sequence-No", sequenceNo.toString());
+                xhr.setRequestHeader("X-Sequence-No", sequenceNo.toString());
 
                 if (browser == "firefox") {
                     if (xhr.sendAsBinary) {
-                        ;;;WSEBLOG.finest(this, 'WebSocketEmulatedProxy.doFlush: xhr.sendAsBinary');
+                        ;
+                        ;
+                        ;
+                        WSEBLOG.finest(this, 'WebSocketEmulatedProxy.doFlush: xhr.sendAsBinary');
                         xhr.setRequestHeader("Content-Type", "application/octet-stream");
                         xhr.sendAsBinary(encodeByteString(out));
                     }
@@ -434,17 +495,20 @@ var WebSocketEmulatedProxy = (function() {
      * @private
      * @ignore
      */
-    var connect = function($this) {
-        ;;;WSEBLOG.entering(this, 'WebSocketEmulatedProxy.connect');
+    var connect = function ($this) {
+        ;
+        ;
+        ;
+        WSEBLOG.entering(this, 'WebSocketEmulatedProxy.connect');
         var url = new URI($this.URL);
-        url.scheme = url.scheme.replace("ws","http");
+        url.scheme = url.scheme.replace("ws", "http");
 
         // Opera and IE need escaped upstream and downstream UNLESS XDR is used
         // to use XDR: (1) is IE, (2) XDomainRequest is defined (3) no cross scheme
         locationURI = new URI((browser == "ie") ? document.URL : location.href);
-		if (browser == "ie" && typeof(XDomainRequest) !== "undefined" && url.scheme === locationURI.scheme) {
-		    $this.useXDR = true;
-		}
+        if (browser == "ie" && typeof(XDomainRequest) !== "undefined" && url.scheme === locationURI.scheme) {
+            $this.useXDR = true;
+        }
         switch (browser) {
             case "opera":
                 $this.requiresEscaping = true;
@@ -459,8 +523,8 @@ var WebSocketEmulatedProxy = (function() {
                     $this.requiresEscaping = true;
                 }
                 else {
-                      // If XDR is ON, turn escaping OFF in IE9 and higher browsers.
-                      $this.requiresEscaping = false;
+                    // If XDR is ON, turn escaping OFF in IE9 and higher browsers.
+                    $this.requiresEscaping = false;
                 }
                 break;
             default:
@@ -483,7 +547,10 @@ var WebSocketEmulatedProxy = (function() {
             connectString += "&";
         }
         connectString += ".kn=" + String(Math.random()).substring(2);
-        ;;;WSEBLOG.finest(this, 'WebSocketEmulatedProxy.connect: Connecting to ' + connectString);
+        ;
+        ;
+        ;
+        WSEBLOG.finest(this, 'WebSocketEmulatedProxy.connect: Connecting to ' + connectString);
 
         var create = new XMLHttpRequest0();
         var connected = false;
@@ -512,12 +579,12 @@ var WebSocketEmulatedProxy = (function() {
             create.setRequestHeader("X-WebSocket-Extensions", registeredExtensions.join(", "));
         }
 
-        for(var i = 0; i < $this.parent.requestHeaders.length; i++) {
+        for (var i = 0; i < $this.parent.requestHeaders.length; i++) {
             var requstHdr = $this.parent.requestHeaders[i];
             create.setRequestHeader(requstHdr.label, requstHdr.value);
         }
 
-        create.onredirectallowed = function(originalLoc, redirectLoc) {
+        create.onredirectallowed = function (originalLoc, redirectLoc) {
             // ### TODO: Validate parameters.
             var compChannel = $this.parent.parent;
             var redirectPolicy = compChannel.getRedirectPolicy();
@@ -536,91 +603,96 @@ var WebSocketEmulatedProxy = (function() {
             return true;
         }
 
-        create.onreadystatechange = function() {
+        create.onreadystatechange = function () {
             switch (create.readyState) {
-            case 2:
-                if(create.status == 403) {
-                    //forbidden
-                    doError($this);
-                }
-                else {
-                    // Set the create timeout to the WebSocket connect timeout
-                    var createTimeout = $this.parent.parent._webSocket.connectTimeout;
-
-                    if (createTimeout == 0) {
-                        createTimeout = 5000;
-                    }
-
-                    timer = setTimeout(function () {
-                        if (!connected) {
-                            doError($this);
-                        }
-                    }, createTimeout);
-                }
-                break;
-            case 4:
-                connected = true;
-                if(create.status == 401) {
-                    //handle 401
-                    $this._listener.authenticationRequested($this.parent, create._location, create.getResponseHeader("WWW-Authenticate"));
-                    return;
-                }
-                if ($this.readyState < 1) {
-                    if (create.status == 201) {
-                        var locations = create.responseText.split("\n");
-                        var upstreamLocation = locations[0];
-                        var downstreamLocation = locations[1];
-
-                        // Since there might be redirection involved, use the location
-                        // from the XMLHttpBridge as the original URL.
-                        var createURI = new URI(create.xhr._location);
-                        var upstreamURI = new URI(upstreamLocation);
-                        var downstreamURI = new URI(downstreamLocation);
-
-                        if (createURI.host.toLowerCase() != upstreamURI.host.toLowerCase()) {
-                        	throw new Error("Hostname in original URI does not match with the hostname in the upstream URI.")
-                        }
-
-                        if (createURI.host.toLowerCase() != downstreamURI.host.toLowerCase()) {
-                        	throw new Error("Hostname in original URI does not match with the hostname in the downstream URI.")
-                        }
-
-                        // Instead of directly using locations[0] as the upstream URL, construct the
-                        // upstream URL using parts(scheme and authority) from the create URI so that
-                        // tools such as Fortify can be satisfied while scanning the JS library.
-                        $this._upstream = createURI.scheme + "://" + createURI.authority + upstreamURI.path;
-                        $this._downstream = new WebSocketEmulatedProxyDownstream(downstreamLocation, $this.sequence);
-
-                        //compare downstreamLocation with channel.location to check for redirected
-                        var redirectUrl = downstreamLocation.substring(0, downstreamLocation.indexOf("/;e/"));
-                        if(redirectUrl != $this.parent._location.toString().replace("ws", "http")) {
-                            $this.parent._redirectUri = redirectUrl;
-                        }
-                        bindHandlers($this, $this._downstream);
-                        //get response headers
-                        $this.parent.responseHeaders = create.getAllResponseHeaders();
-                        doOpen($this);
-                    }
-                    else
-                    {
-                        // failure, fire an error
+                case 2:
+                    if (create.status == 403) {
+                        //forbidden
                         doError($this);
                     }
-                }
-                break;
+                    else {
+                        // Set the create timeout to the WebSocket connect timeout
+                        var createTimeout = $this.parent.parent._webSocket.connectTimeout;
+
+                        if (createTimeout == 0) {
+                            createTimeout = 5000;
+                        }
+
+                        timer = setTimeout(function () {
+                            if (!connected) {
+                                doError($this);
+                            }
+                        }, createTimeout);
+                    }
+                    break;
+                case 4:
+                    connected = true;
+                    if (create.status == 401) {
+                        //handle 401
+                        $this._listener.authenticationRequested($this.parent, create._location, create.getResponseHeader("WWW-Authenticate"));
+                        return;
+                    }
+                    if ($this.readyState < 1) {
+                        if (create.status == 201) {
+                            var locations = create.responseText.split("\n");
+                            var upstreamLocation = locations[0];
+                            var downstreamLocation = locations[1];
+
+                            // Since there might be redirection involved, use the location
+                            // from the XMLHttpBridge as the original URL.
+                            var createURI = new URI(create.xhr._location);
+                            var upstreamURI = new URI(upstreamLocation);
+                            var downstreamURI = new URI(downstreamLocation);
+
+                            if (createURI.host.toLowerCase() != upstreamURI.host.toLowerCase()) {
+                                throw new Error("Hostname in original URI does not match with the hostname in the upstream URI.")
+                            }
+
+                            if (createURI.host.toLowerCase() != downstreamURI.host.toLowerCase()) {
+                                throw new Error("Hostname in original URI does not match with the hostname in the downstream URI.")
+                            }
+
+                            // Instead of directly using locations[0] as the upstream URL, construct the
+                            // upstream URL using parts(scheme and authority) from the create URI so that
+                            // tools such as Fortify can be satisfied while scanning the JS library.
+                            $this._upstream = createURI.scheme + "://" + createURI.authority + upstreamURI.path;
+                            $this._downstream = new WebSocketEmulatedProxyDownstream(downstreamLocation, $this.sequence);
+
+                            //compare downstreamLocation with channel.location to check for redirected
+                            var redirectUrl = downstreamLocation.substring(0, downstreamLocation.indexOf("/;e/"));
+                            if (redirectUrl != $this.parent._location.toString().replace("ws", "http")) {
+                                $this.parent._redirectUri = redirectUrl;
+                            }
+                            bindHandlers($this, $this._downstream);
+                            //get response headers
+                            $this.parent.responseHeaders = create.getAllResponseHeaders();
+                            doOpen($this);
+                        }
+                        else {
+                            // failure, fire an error
+                            doError($this);
+                        }
+                    }
+                    break;
             }
         };
 
         create.send(null);
-        ;;;WSEBLOG.exiting(this, 'WebSocketEmulatedProxy.connect');
+        ;
+        ;
+        ;
+        WSEBLOG.exiting(this, 'WebSocketEmulatedProxy.connect');
     }
 
     /**
      * @private
      * @ignore
      */
-    var doOpen = function($this) {
-        ;;;WSEBLOG.entering(this, 'WebSocketEmulatedProxy.doOpen');
+    var doOpen = function ($this) {
+        ;
+        ;
+        ;
+        WSEBLOG.entering(this, 'WebSocketEmulatedProxy.doOpen');
         $this.readyState = 1;
         var channel = $this.parent;
         channel._acceptedProtocol = channel.responseHeaders["X-WebSocket-Protocol"] || ""; //get protocol
@@ -629,7 +701,7 @@ var WebSocketEmulatedProxy = (function() {
         if (negotiatedExtensions) {
             var extensionArray = negotiatedExtensions.split(",");
             for (var i = 0; i < extensionArray.length; i++) {
-                channel._negotiatedExtensions.push(extensionArray[i].replace(/^\s+|\s+$/g,""));
+                channel._negotiatedExtensions.push(extensionArray[i].replace(/^\s+|\s+$/g, ""));
             }
         }
 
@@ -646,7 +718,10 @@ var WebSocketEmulatedProxy = (function() {
      */
     function doError($this) {
         if ($this.readyState < 2) {
-            ;;;WSEBLOG.entering(this, 'WebSocketEmulatedProxy.doError');
+            ;
+            ;
+            ;
+            WSEBLOG.entering(this, 'WebSocketEmulatedProxy.doError');
             $this.readyState = 2;
             if ($this.idleTimer) {
                 clearTimeout($this.idleTimer);
@@ -654,7 +729,7 @@ var WebSocketEmulatedProxy = (function() {
             if ($this.upstreamXHR != null) {
                 $this.upstreamXHR.abort();
             }
-            if($this.onerror != null) {
+            if ($this.onerror != null) {
                 //$this.onerror();
                 $this._listener.connectionFailed($this.parent);
             }
@@ -665,8 +740,11 @@ var WebSocketEmulatedProxy = (function() {
      * @private
      * @ignore
      */
-    var doClose = function($this, wasClean, code, reason) {
-        ;;;WSEBLOG.entering(this, 'WebSocketEmulatedProxy.doClose');
+    var doClose = function ($this, wasClean, code, reason) {
+        ;
+        ;
+        ;
+        WSEBLOG.entering(this, 'WebSocketEmulatedProxy.doClose');
         switch ($this.readyState) {
             case 2:
                 break;
@@ -687,19 +765,22 @@ var WebSocketEmulatedProxy = (function() {
                 }
                 break;
             default:
-                // ignore;
+            // ignore;
         }
     }
 
-    var doBufferedAmountChange = function($this) {
-    // TODO: Re-implement bufferedAmountChange - failing on IE8
-    //        if (!Object.defineProperty) {
-    //            $this._listener.bufferedAmountChange($this.parent, $this.bufferedAmount);
-    //        }
+    var doBufferedAmountChange = function ($this) {
+        // TODO: Re-implement bufferedAmountChange - failing on IE8
+        //        if (!Object.defineProperty) {
+        //            $this._listener.bufferedAmountChange($this.parent, $this.bufferedAmount);
+        //        }
     }
 
-    var handleMessage = function($this, event) {
-        ;;;WSEBLOG.finest("WebSocket.handleMessage: A WebSocket frame received on a WebSocket");
+    var handleMessage = function ($this, event) {
+        ;
+        ;
+        ;
+        WSEBLOG.finest("WebSocket.handleMessage: A WebSocket frame received on a WebSocket");
         if (event.text) {
             $this._listener.textMessageReceived($this.parent, event.text);
         } else if (event.data) {
@@ -707,7 +788,7 @@ var WebSocketEmulatedProxy = (function() {
         }
     }
 
-    var handlePing = function($this) {
+    var handlePing = function ($this) {
         // Reply PING with PONG via upstream
         // The wire representation of PONG frame is 0x8a 0x00
         var pongFrameBuffer = $rootModule.ByteBuffer.allocate(2);
@@ -717,9 +798,12 @@ var WebSocketEmulatedProxy = (function() {
         doSend($this, pongFrameBuffer);
     }
 
-    var bindHandlers = function($this, downstream) {
-        ;;;WSEBLOG.entering(this, 'WebSocketEmulatedProxy.bindHandlers');
-        downstream.onmessage = function(event) {
+    var bindHandlers = function ($this, downstream) {
+        ;
+        ;
+        ;
+        WSEBLOG.entering(this, 'WebSocketEmulatedProxy.bindHandlers');
+        downstream.onmessage = function (event) {
             switch (event.type) {
                 case "message":
                     if ($this.readyState == 1) {
@@ -730,13 +814,13 @@ var WebSocketEmulatedProxy = (function() {
             }
         }
 
-        downstream.onping = function() {
+        downstream.onping = function () {
             if ($this.readyState == 1) {
                 handlePing($this);
             }
         }
 
-        downstream.onerror = function() {
+        downstream.onerror = function () {
             // TODO error event (KG-3742)
             try {
                 downstream.disconnect();
@@ -745,9 +829,9 @@ var WebSocketEmulatedProxy = (function() {
                 doClose($this, true, $this.closeCode, $this.closeReason);
             }
         };
-        downstream.onclose = function(event) {
+        downstream.onclose = function (event) {
             // TODO error event (KG-3742)
-	    try {
+            try {
                 downstream.disconnect();
             }
             finally {

@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2007-2014 Kaazing Corporation. All rights reserved.
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -8,9 +8,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -23,17 +23,17 @@
 /**
  * @ignore
  */
-var XMLHttpRequest0 = (function() {
+var XMLHttpRequest0 = (function () {
     //
     // The emulation of cross-origin XMLHttpRequest uses postMessage.
     //
- 
+
     // IE6 cannot access window.location after document.domain is assigned, use document.URL instead
     var locationURI = new URI((browser == "ie") ? document.URL : location.href);
-    var defaultPorts = { "http": 80, "https": 443 };
+    var defaultPorts = {"http": 80, "https": 443};
     if (locationURI.port == null) {
-    	locationURI.port = defaultPorts[locationURI.scheme];
-    	locationURI.authority = locationURI.host + ":" + locationURI.port;
+        locationURI.port = defaultPorts[locationURI.scheme];
+        locationURI.authority = locationURI.host + ":" + locationURI.port;
     }
 
     function onreadystatechange($this) {
@@ -53,29 +53,30 @@ var XMLHttpRequest0 = (function() {
             $this.onerror();
         }
     }
-    
+
     function onload($this) {
         if (typeof($this.onload) !== "undefined") {
             $this.onload();
         }
     }
-	/**
-	 * Creates a new XMLHttpRequest0 instance.
-	 *
-	 * @constructor
-	 * @name XMLHttpRequest0
-	 * 
-	 * @class  XMLHttpRequest0 emulates cross-origin XMLHttpRequest.
-	 * @ignore
-	 */
+
+    /**
+     * Creates a new XMLHttpRequest0 instance.
+     *
+     * @constructor
+     * @name XMLHttpRequest0
+     *
+     * @class  XMLHttpRequest0 emulates cross-origin XMLHttpRequest.
+     * @ignore
+     */
     function XMLHttpRequest0() {
-    	this._requestHeaders = [];
-    	this.responseHeaders = {};
-    	this.withCredentials = false;
+        this._requestHeaders = [];
+        this.responseHeaders = {};
+        this.withCredentials = false;
     }
-    
+
     var $prototype = XMLHttpRequest0.prototype;
-    
+
     /**
      * The readyState property specifies the current state of the request.
      *
@@ -86,7 +87,7 @@ var XMLHttpRequest0 = (function() {
      * @memberOf XMLHttpRequest0
      */
     $prototype.readyState = 0;
-    
+
     /**
      * The responseText property specifies the response text of the request.
      *
@@ -97,7 +98,7 @@ var XMLHttpRequest0 = (function() {
      * @memberOf XMLHttpRequest0
      */
     $prototype.responseText = "";
-    
+
     /**
      * The status property specifies the response status code of the request.
      *
@@ -108,7 +109,7 @@ var XMLHttpRequest0 = (function() {
      * @memberOf XMLHttpRequest0
      */
     $prototype.status = 0;
-    
+
     /**
      * The statusText property specifies the response status text of the request.
      *
@@ -119,7 +120,7 @@ var XMLHttpRequest0 = (function() {
      * @memberOf XMLHttpRequest0
      */
     $prototype.statusText = "";
-    
+
     /**
      * The timeout property specifies the timeout period for the initial request connection.
      *
@@ -130,7 +131,7 @@ var XMLHttpRequest0 = (function() {
      * @memberOf XMLHttpRequest0
      */
     $prototype.timeout = 0;
-    
+
     /**
      * The onreadystatechange handler is called each time the responseState is updated.
      *
@@ -206,17 +207,17 @@ var XMLHttpRequest0 = (function() {
      * @name open
      * @memberOf XMLHttpRequest0
      */
-    $prototype.open = function(method, location, async) {
+    $prototype.open = function (method, location, async) {
         if (!async) {
             throw new Error("Asynchronous is required for cross-origin XMLHttpRequest emulation");
         }
-        
+
         switch (this.readyState) {
-          case 0:
-          case 4:
-            break;
-          default:
-            throw new Error("Invalid ready state");
+            case 0:
+            case 4:
+                break;
+            default:
+                throw new Error("Invalid ready state");
         }
 
         var $this = this;
@@ -230,50 +231,49 @@ var XMLHttpRequest0 = (function() {
         this.statusText = "";
         this.responseText = "";
 
-    	var xhr;
-    	var targetURI = new URI(location);
-    	if (targetURI.port == null) {
-    		targetURI.port = defaultPorts[targetURI.scheme];
-    		targetURI.authority = targetURI.host + ":" + targetURI.port;
+        var xhr;
+        var targetURI = new URI(location);
+        if (targetURI.port == null) {
+            targetURI.port = defaultPorts[targetURI.scheme];
+            targetURI.authority = targetURI.host + ":" + targetURI.port;
         }
-    	if (browser == "ie" && typeof(XDomainRequest) !== "undefined" &&     
-        		targetURI.scheme == locationURI.scheme &&
-        		!this.withCredentials) {
-        	//use XDR?
-        	xhr = new XDRHttpDirect(this);
+        if (browser == "ie" && typeof(XDomainRequest) !== "undefined" &&
+            targetURI.scheme == locationURI.scheme && !this.withCredentials) {
+            //use XDR?
+            xhr = new XDRHttpDirect(this);
 
         }
-        else if(targetURI.scheme == locationURI.scheme && targetURI.authority == locationURI.authority) {
-        	//same origin - use XMLHttpDirect
-        	try {
-        		xhr = new XMLHttpBridge(this);    // use XMLHttpDirect  new XMLHttpDirect(this);
-        	} catch (e) {
-        		xhr = new XMLHttpBridge(this);
-        	}
+        else if (targetURI.scheme == locationURI.scheme && targetURI.authority == locationURI.authority) {
+            //same origin - use XMLHttpDirect
+            try {
+                xhr = new XMLHttpBridge(this);    // use XMLHttpDirect  new XMLHttpDirect(this);
+            } catch (e) {
+                xhr = new XMLHttpBridge(this);
+            }
         }
         else {
-        	//use bridge
-        	xhr = new XMLHttpBridge(this);
+            //use bridge
+            xhr = new XMLHttpBridge(this);
         }
-        
+
         xhr.onload = onload;
         xhr.onprogress = onprogress;
         xhr.onreadystatechange = onreadystatechange;
         xhr.onerror = onerror;
-        xhr.open(method,location);
-        
+        xhr.open(method, location);
+
         this.xhr = xhr;
-        setTimeout(function() {
+        setTimeout(function () {
             if ($this.readyState > 1) {
-               return; // readystatechange already fired for readyState=2 or bigger vaue
+                return; // readystatechange already fired for readyState=2 or bigger vaue
             }
-            if ($this.readyState < 1) {	
+            if ($this.readyState < 1) {
                 $this.readyState = 1; // opened
             }
-            onreadystatechange($this); 
+            onreadystatechange($this);
         }, 0);
     }
-    
+
     /**
      * Sets the request header.
      *
@@ -287,14 +287,14 @@ var XMLHttpRequest0 = (function() {
      * @name setRequestHeader
      * @memberOf XMLHttpRequest0
      */
-    $prototype.setRequestHeader = function(label, value) {
+    $prototype.setRequestHeader = function (label, value) {
         if (this.readyState !== 1) {
             throw new Error("Invalid ready state");
         }
-        
+
         this._requestHeaders.push([label, value]);
     }
-    
+
     /**
      * Sends the request payload.
      *
@@ -307,26 +307,26 @@ var XMLHttpRequest0 = (function() {
      * @name send
      * @memberOf XMLHttpRequest0
      */
-    $prototype.send = function(payload) {
+    $prototype.send = function (payload) {
         if (this.readyState !== 1) {
             throw new Error("Invalid ready state");
         }
-        
+
         // allow handler to be assigned after open completes
         var $this = this;
-        setTimeout(function() {
+        setTimeout(function () {
             if ($this.readyState > 2) {
                 return; // readystatechange already fired for readyState=2
             }
             if ($this.readyState < 2) {
                 $this.readyState = 2;
             }
-            onreadystatechange($this); 
+            onreadystatechange($this);
         }, 0);
-        
+
         this.xhr.send(payload);
     }
-    
+
     /**
      * Aborts the request.
      *
@@ -337,10 +337,10 @@ var XMLHttpRequest0 = (function() {
      * @name abort
      * @memberOf XMLHttpRequest0
      */
-    $prototype.abort = function() {
-    	this.xhr.abort();
+    $prototype.abort = function () {
+        this.xhr.abort();
     }
-    
+
     /**
      * Returns the response header.
      *
@@ -353,7 +353,7 @@ var XMLHttpRequest0 = (function() {
      * @name getResponseHeader
      * @memberOf XMLHttpRequest0
      */
-    $prototype.getResponseHeader = function(label) {
+    $prototype.getResponseHeader = function (label) {
         if (this.status == 0) {
             throw new Error("Invalid ready state");
         }
@@ -366,7 +366,7 @@ var XMLHttpRequest0 = (function() {
             return null;
         }
     }
-    
+
     /**
      * Returns the response header.
      *
@@ -377,14 +377,14 @@ var XMLHttpRequest0 = (function() {
      * @name getAllResponseHeaders
      * @memberOf XMLHttpRequest0
      */
-    $prototype.getAllResponseHeaders = function() {
+    $prototype.getAllResponseHeaders = function () {
         if (this.status == 0) {
             throw new Error("Invalid ready state");
         }
-        
+
         return this._responseHeaders;
     }
-    
+
     return XMLHttpRequest0;
 })();
     

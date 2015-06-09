@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2007-2014 Kaazing Corporation. All rights reserved.
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -8,9 +8,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -20,7 +20,7 @@
  */
 
 
-(function($module){
+(function ($module) {
 
     /**
      * A Negotiate Challenge Handler handles initial empty "Negotiate" challenges from the
@@ -57,20 +57,20 @@
      * @see http://tools.ietf.org/html/rfc4121: RFC 4121 - Kerberos v5 GSS-API (version 2)
      * @see http://tools.ietf.org/html/rfc2616: RFC 2616 - HTTP 1.1
      * @see http://tools.ietf.org/html/rfc2617: RFC 2617 - HTTP Authentication
-     * 
+     *
      * @class
      * @alias NegotiateChallengeHandler
      * @constructor
      */
-    var NegotiateChallengeHandler = function()  {
+    var NegotiateChallengeHandler = function () {
         this.candidateChallengeHandlers = new Array();
     };
-    
+
     var Oid = $module.Oid;
 
-    var makeSPNEGOInitTokenByOids = function(strings) {
+    var makeSPNEGOInitTokenByOids = function (strings) {
         var oids = new Array();
-        for (var i = 0; i<strings.length; i++) {
+        for (var i = 0; i < strings.length; i++) {
             oids.push(Oid.create(strings[i]).asArray());
         }
         var gssTokenLen = GssUtils.sizeOfSpnegoInitialContextTokenWithOids(null, oids);
@@ -79,7 +79,7 @@
         GssUtils.encodeSpnegoInitialContextTokenWithOids(null, oids, gssTokenBuf);
         return ByteArrayUtils.arrayToByteArray(Base64Util.encodeBuffer(gssTokenBuf));
     }
-        
+
     var $prototype = NegotiateChallengeHandler.prototype;
     /**
      * Register a candidate negotiable challenge handler that will be used to respond
@@ -88,36 +88,36 @@
      *
      * @param handler the mechanism-type-specific challenge handler.
      * @return {ChallengeHandler} a reference to this handler, to support chained calls
-     * 
+     *
      * @public
      * @function
      * @name register
      * @memberOf NegotiateChallengeHandler#
      */
-    $prototype.register = function(handler) {
+    $prototype.register = function (handler) {
         if (handler == null) {
             throw new Error("handler is null");
         }
-        for (var i = 0; i<this.candidateChallengeHandlers.length; i++) {
-            if ( handler === this.candidateChallengeHandlers[i] ) {
+        for (var i = 0; i < this.candidateChallengeHandlers.length; i++) {
+            if (handler === this.candidateChallengeHandlers[i]) {
                 return this;
             }
         }
         this.candidateChallengeHandlers.push(handler);
         return this;
     }
-    
-    $prototype.canHandle = function(challengeRequest) {
+
+    $prototype.canHandle = function (challengeRequest) {
         return challengeRequest != null &&
-        challengeRequest.authenticationScheme == "Negotiate" &&
-        challengeRequest.authenticationParameters == null;
+            challengeRequest.authenticationScheme == "Negotiate" &&
+            challengeRequest.authenticationParameters == null;
     }
 
-    $prototype.handle = function(challengeRequest, callback) {
+    $prototype.handle = function (challengeRequest, callback) {
         if (challengeRequest == null) {
             throw Error(new ArgumentError("challengeRequest is null"));
         }
-        
+
         var handlersByOid = new OrderedDictionary();
         for (var i = 0; i < this.candidateChallengeHandlers.length; i++) {
             var candidate = this.candidateChallengeHandlers[i];
@@ -132,7 +132,7 @@
                     }
                 }
                 catch (e) {
-                //LOG.info(RESPONSE_FAILURE_MSG, candidate, e);
+                    //LOG.info(RESPONSE_FAILURE_MSG, candidate, e);
                 }
             }
         }
@@ -141,11 +141,11 @@
             return;
         }
         /* TODO
-        var selectChallengeHandler = new SelectChallengeHandler();
-        selectChallengeHandler.setHandlersByOid(handlersByOid);
-        callback(new $module.ChallengeResponse(makeSPNEGOInitTokenByOids(handlersByOid.keySet()), selectChallengeHandler));
-        */
-        
+         var selectChallengeHandler = new SelectChallengeHandler();
+         selectChallengeHandler.setHandlersByOid(handlersByOid);
+         callback(new $module.ChallengeResponse(makeSPNEGOInitTokenByOids(handlersByOid.keySet()), selectChallengeHandler));
+         */
+
     }
 
 //$module.NegotiableChallengeHandler = (function() {

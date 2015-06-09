@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2007-2014 Kaazing Corporation. All rights reserved.
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -8,9 +8,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -23,30 +23,46 @@
 /**
  * @private
  */
-var WebSocketNativeHandshakeHandler = (function() /*extends WebSocketHandlerAdapter*/ {
-	;;;var CLASS_NAME = "WebSocketNativeHandshakeHandler";
-	;;;var LOG = Logger.getLogger(CLASS_NAME);
-    /*static final String*/var  HEADER_SEC_PROTOCOL = "Sec-WebSocket-Protocol";
-    /*final String*/var HEADER_SEC_EXTENSIONS = "Sec-WebSocket-Extensions";
-    /*final String*/var HEADER_AUTHORIZATION = "Authorization";
-    /*final String*/var HEADER_WWW_AUTHENTICATE = "WWW-Authenticate";
-    /*final String*/var HEADER_SET_COOKIE = "Set-Cookie";
+var WebSocketNativeHandshakeHandler = (function () /*extends WebSocketHandlerAdapter*/ {
+    ;
+    ;
+    ;
+    var CLASS_NAME = "WebSocketNativeHandshakeHandler";
+    ;
+    ;
+    ;
+    var LOG = Logger.getLogger(CLASS_NAME);
+    /*static final String*/
+    var HEADER_SEC_PROTOCOL = "Sec-WebSocket-Protocol";
+    /*final String*/
+    var HEADER_SEC_EXTENSIONS = "Sec-WebSocket-Extensions";
+    /*final String*/
+    var HEADER_AUTHORIZATION = "Authorization";
+    /*final String*/
+    var HEADER_WWW_AUTHENTICATE = "WWW-Authenticate";
+    /*final String*/
+    var HEADER_SET_COOKIE = "Set-Cookie";
     var GET_BYTES = "GET";
     var HTTP_1_1_BYTES = "HTTP/1.1";
     var COLON_BYTES = ":";
     var SPACE_BYTES = " ";
     var CRLF_BYTES = "\r\n";
-    
 
-	
-    var WebSocketNativeHandshakeHandler = function() {
-		;;;LOG.finest(CLASS_NAME, "<init>");
+
+    var WebSocketNativeHandshakeHandler = function () {
+        ;
+        ;
+        ;
+        LOG.finest(CLASS_NAME, "<init>");
     };
-		
+
     //internal functions
-    
-    var sendCookieRequest = function(channel, kSessionId) {
-        ;;;LOG.finest(CLASS_NAME, "sendCookieRequest with {0}", kSessionId)
+
+    var sendCookieRequest = function (channel, kSessionId) {
+        ;
+        ;
+        ;
+        LOG.finest(CLASS_NAME, "sendCookieRequest with {0}", kSessionId)
 
         var create = new XMLHttpRequest0();
         var path = channel._location.getHttpEquivalentScheme() + "://" + channel._location.getAuthority() + (channel._location._uri.path || "");
@@ -56,7 +72,7 @@ var WebSocketNativeHandshakeHandler = (function() /*extends WebSocketHandlerAdap
         create.send(kSessionId);
     }
 
-    var sendHandshakePayload = function($this, channel, authToken) {
+    var sendHandshakePayload = function ($this, channel, authToken) {
         var headerNames = [];
         var headerValues = [];
         headerNames.push("WebSocket-Protocol");
@@ -72,23 +88,26 @@ var WebSocketNativeHandshakeHandler = (function() /*extends WebSocketHandlerAdap
         headerValues.push(extensions.join(","));
         headerNames.push(HEADER_AUTHORIZATION);
         headerValues.push(authToken);  //send authorization token
-            
+
         var payload = encodeGetRequest(channel._location, headerNames, headerValues);
         $this._nextHandler.processTextMessage(channel, payload);
     }
-    
-    var encodeGetRequest = function(requestURI, names, values) {
 
-        ;;;LOG.entering(CLASS_NAME, "encodeGetRequest");
+    var encodeGetRequest = function (requestURI, names, values) {
+
+        ;
+        ;
+        ;
+        LOG.entering(CLASS_NAME, "encodeGetRequest");
         // Encode Request line
         var lines = [];
         lines.push(GET_BYTES);
         lines.push(SPACE_BYTES);
         var path = [];
-        if(requestURI._uri.path != undefined) {
+        if (requestURI._uri.path != undefined) {
             path.push(requestURI._uri.path);
         }
-        if(requestURI._uri.query != undefined) {
+        if (requestURI._uri.query != undefined) {
             path.push("?");
             path.push(requestURI._uri.query)
         }
@@ -118,8 +137,8 @@ var WebSocketNativeHandshakeHandler = (function() /*extends WebSocketHandlerAdap
         return requestStr;
     }
 
-    var handleHandshakeMessage = function($this, channel, s) {
-        
+    var handleHandshakeMessage = function ($this, channel, s) {
+
         if (s.length > 0) {
             channel.handshakePayload += s;
             //wait for more messages
@@ -143,7 +162,7 @@ var WebSocketNativeHandshakeHandler = (function() /*extends WebSocketHandlerAdap
 
             //get supported extensions escape bytes
             var extensionsHeader = []; // we may have multiple extension headers,and each header may have multiple extensions
-            var acceptedProtocol ="";
+            var acceptedProtocol = "";
             for (var i = 0; i < lines.length; i++) {
                 var line = lines[i];
                 if (line != null && line.indexOf(HEADER_SEC_EXTENSIONS) == 0) {
@@ -158,13 +177,13 @@ var WebSocketNativeHandshakeHandler = (function() /*extends WebSocketHandlerAdap
                 }
             }
             channel._acceptedProtocol = acceptedProtocol; //set server accepted protocol
-            
+
             // extensions header
             if (extensionsHeader.length > 0) {
                 var extensions = extensionsHeader.join(", ").split(", ");
                 for (var j = 0; j < extensions.length; j++) {
                     var extensionElements = extensions[j].split(";");
-                    var extensionName =  extensionElements[0].replace(/^\s+|\s+$/g,"");
+                    var extensionName = extensionElements[0].replace(/^\s+|\s+$/g, "");
                     if (WebSocketHandshakeObject.KAAZING_SEC_EXTENSION_IDLE_TIMEOUT === extensionName) {
                         //x-kaazing-idle-timeout extension, the timeout parameter is like "timeout=500"
                         var timeout = extensionElements[1].match(/\d+/)[0];
@@ -174,14 +193,14 @@ var WebSocketNativeHandshakeHandler = (function() /*extends WebSocketHandlerAdap
                         continue; //x-kaazing-idle-timeout is internal extension
                     }
                     else if (WebSocketHandshakeObject.KAAZING_SEC_EXTENSION_PING_PONG === extensionName) {
-                    	//x-kaazing-ping pong, cache the extension using the escapeKey
-                    	try {
-                    		var escape = extensionElements[1].replace(/^\s+|\s+$/g,"");
+                        //x-kaazing-ping pong, cache the extension using the escapeKey
+                        try {
+                            var escape = extensionElements[1].replace(/^\s+|\s+$/g, "");
                             var escapeKey = parseInt(escape, 16);
                             channel._controlFrames[escapeKey] = extensionName; // x-kaazing-ping-pong only send text messages
                             channel._escapeSequences[escapeKey] = extensionName;
                             continue; //x-kaazing-ping-pong is internal only
-                        } catch(e) {
+                        } catch (e) {
                             // this is not escape parameter, ignored
                             throw new Error("failed to parse escape key for x-kaazing-ping-pong extension");
                         }
@@ -215,8 +234,8 @@ var WebSocketNativeHandshakeHandler = (function() /*extends WebSocketHandlerAdap
             $this._listener.connectionFailed(channel);
         }
     }
-    
-    var handleTimeout = function($this, channel) {
+
+    var handleTimeout = function ($this, channel) {
         try {
             channel.handshakestatus = 3; //handshake timeout
             $this._nextHandler.processClose(channel);
@@ -227,11 +246,11 @@ var WebSocketNativeHandshakeHandler = (function() /*extends WebSocketHandlerAdap
     }
 
     /**
-	 * @private
-	 */
-	var $prototype = WebSocketNativeHandshakeHandler.prototype = new WebSocketHandlerAdapter();
+     * @private
+     */
+    var $prototype = WebSocketNativeHandshakeHandler.prototype = new WebSocketHandlerAdapter();
 
-    $prototype.processConnect = function(channel, uri, protocol) {
+    $prototype.processConnect = function (channel, uri, protocol) {
         channel.handshakePayload = "";
         //add x-kaazing-extension protocol
         var protocols = [WebSocketHandshakeObject.KAAZING_EXTENDED_HANDSHAKE];
@@ -257,12 +276,15 @@ var WebSocketNativeHandshakeHandler = (function() /*extends WebSocketHandlerAdap
         }
     }
 
-    $prototype.processAuthorize = function(channel, authorizeToken) {
+    $prototype.processAuthorize = function (channel, authorizeToken) {
         sendHandshakePayload(this, channel, authorizeToken);
     }
 
-    $prototype.handleConnectionOpened = function(channel, protocol) {
-		;;;LOG.finest(CLASS_NAME, "handleConnectionOpened");
+    $prototype.handleConnectionOpened = function (channel, protocol) {
+        ;
+        ;
+        ;
+        LOG.finest(CLASS_NAME, "handleConnectionOpened");
         //check response for "x-kaazing-handshake protocol"
         if (WebSocketHandshakeObject.KAAZING_EXTENDED_HANDSHAKE == protocol) {
             sendHandshakePayload(this, channel, null);
@@ -286,61 +308,66 @@ var WebSocketNativeHandshakeHandler = (function() /*extends WebSocketHandlerAdap
         }
     }
 
-	$prototype.handleMessageReceived = function(channel, message) {
-		;;;LOG.finest(CLASS_NAME, "handleMessageReceived", message);
+    $prototype.handleMessageReceived = function (channel, message) {
+        ;
+        ;
+        ;
+        LOG.finest(CLASS_NAME, "handleMessageReceived", message);
         if (channel.readyState == WebSocket.OPEN) {
             //isEscape is true, this is orginal messasge, reset flag and raise event
-			channel._isEscape = false;
-			this._listener.textMessageReceived(channel, message);
+            channel._isEscape = false;
+            this._listener.textMessageReceived(channel, message);
         }
-		else {
+        else {
             handleHandshakeMessage(this, channel, message);
-		}
-	}
+        }
+    }
 
-	$prototype.handleBinaryMessageReceived = function(channel, message) {
-		;;;LOG.finest(CLASS_NAME, "handleMessageReceived", message);
+    $prototype.handleBinaryMessageReceived = function (channel, message) {
+        ;
+        ;
+        ;
+        LOG.finest(CLASS_NAME, "handleMessageReceived", message);
         if (channel.readyState == WebSocket.OPEN) {
             //isEscape is true, this is orginal messasge, reset flag and raise event
-			channel._isEscape = false;
-			this._listener.binaryMessageReceived(channel, message);
+            channel._isEscape = false;
+            this._listener.binaryMessageReceived(channel, message);
         }
-		else
-		{
-	        handleHandshakeMessage(this, channel, String.fromCharCode.apply(null, new Uint8Array(message)));
-		}
-	}
+        else {
+            handleHandshakeMessage(this, channel, String.fromCharCode.apply(null, new Uint8Array(message)));
+        }
+    }
 
-    $prototype.setNextHandler = function(nextHandler) {
+    $prototype.setNextHandler = function (nextHandler) {
         this._nextHandler = nextHandler;
         var $this = this;
         var listener = new WebSocketHandlerListener(this);
-        listener.connectionOpened = function(channel, protocol) {
+        listener.connectionOpened = function (channel, protocol) {
             //alert(CLASS_NAME + "connectionOpened");
             $this.handleConnectionOpened(channel, protocol);
         }
-        listener.textMessageReceived = function(channel, buf) {
+        listener.textMessageReceived = function (channel, buf) {
             $this.handleMessageReceived(channel, buf);
         }
-        listener.binaryMessageReceived = function(channel, buf) {
+        listener.binaryMessageReceived = function (channel, buf) {
             $this.handleBinaryMessageReceived(channel, buf);
         }
-        listener.connectionClosed = function(channel, wasClean, code, reason) {
-            if (channel.handshakestatus <3)
+        listener.connectionClosed = function (channel, wasClean, code, reason) {
+            if (channel.handshakestatus < 3)
                 channel.handshakestatus = 3; //only fire this event once
-                $this._listener.connectionClosed(channel, wasClean, code, reason);
+            $this._listener.connectionClosed(channel, wasClean, code, reason);
         }
-        listener.connectionFailed = function(channel) {
-            if (channel.handshakestatus <3)
+        listener.connectionFailed = function (channel) {
+            if (channel.handshakestatus < 3)
                 channel.handshakestatus = 3; //only fire this event once
-                $this._listener.connectionFailed(channel);
+            $this._listener.connectionFailed(channel);
         }
         nextHandler.setListener(listener);
     }
 
-	$prototype.setListener = function(listener) {
-		this._listener = listener;
-	}
+    $prototype.setListener = function (listener) {
+        this._listener = listener;
+    }
 
-	return WebSocketNativeHandshakeHandler;
+    return WebSocketNativeHandshakeHandler;
 })()

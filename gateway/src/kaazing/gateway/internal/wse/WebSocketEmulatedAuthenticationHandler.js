@@ -23,136 +23,145 @@
 /**
  * @private
  */
-var WebSocketEmulatedAuthenticationHandler = (function($module) /*extends WebSocketHandlerAdapter*/ {
-		;;;var CLASS_NAME = "WebSocketEmulatedAuthenticationHandler";
-		;;;var LOG = Logger.getLogger(CLASS_NAME);
+var WebSocketEmulatedAuthenticationHandler = (function ($module) /*extends WebSocketHandlerAdapter*/ {
+    ;
+    ;
+    ;
+    var CLASS_NAME = "WebSocketEmulatedAuthenticationHandler";
+    ;
+    ;
+    ;
+    var LOG = Logger.getLogger(CLASS_NAME);
 
-		var WebSocketEmulatedAuthenticationHandler = function() {
-			;;;LOG.finest(CLASS_NAME, "<init>");
-		};
+    var WebSocketEmulatedAuthenticationHandler = function () {
+        ;
+        ;
+        ;
+        LOG.finest(CLASS_NAME, "<init>");
+    };
 
-	   var $prototype = WebSocketEmulatedAuthenticationHandler.prototype = new WebSocketHandlerAdapter();
+    var $prototype = WebSocketEmulatedAuthenticationHandler.prototype = new WebSocketHandlerAdapter();
 
-        //internal functions
+    //internal functions
 
-		$prototype.handleClearAuthenticationData = function(channel) {
-			if (channel._challengeResponse != null) {
-				channel._challengeResponse.clearCredentials();
-			}
-		}
+    $prototype.handleClearAuthenticationData = function (channel) {
+        if (channel._challengeResponse != null) {
+            channel._challengeResponse.clearCredentials();
+        }
+    }
 
-		$prototype.handleRemoveAuthenticationData = function(channel) {
-			this.handleClearAuthenticationData(channel);
-			channel._challengeResponse = new $module.ChallengeResponse(null, null);
-		}
+    $prototype.handleRemoveAuthenticationData = function (channel) {
+        this.handleClearAuthenticationData(channel);
+        channel._challengeResponse = new $module.ChallengeResponse(null, null);
+    }
 
-        $prototype.handle401 = function(channel, location, challenge) {
-            var $this = this;
-            var connectTimer = null;
+    $prototype.handle401 = function (channel, location, challenge) {
+        var $this = this;
+        var connectTimer = null;
 
-            if (typeof(channel.parent.connectTimer) != "undefined") {
-                connectTimer = channel.parent.connectTimer;
+        if (typeof(channel.parent.connectTimer) != "undefined") {
+            connectTimer = channel.parent.connectTimer;
 
-                if (connectTimer != null) {
-                    // Pause the connect timer while the user is providing the
-                    // credentials.
-                    connectTimer.pause();
+            if (connectTimer != null) {
+                // Pause the connect timer while the user is providing the
+                // credentials.
+                connectTimer.pause();
+            }
+        }
+
+        var challengeLocation = location;
+        if (challengeLocation.indexOf("/;e/") > 0) {
+            challengeLocation = challengeLocation.substring(0, challengeLocation.indexOf("/;e/")); //"/;e/" was added by WebSocketImpl.as
+        }
+        var challengeUri = new WSURI(challengeLocation.replace("http", "ws"));
+        var challengeRequest = new $module.ChallengeRequest(challengeLocation, challenge);
+
+        var challengeHandler;
+        if (channel._challengeResponse.nextChallengeHandler != null) {
+            challengeHandler = channel._challengeResponse.nextChallengeHandler;
+        } else {
+            challengeHandler = channel.parent.challengeHandler;
+        }
+
+        if (challengeHandler != null && challengeHandler.canHandle(challengeRequest)) {
+            challengeHandler.handle(challengeRequest, function (challengeResponse) {
+                //fulfilled callback function
+                try {
+                    if (challengeResponse == null || challengeResponse.credentials == null) {
+                        // No response available
+                        $this.handleClearAuthenticationData(channel); //clear authentication data
+                        $this._listener.connectionFailed(channel);
+                    } else {
+                        if (connectTimer != null) {
+                            // Resume the connect timer.
+                            connectTimer.resume();
+                        }
+
+                        // Retry request with the auth response.
+                        channel._challengeResponse = challengeResponse;
+                        $this.processConnect(channel, challengeUri, channel._protocol);
+                    }
+                } catch (e) {
+                    $this.handleClearAuthenticationData(channel);
+                    $this._listener.connectionFailed(channel);
+                }
+            });
+        } else {
+            this.handleClearAuthenticationData(channel); //clear authentication data
+            this._listener.connectionFailed(channel);
+        }
+    }
+
+    /**
+     * Implement WebSocketListener methods
+     *
+     * @private
+     */
+
+    $prototype.processConnect = function (channel, location, protocol) {
+        if (channel._challengeResponse != null && channel._challengeResponse.credentials != null) {
+            // Retry request with the auth response.
+            var authResponse = channel._challengeResponse.credentials.toString();
+            //LOG.debug("HttpRequest(Proxy).handleAuthChallenge: Setting Authorization header to {0}", authResponse);
+            //remove previouse Authorization header if exists
+            for (var i = channel.requestHeaders.length - 1; i >= 0; i--) {
+                if (channel.requestHeaders[i].label === "Authorization") {
+                    channel.requestHeaders.splice(i, 1);
                 }
             }
-
-            var challengeLocation = location;
-    		if (challengeLocation.indexOf("/;e/") > 0) {
-               	challengeLocation = challengeLocation.substring(0, challengeLocation.indexOf("/;e/")); //"/;e/" was added by WebSocketImpl.as
+            var authHeader = new URLRequestHeader("Authorization", authResponse);
+            //remove previouse Authorization header if exists
+            for (var i = channel.requestHeaders.length - 1; i >= 0; i--) {
+                if (channel.requestHeaders[i].label === "Authorization") {
+                    channel.requestHeaders.splice(i, 1);
+                }
             }
-            var challengeUri = new WSURI(challengeLocation.replace("http", "ws"));
-            var challengeRequest = new $module.ChallengeRequest(challengeLocation,  challenge);
+            channel.requestHeaders.push(authHeader);
+            this.handleClearAuthenticationData(channel); //clear authentication data
+        }
+        this._nextHandler.processConnect(channel, location, protocol);
+    }
 
-			var challengeHandler;
-			if (channel._challengeResponse.nextChallengeHandler != null ) {
-				challengeHandler = channel._challengeResponse.nextChallengeHandler;
-			} else {
-				challengeHandler = channel.parent.challengeHandler;
-			}
+    $prototype.handleAuthenticate = function (channel, location, challenge) {
+        channel.authenticationReceived = true;
+        this.handle401(channel, location, challenge);
+    }
+    $prototype.setNextHandler = function (nextHandler) {
+        this._nextHandler = nextHandler;
+        var listener = new WebSocketHandlerListener(this);
+        var outer = this;
 
-			if ( challengeHandler != null && challengeHandler.canHandle(challengeRequest)) {
-				challengeHandler.handle(challengeRequest,function(challengeResponse) {
-                        //fulfilled callback function
-                        try {
-                            if ( challengeResponse == null || challengeResponse.credentials == null) {
-                                // No response available
-                                $this.handleClearAuthenticationData(channel); //clear authentication data
-                                $this._listener.connectionFailed(channel);
-                            } else {
-                                if (connectTimer != null) {
-                                    // Resume the connect timer.
-                                    connectTimer.resume();
-                                }
+        listener.authenticationRequested = function (channel, location, challenge) {
+            //alert(CLASS_NAME + "authenticationRequested");
+            outer.handleAuthenticate(channel, location, challenge);
+        }
+        nextHandler.setListener(listener);
 
-                                // Retry request with the auth response.
-                                channel._challengeResponse = challengeResponse;
-                                $this.processConnect(channel, challengeUri, channel._protocol);
-                            }
-                        } catch(e) {
-                            $this.handleClearAuthenticationData(channel);
-                            $this._listener.connectionFailed(channel);
-                        }
-					});
-			} else {
-				this.handleClearAuthenticationData(channel); //clear authentication data
-				this._listener.connectionFailed(channel);
-			}
-		}
+    }
 
-	   /**
-	    * Implement WebSocketListener methods
-            *
-	    * @private
-            */
+    $prototype.setListener = function (listener) {
+        this._listener = listener;
+    }
 
-        $prototype.processConnect = function(channel, location, protocol) {
-			if(channel._challengeResponse != null && channel._challengeResponse.credentials != null) {
-				// Retry request with the auth response.
-				var authResponse = channel._challengeResponse.credentials.toString();
-				//LOG.debug("HttpRequest(Proxy).handleAuthChallenge: Setting Authorization header to {0}", authResponse);
-				//remove previouse Authorization header if exists
-				for (var i = channel.requestHeaders.length-1; i >= 0; i-- ) {
-				    if (channel.requestHeaders[i].label === "Authorization") {
-				    	channel.requestHeaders.splice(i, 1);
-				    }
-				}
-				var authHeader = new URLRequestHeader("Authorization", authResponse);
-				//remove previouse Authorization header if exists
-				for (var i = channel.requestHeaders.length-1; i >= 0; i-- ) {
-				    if (channel.requestHeaders[i].label === "Authorization") {
-				    	channel.requestHeaders.splice(i, 1);
-				    }
-				}
-				channel.requestHeaders.push(authHeader);
-				this.handleClearAuthenticationData(channel); //clear authentication data
-			}
-			this._nextHandler.processConnect(channel, location, protocol);
-		}
-
-        $prototype.handleAuthenticate = function(channel, location, challenge) {
-            channel.authenticationReceived = true;
-			this.handle401(channel,location, challenge);
-		}
-		$prototype.setNextHandler = function(nextHandler) {
-			this._nextHandler = nextHandler;
-			var listener = new WebSocketHandlerListener(this);
-            var outer = this;
-
-            listener.authenticationRequested = function(channel, location, challenge) {
-               //alert(CLASS_NAME + "authenticationRequested");
-               outer.handleAuthenticate(channel,location, challenge);
-            }
-            nextHandler.setListener(listener);
-
-		}
-
-		$prototype.setListener = function(listener) {
-			this._listener = listener;
-		}
-
-	return WebSocketEmulatedAuthenticationHandler;
+    return WebSocketEmulatedAuthenticationHandler;
 })(Kaazing.Gateway)

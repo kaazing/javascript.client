@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2007-2014 Kaazing Corporation. All rights reserved.
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -8,9 +8,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -21,107 +21,113 @@
 
 
 /**
-  Creates a new WebSocketFactory instance.
+ Creates a new WebSocketFactory instance.
 
-  @constructor
-  @name  WebSocketFactory
-  @class WebSocketFactory is used to create instances of WebSocket by specifying 
-         the end-point and the enabled protocols.
-         <p>
-         Using WebSocketFactory instance, application developers can set the ChallengeHandler
-         or enabled extensions that will be inherited by all the WebSocket instances created 
-         from the factory. Once the WebSocket is connected, extensions that were successfully
-         negotiated with the server can be determined using <code>WebSocket.extensions</code>
-         property.
-*/
+ @constructor
+ @name  WebSocketFactory
+ @class WebSocketFactory is used to create instances of WebSocket by specifying
+ the end-point and the enabled protocols.
+ <p>
+ Using WebSocketFactory instance, application developers can set the ChallengeHandler
+ or enabled extensions that will be inherited by all the WebSocket instances created
+ from the factory. Once the WebSocket is connected, extensions that were successfully
+ negotiated with the server can be determined using <code>WebSocket.extensions</code>
+ property.
+ */
 
-(function($module) {
-    
-    $module.WebSocketFactory = (function() {
-        
-        ;;;var CLASS_NAME = "WebSocketFactory";
-        ;;;var LOG = Logger.getLogger(CLASS_NAME);
+(function ($module) {
 
-        var WebSocketFactory = function() {
+    $module.WebSocketFactory = (function () {
+
+        ;
+        ;
+        ;
+        var CLASS_NAME = "WebSocketFactory";
+        ;
+        ;
+        ;
+        var LOG = Logger.getLogger(CLASS_NAME);
+
+        var WebSocketFactory = function () {
             this.redirectPolicy = $module.HttpRedirectPolicy.ALWAYS;
         }
 
         var $prototype = WebSocketFactory.prototype;
 
         /**
-          Sets the default ChallengeHandler that is used during
-          authentication both at the connect-time as well as at subsequent 
-          revalidation-time that occurs at regular intervals. All the 
-          WebSockets created using this factory will inherit the default
-          ChallengeHandler.
-         
-          @name setChallengeHandler
-          @param challengeHandler  {ChallengeHandler}  the default ChallengeHandler
-          @return {void}
+         Sets the default ChallengeHandler that is used during
+         authentication both at the connect-time as well as at subsequent
+         revalidation-time that occurs at regular intervals. All the
+         WebSockets created using this factory will inherit the default
+         ChallengeHandler.
 
-          @public
-          @function
-          @memberOf WebSocketFactory#
+         @name setChallengeHandler
+         @param challengeHandler  {ChallengeHandler}  the default ChallengeHandler
+         @return {void}
+
+         @public
+         @function
+         @memberOf WebSocketFactory#
          */
-        $prototype.setChallengeHandler = function(challengeHandler) {
+        $prototype.setChallengeHandler = function (challengeHandler) {
             if (typeof(challengeHandler) == "undefined") {
                 var s = "WebSocketFactory.setChallengeHandler(): Parameter \'challengeHandler\' is required";
                 throw new Error(s);
             }
-            
+
             this.challengeHandler = challengeHandler;
         }
-        
+
         /**
-          Gets the default ChallengeHandler that is used during
-          authentication both at the connect-time as well as at subsequent 
-          revalidation-time that occurs at regular intervals. 
-          
-          @name getChallengeHandler
-          @return {ChallengeHandler} the default ChallengeHandler
-                    
-          @public
-          @function
-          @memberOf WebSocketFactory#
+         Gets the default ChallengeHandler that is used during
+         authentication both at the connect-time as well as at subsequent
+         revalidation-time that occurs at regular intervals.
+
+         @name getChallengeHandler
+         @return {ChallengeHandler} the default ChallengeHandler
+
+         @public
+         @function
+         @memberOf WebSocketFactory#
          */
-        $prototype.getChallengeHandler = function() {
+        $prototype.getChallengeHandler = function () {
             return this.challengeHandler || null;
         }
-        
+
         /**
-          Creates a WebSocket to establish a full-duplex connection to the 
-          target location.
-          <p>
-          The extensions that were registered with the WebSocketFactory instance 
-          prior to this call are inherited by the newly created WebSocket instance.
-          <p>
-          If the port is blocked by the browser or if a secure connection is
-          attempted from a non-secure origin, this function will throw a
-          <code>SecurityException</code>.
-          <p>
-          If any protocol value is invalid or if a protocol appears in the Array
-          more than once, this function will throw a <code>SyntaxError</code>.
-          <p>
+         Creates a WebSocket to establish a full-duplex connection to the
+         target location.
+         <p>
+         The extensions that were registered with the WebSocketFactory instance
+         prior to this call are inherited by the newly created WebSocket instance.
+         <p>
+         If the port is blocked by the browser or if a secure connection is
+         attempted from a non-secure origin, this function will throw a
+         <code>SecurityException</code>.
+         <p>
+         If any protocol value is invalid or if a protocol appears in the Array
+         more than once, this function will throw a <code>SyntaxError</code>.
+         <p>
 
-          @name createWebSocket
-          @param location    {string} URL of the WebSocket service for the connection
-          @param protocols{string[]} protocols for the connection
-          @return {WebSocket} the WebSocket
-      
-          @public
-          @function
-          @memberOf WebSocketFactory#
-        */
-       $prototype.createWebSocket = function(url, protocols) {
-           var challengeHandler = this.getChallengeHandler();
-           var connectTimeout = this.getDefaultConnectTimeout();
-           var redirectPolicy = this.getDefaultRedirectPolicy();
-           var ws = new WebSocket(url, protocols, challengeHandler, connectTimeout, redirectPolicy);
+         @name createWebSocket
+         @param location    {string} URL of the WebSocket service for the connection
+         @param protocols{string[]} protocols for the connection
+         @return {WebSocket} the WebSocket
 
-           return ws;
-       }
-    
-       /**
+         @public
+         @function
+         @memberOf WebSocketFactory#
+         */
+        $prototype.createWebSocket = function (url, protocols) {
+            var challengeHandler = this.getChallengeHandler();
+            var connectTimeout = this.getDefaultConnectTimeout();
+            var redirectPolicy = this.getDefaultRedirectPolicy();
+            var ws = new WebSocket(url, protocols, challengeHandler, connectTimeout, redirectPolicy);
+
+            return ws;
+        }
+
+        /**
          Sets the default connect timeout in milliseconds. The specified
          timeout is inherited by all the WebSocket instances that are created
          using this WebSocketFactory instance. The timeout will expire if there is
@@ -136,7 +142,7 @@
          @function
          @memberOf WebSocketFactory#
          */
-        $prototype.setDefaultConnectTimeout = function(connectTimeout) {
+        $prototype.setDefaultConnectTimeout = function (connectTimeout) {
             if (typeof(connectTimeout) == "undefined") {
                 var s = "WebSocketFactory.setDefaultConnectTimeout(): int parameter \'connectTimeout\' is required";
                 throw new Error(s);
@@ -146,44 +152,44 @@
                 var s = "WebSocketFactory.setDefaultConnectTimeout(): connectTimeout should be an integer";
                 throw new Error(s);
             }
-        
+
             if (connectTimeout < 0) {
                 var s = "WebSocketFactory.setDefaultConnectTimeout(): Connect timeout cannot be negative";
                 throw new Error(s);
             }
 
             this.connectTimeout = connectTimeout;
-         }
+        }
 
         /**
-          Gets the default connect timeout in milliseconds. Default value of the
-          default connect timeout is zero -- which means no timeout.
-          
-          @name getDefaultConnectTimeout
-          @return {int}  default connect timeout
-                    
-          @public
-          @function
-          @memberOf WebSocketFactory#
+         Gets the default connect timeout in milliseconds. Default value of the
+         default connect timeout is zero -- which means no timeout.
+
+         @name getDefaultConnectTimeout
+         @return {int}  default connect timeout
+
+         @public
+         @function
+         @memberOf WebSocketFactory#
          */
-        $prototype.getDefaultConnectTimeout = function() {
+        $prototype.getDefaultConnectTimeout = function () {
             return this.connectTimeout || 0;
         }
 
         /**
-          Sets the default HTTP redirect policy used in a clustered environment.
-          The specified policy is inherited by all the WebSocket instances that
-          are created using this WebSocketFactory instance.
+         Sets the default HTTP redirect policy used in a clustered environment.
+         The specified policy is inherited by all the WebSocket instances that
+         are created using this WebSocketFactory instance.
 
-          @name setDefaultRedirectPolicy
-          @param redirectPolicy  {HttpRedirectPolicy}   default HTTP redirect policy
-          @return {void}
+         @name setDefaultRedirectPolicy
+         @param redirectPolicy  {HttpRedirectPolicy}   default HTTP redirect policy
+         @return {void}
 
-          @public
-          @function
-          @memberOf WebSocketFactory#
-        */
-        $prototype.setDefaultRedirectPolicy = function(redirectPolicy) {
+         @public
+         @function
+         @memberOf WebSocketFactory#
+         */
+        $prototype.setDefaultRedirectPolicy = function (redirectPolicy) {
             if (typeof(redirectPolicy) == "undefined") {
                 var s = "WebSocketFactory.setDefaultRedirectPolicy(): int parameter \'redirectPolicy\' is required";
                 throw new Error(s);
@@ -198,17 +204,17 @@
         }
 
         /**
-          Gets the default HTTP redirect policy used in a clustered environment.
-          Default redirect policy is HttpRedirectPolicy.ALWAYS.
+         Gets the default HTTP redirect policy used in a clustered environment.
+         Default redirect policy is HttpRedirectPolicy.ALWAYS.
 
-          @name getDefaultRedirectPolicy
-          @return {HttpRedirectPolicy}  default HTTP redirect policy
+         @name getDefaultRedirectPolicy
+         @return {HttpRedirectPolicy}  default HTTP redirect policy
 
-          @public
-          @function
-          @memberOf WebSocketFactory#
-        */
-        $prototype.getDefaultRedirectPolicy = function() {
+         @public
+         @function
+         @memberOf WebSocketFactory#
+         */
+        $prototype.getDefaultRedirectPolicy = function () {
             return this.redirectPolicy;
         }
 

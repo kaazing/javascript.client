@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2007-2014 Kaazing Corporation. All rights reserved.
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -8,9 +8,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -20,18 +20,18 @@
  */
 
 
- /**
+/**
  @private
  */
 
-var ResumableTimer = (function() {
+var ResumableTimer = (function () {
 
-    var ResumableTimer = function(callback, delay, updateDelayWhenPaused) {
+    var ResumableTimer = function (callback, delay, updateDelayWhenPaused) {
         if (arguments.length < 3) {
             var s = "ResumableTimer: Please specify the required parameters \'callback\', \'delay\', and \'updateDelayWhenPaused\'.";
             throw Error(s);
         }
-        
+
         if ((typeof(callback) == "undefined") || (callback == null)) {
             var s = "ResumableTimer: Please specify required parameter \'callback\'.";
             throw Error(s);
@@ -68,17 +68,17 @@ var ResumableTimer = (function() {
 
     var $prototype = ResumableTimer.prototype;
 
-    $prototype.cancel = function() {
+    $prototype.cancel = function () {
         if (this._timeoutId != -1) {
             window.clearTimeout(this._timeoutId);
             this._timeoutId = -1;
         }
-        
+
         this._delay = -1;
         this._callback = null;
     };
 
-    $prototype.pause = function() {
+    $prototype.pause = function () {
         if (this._timeoutId == -1) {
             // There is no timer to be paused.
             return;
@@ -98,12 +98,12 @@ var ResumableTimer = (function() {
         }
     };
 
-    $prototype.resume = function() {
+    $prototype.resume = function () {
         if (this._timeoutId != -1) {
             // Timer is already running.
             return;
         }
-        
+
         if (this._callback == null) {
             var s = "Timer cannot be resumed as it has been canceled."
             throw new Error(s);
@@ -112,11 +112,11 @@ var ResumableTimer = (function() {
         this.start();
     };
 
-    $prototype.start = function() {
+    $prototype.start = function () {
         if (this._delay < 0) {
             var s = "Timer delay cannot be negative";
         }
-        
+
         this._timeoutId = window.setTimeout(this._callback, this._delay);
         this._startTime = new Date().getTime();
     };

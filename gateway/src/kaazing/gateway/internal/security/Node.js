@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2007-2014 Kaazing Corporation. All rights reserved.
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -8,9 +8,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -24,22 +24,22 @@
  * @ignore
  */
 
-var Node = (function() {
-    
-    var Node = function() {
+var Node = (function () {
+
+    var Node = function () {
         this.name = '';
         this.kind = '';
         this.values = [];
         this.children = new OrderedDictionary();
     };
-    
+
     var $prototype = Node.prototype;
 
-    $prototype.getWildcardChar = function() {
+    $prototype.getWildcardChar = function () {
         return "*";
     }
-    
-    $prototype.addChild = function(name, kind) {
+
+    $prototype.addChild = function (name, kind) {
         if (name == null || name.length == 0) {
             throw new ArgumentError("A node may not have a null name.");
         }
@@ -48,15 +48,15 @@ var Node = (function() {
         return result;
     };
 
-    $prototype.hasChild = function(name, kind) {
+    $prototype.hasChild = function (name, kind) {
         return null != this.getChild(name) && kind == this.getChild(name).kind;
     };
 
-    $prototype.getChild = function(name) {
+    $prototype.getChild = function (name) {
         return this.children.get(name);
     };
 
-    $prototype.getDistanceFromRoot = function() {
+    $prototype.getDistanceFromRoot = function () {
         var result = 0;
         var cursor = this;
         while (!cursor.isRootNode()) {
@@ -66,55 +66,55 @@ var Node = (function() {
         return result;
     };
 
-    $prototype.appendValues = function() {
+    $prototype.appendValues = function () {
         if (this.isRootNode()) {
             throw new ArgumentError("Cannot set a values on the root node.");
         }
-                
+
         if (this.values != null) {
-            for (var k = 0; k < arguments.length;k++) {
+            for (var k = 0; k < arguments.length; k++) {
                 var value = arguments[k];
                 this.values.push(value);
             }
         }
     };
 
-    $prototype.removeValue = function(value) {
+    $prototype.removeValue = function (value) {
         if (this.isRootNode()) {
             return;
         }
-        for(var i=0; i < this.values.length; i++) {
-            if(this.values[i] == value) {
-                this.values.splice(i,1);
+        for (var i = 0; i < this.values.length; i++) {
+            if (this.values[i] == value) {
+                this.values.splice(i, 1);
             }
         }
     };
 
-    $prototype.getValues = function() {
+    $prototype.getValues = function () {
         return this.values;
     };
 
-    $prototype.hasValues = function() {
+    $prototype.hasValues = function () {
         return this.values != null && this.values.length > 0;
     };
 
-    $prototype.isRootNode = function() {
+    $prototype.isRootNode = function () {
         return this.parent == null;
     };
 
-    $prototype.hasChildren = function() {
+    $prototype.hasChildren = function () {
         return this.children != null && this.children.getlength() > 0;
     };
 
-    $prototype.isWildcard = function() {
+    $prototype.isWildcard = function () {
         return this.name != null && this.name == this.getWildcardChar();
     };
 
-    $prototype.hasWildcardChild = function() {
+    $prototype.hasWildcardChild = function () {
         return this.hasChildren() && this.children.containsKey(this.getWildcardChar());
     };
 
-    $prototype.getFullyQualifiedName = function() {
+    $prototype.getFullyQualifiedName = function () {
         var b = new String();
         var name = [];
         var cursor = this;
@@ -134,15 +134,15 @@ var Node = (function() {
         return b.toString();
     };
 
-    $prototype.getChildrenAsList = function() {
+    $prototype.getChildrenAsList = function () {
         return this.children.getvalues();
     };
 
-    $prototype.findBestMatchingNode = function(tokens, tokenIdx) {
+    $prototype.findBestMatchingNode = function (tokens, tokenIdx) {
         var matches /*Node*/ = this.findAllMatchingNodes(tokens, tokenIdx);
         var resultNode = null;
         var score = 0;
-        for (var i = 0; i< matches.length; i++) {
+        for (var i = 0; i < matches.length; i++) {
             var node = matches[i];
             if (node.getDistanceFromRoot() > score) {
                 score = node.getDistanceFromRoot();
@@ -152,7 +152,7 @@ var Node = (function() {
         return resultNode;
     };
 
-    $prototype.findAllMatchingNodes = function(tokens, tokenIdx) {
+    $prototype.findAllMatchingNodes = function (tokens, tokenIdx) {
         var result = [];
         var nodes = this.getChildrenAsList();
         for (var i = 0; i < nodes.length; i++) {
@@ -178,11 +178,11 @@ var Node = (function() {
                     else {
                         node = null;
                     }
-                } while ( node != null )
+                } while (node != null)
             }
             else {
                 var allMatchingNodes = node.findAllMatchingNodes(tokens, matchResult);
-                for(var j = 0; j<allMatchingNodes.length;j++) {
+                for (var j = 0; j < allMatchingNodes.length; j++) {
                     result.push(allMatchingNodes[j]);
                 }
             }
@@ -190,7 +190,7 @@ var Node = (function() {
         return result;
     };
 
-    $prototype.matches = function(tokens, tokenIdx) {
+    $prototype.matches = function (tokens, tokenIdx) {
         if (tokenIdx < 0 || tokenIdx >= tokens.length) {
             return -1;
         }
@@ -206,25 +206,25 @@ var Node = (function() {
             }
             do {
                 tokenIdx++;
-            } while(tokenIdx < tokens.length && this.kind == tokens[tokenIdx].kind)
+            } while (tokenIdx < tokens.length && this.kind == tokens[tokenIdx].kind)
 
             return tokenIdx;
         }
     };
 
-    $prototype.matchesToken = function(token) {
+    $prototype.matchesToken = function (token) {
         return this.name == token.name && this.kind == token.kind;
     };
- 
+
     //static function
-    Node.createNode = function(name, parent, kind) {
+    Node.createNode = function (name, parent, kind) {
         var node = new Node();
         node.name = name;
         node.parent = parent;
         node.kind = kind;
         return node;
     };
-    
+
     return Node;
 })();
  

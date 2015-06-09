@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2007-2014 Kaazing Corporation. All rights reserved.
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -8,9 +8,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -20,7 +20,6 @@
  */
 
 
-
 /**
  * A <code>DispatchChallengeHandler</code> is responsible for dispatching challenge requests
  * to appropriate challenge handlers when challenges
@@ -28,14 +27,14 @@
  *
  * <p>This allows clients to use specific challenge handlers to handle specific
  * types of challenges at different URI locations.</p>
- * 
+ *
  * @class DispatchChallengeHandler
  */
-$module.DispatchChallengeHandler  = (function(){
-    
-    var DispatchChallengeHandler  = function() {
+$module.DispatchChallengeHandler = (function () {
+
+    var DispatchChallengeHandler = function () {
         //private members
-        this.rootNode =new Node();
+        this.rootNode = new Node();
         var SCHEME_URI = "^(.*)://(.*)";
         this.SCHEME_URI_PATTERN = new RegExp(SCHEME_URI);
     };
@@ -121,9 +120,9 @@ $module.DispatchChallengeHandler  = (function(){
             return result;
         }
 
-        var scheme    = matches[2] || "http";
+        var scheme = matches[2] || "http";
         var authority = matches[4];
-        var path      = matches[5];
+        var path = matches[5];
         //            var query:String     = matches[7];
         //            var fragment:String  = matches[9];
 
@@ -180,25 +179,25 @@ $module.DispatchChallengeHandler  = (function(){
         }
 
         /*
-        // This appears to be redundant to the parsedUserInfoFromAuthority check.
-        else if (uri.userInfo != null) {
-        var userInfo:String = uri.userInfo;
-        var colonIdx:int = userInfo.indexOf(":");
-        if (colonIdx >= 0) {
-        result.push(new Token(userInfo.substring(0, colonIdx), UriElementKind.USERINFO));
-        result.push(new Token(userInfo.substring(colonIdx + 1), UriElementKind.USERINFO));
-        }
-        else {
-        result.add(new Token(uri.userInfo, UriElementKind.USERINFO));
-        }
-        */
+         // This appears to be redundant to the parsedUserInfoFromAuthority check.
+         else if (uri.userInfo != null) {
+         var userInfo:String = uri.userInfo;
+         var colonIdx:int = userInfo.indexOf(":");
+         if (colonIdx >= 0) {
+         result.push(new Token(userInfo.substring(0, colonIdx), UriElementKind.USERINFO));
+         result.push(new Token(userInfo.substring(colonIdx + 1), UriElementKind.USERINFO));
+         }
+         else {
+         result.add(new Token(uri.userInfo, UriElementKind.USERINFO));
+         }
+         */
         if (isNotBlank(path)) { // path
             if (path.charAt(0) == '/') {
                 path = path.substring(1);
             }
             if (isNotBlank(path)) {
                 var pathElements = path.split('/');
-                for(var p = 0; p<pathElements.length;p++) {
+                for (var p = 0; p < pathElements.length; p++) {
                     var pathElement = pathElements[p];
                     result.push(new /*<UriElement>*/Token(pathElement, UriElementKind.PATH));
                 }
@@ -216,29 +215,28 @@ $module.DispatchChallengeHandler  = (function(){
         }
     }
 
-    function defaultPortsByScheme()
-    {
+    function defaultPortsByScheme() {
         http = 80;
         ws = 80;
         wss = 443;
         https = 443;
     }
-    
+
     function isNotBlank(s) {
         return s != null && s.length > 0;
     }
 
     var $prototype = DispatchChallengeHandler.prototype; //extends DispatchChallengeHandler
 
-    $prototype.clear = function() {
+    $prototype.clear = function () {
         this.rootNode = new Node();
     }
-        
-    $prototype.canHandle  = function(challengeRequest) {
+
+    $prototype.canHandle = function (challengeRequest) {
         return lookupByRequest(this.rootNode, challengeRequest) != null;
     }
 
-    $prototype.handle  = function(challengeRequest, callback) {
+    $prototype.handle = function (challengeRequest, callback) {
         var challengeHandler = lookupByRequest(this.rootNode, challengeRequest);
         if (challengeHandler == null) {
             return null;
@@ -290,14 +288,14 @@ $module.DispatchChallengeHandler  = (function(){
      * @name register
      * @memberOf DispatchChallengeHandler#
      */
-    $prototype.register  = function(locationDescription, challengeHandler) {
+    $prototype.register = function (locationDescription, challengeHandler) {
         if (locationDescription == null || locationDescription.length == 0) {
             throw new Error("Must specify a location to handle challenges upon.");
         }
         if (challengeHandler == null) {
             throw new Error("Must specify a handler to handle challenges.");
         }
-        
+
         addChallengeHandlerAtLocation(this.rootNode, locationDescription, challengeHandler);
         return this;
     }
@@ -318,7 +316,7 @@ $module.DispatchChallengeHandler  = (function(){
      * @name unregister
      * @memberOf DispatchChallengeHandler#
      */
-    $prototype.unregister  = function(locationDescription, challengeHandler) {
+    $prototype.unregister = function (locationDescription, challengeHandler) {
         if (locationDescription == null || locationDescription.length == 0) {
             throw new Error("Must specify a location to un-register challenge handlers upon.");
         }
