@@ -153,14 +153,8 @@
  */
 (function ($module) {
     $module.HttpRedirectPolicy = (function () {
-        ;
-        ;
-        ;
-        var CLASS_NAME = "HttpRedirectPolicy";
-        ;
-        ;
-        ;
-        var LOG = Logger.getLogger(CLASS_NAME);
+        ;;;var CLASS_NAME = "HttpRedirectPolicy";
+        ;;;var LOG = Logger.getLogger(CLASS_NAME);
 
         /*
          * @private

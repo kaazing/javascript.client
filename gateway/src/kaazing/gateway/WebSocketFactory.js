@@ -39,14 +39,8 @@
 
     $module.WebSocketFactory = (function () {
 
-        ;
-        ;
-        ;
-        var CLASS_NAME = "WebSocketFactory";
-        ;
-        ;
-        ;
-        var LOG = Logger.getLogger(CLASS_NAME);
+        ;;;var CLASS_NAME = "WebSocketFactory";
+        ;;;var LOG = Logger.getLogger(CLASS_NAME);
 
         var WebSocketFactory = function () {
             this.redirectPolicy = $module.HttpRedirectPolicy.ALWAYS;

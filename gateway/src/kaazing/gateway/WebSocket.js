@@ -334,14 +334,8 @@
 
     $module.WebSocket = (function () {
 
-        ;
-        ;
-        ;
-        var CLASS_NAME = "WebSocket";
-        ;
-        ;
-        ;
-        var LOG = Logger.getLogger(CLASS_NAME);
+        ;;;var CLASS_NAME = "WebSocket";
+        ;;;var LOG = Logger.getLogger(CLASS_NAME);
         var webSocketChannelListener = {};
 
         var WebSocket = function (url, protocol, challengeHandler, connectTimeout, redirectPolicy) {

@@ -24,14 +24,8 @@
  * @private
  */
 var WebSocketNativeHandshakeHandler = (function () /*extends WebSocketHandlerAdapter*/ {
-    ;
-    ;
-    ;
-    var CLASS_NAME = "WebSocketNativeHandshakeHandler";
-    ;
-    ;
-    ;
-    var LOG = Logger.getLogger(CLASS_NAME);
+    ;;;var CLASS_NAME = "WebSocketNativeHandshakeHandler";
+    ;;;var LOG = Logger.getLogger(CLASS_NAME);
     /*static final String*/
     var HEADER_SEC_PROTOCOL = "Sec-WebSocket-Protocol";
     /*final String*/
@@ -50,19 +44,13 @@ var WebSocketNativeHandshakeHandler = (function () /*extends WebSocketHandlerAda
 
 
     var WebSocketNativeHandshakeHandler = function () {
-        ;
-        ;
-        ;
-        LOG.finest(CLASS_NAME, "<init>");
+        ;;;LOG.finest(CLASS_NAME, "<init>");
     };
 
     //internal functions
 
     var sendCookieRequest = function (channel, kSessionId) {
-        ;
-        ;
-        ;
-        LOG.finest(CLASS_NAME, "sendCookieRequest with {0}", kSessionId)
+        ;;;LOG.finest(CLASS_NAME, "sendCookieRequest with {0}", kSessionId)
 
         var create = new XMLHttpRequest0();
         var path = channel._location.getHttpEquivalentScheme() + "://" + channel._location.getAuthority() + (channel._location._uri.path || "");
@@ -95,10 +83,7 @@ var WebSocketNativeHandshakeHandler = (function () /*extends WebSocketHandlerAda
 
     var encodeGetRequest = function (requestURI, names, values) {
 
-        ;
-        ;
-        ;
-        LOG.entering(CLASS_NAME, "encodeGetRequest");
+        ;;;LOG.entering(CLASS_NAME, "encodeGetRequest");
         // Encode Request line
         var lines = [];
         lines.push(GET_BYTES);
@@ -281,10 +266,7 @@ var WebSocketNativeHandshakeHandler = (function () /*extends WebSocketHandlerAda
     }
 
     $prototype.handleConnectionOpened = function (channel, protocol) {
-        ;
-        ;
-        ;
-        LOG.finest(CLASS_NAME, "handleConnectionOpened");
+        ;;;LOG.finest(CLASS_NAME, "handleConnectionOpened");
         //check response for "x-kaazing-handshake protocol"
         if (WebSocketHandshakeObject.KAAZING_EXTENDED_HANDSHAKE == protocol) {
             sendHandshakePayload(this, channel, null);
@@ -309,10 +291,7 @@ var WebSocketNativeHandshakeHandler = (function () /*extends WebSocketHandlerAda
     }
 
     $prototype.handleMessageReceived = function (channel, message) {
-        ;
-        ;
-        ;
-        LOG.finest(CLASS_NAME, "handleMessageReceived", message);
+        ;;;LOG.finest(CLASS_NAME, "handleMessageReceived", message);
         if (channel.readyState == WebSocket.OPEN) {
             //isEscape is true, this is orginal messasge, reset flag and raise event
             channel._isEscape = false;
@@ -324,10 +303,7 @@ var WebSocketNativeHandshakeHandler = (function () /*extends WebSocketHandlerAda
     }
 
     $prototype.handleBinaryMessageReceived = function (channel, message) {
-        ;
-        ;
-        ;
-        LOG.finest(CLASS_NAME, "handleMessageReceived", message);
+        ;;;LOG.finest(CLASS_NAME, "handleMessageReceived", message);
         if (channel.readyState == WebSocket.OPEN) {
             //isEscape is true, this is orginal messasge, reset flag and raise event
             channel._isEscape = false;

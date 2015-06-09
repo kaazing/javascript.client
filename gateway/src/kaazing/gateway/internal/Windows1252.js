@@ -29,10 +29,7 @@
 var Windows1252 = {};
 
 (function () {
-    ;
-    ;
-    ;
-    var W1252LOG = Logger.getLogger('org.kaazing.gateway.client.html5.Windows1252');
+    ;;;var W1252LOG = Logger.getLogger('org.kaazing.gateway.client.html5.Windows1252');
 
     /**
      * Map of char codes to numerical byte values

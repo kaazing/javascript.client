@@ -25,29 +25,17 @@
  */
 var WebSocketSelectedHandler = (function () {
 
-    ;
-    ;
-    ;
-    var CLASS_NAME = "WebSocketSelectedHandler";
-    ;
-    ;
-    ;
-    var _LOG = Logger.getLogger(CLASS_NAME);
+    ;;;var CLASS_NAME = "WebSocketSelectedHandler";
+    ;;;var _LOG = Logger.getLogger(CLASS_NAME);
 
     var WebSocketSelectedHandler = function () {
-        ;
-        ;
-        ;
-        _LOG.fine(CLASS_NAME, "<init>");
+        ;;;_LOG.fine(CLASS_NAME, "<init>");
     };
 
     var $prototype = WebSocketSelectedHandler.prototype = new WebSocketHandlerAdapter();
 
     $prototype.processConnect = function (channel, uri, protocol) {
-        ;
-        ;
-        ;
-        _LOG.fine(CLASS_NAME, "connect", channel);
+        ;;;_LOG.fine(CLASS_NAME, "connect", channel);
         if (channel.readyState == WebSocket.CLOSED) {
             throw new Error("WebSocket is already closed");
         }
@@ -56,10 +44,7 @@ var WebSocketSelectedHandler = (function () {
 
 
     $prototype.handleConnectionOpened = function (channel, protocol) {
-        ;
-        ;
-        ;
-        _LOG.fine(CLASS_NAME, "handleConnectionOpened");
+        ;;;_LOG.fine(CLASS_NAME, "handleConnectionOpened");
         var selectedChannel = channel;
         if (selectedChannel.readyState == WebSocket.CONNECTING) {
             selectedChannel.readyState = WebSocket.OPEN;
@@ -69,10 +54,7 @@ var WebSocketSelectedHandler = (function () {
 
 
     $prototype.handleMessageReceived = function (channel, message) {
-        ;
-        ;
-        ;
-        _LOG.fine(CLASS_NAME, "handleMessageReceived", message);
+        ;;;_LOG.fine(CLASS_NAME, "handleMessageReceived", message);
         if (channel.readyState != WebSocket.OPEN) {
             return;
         }
@@ -80,10 +62,7 @@ var WebSocketSelectedHandler = (function () {
     }
 
     $prototype.handleBinaryMessageReceived = function (channel, message) {
-        ;
-        ;
-        ;
-        _LOG.fine(CLASS_NAME, "handleBinaryMessageReceived", message);
+        ;;;_LOG.fine(CLASS_NAME, "handleBinaryMessageReceived", message);
         if (channel.readyState != WebSocket.OPEN) {
             return;
         }
@@ -92,10 +71,7 @@ var WebSocketSelectedHandler = (function () {
 
 
     $prototype.handleConnectionClosed = function (channel, wasClean, code, reason) {
-        ;
-        ;
-        ;
-        _LOG.fine(CLASS_NAME, "handleConnectionClosed");
+        ;;;_LOG.fine(CLASS_NAME, "handleConnectionClosed");
         var selectedChannel = channel;
         if (selectedChannel.readyState != WebSocket.CLOSED) {
             selectedChannel.readyState = WebSocket.CLOSED;
@@ -105,10 +81,7 @@ var WebSocketSelectedHandler = (function () {
 
 
     $prototype.handleConnectionFailed = function (channel) {
-        ;
-        ;
-        ;
-        _LOG.fine(CLASS_NAME, "connectionFailed");
+        ;;;_LOG.fine(CLASS_NAME, "connectionFailed");
         if (channel.readyState != WebSocket.CLOSED) {
             channel.readyState = WebSocket.CLOSED;
             this._listener.connectionFailed(channel);
@@ -116,10 +89,7 @@ var WebSocketSelectedHandler = (function () {
     }
 
     $prototype.handleConnectionError = function (channel, e) {
-        ;
-        ;
-        ;
-        _LOG.fine(CLASS_NAME, "connectionError");
+        ;;;_LOG.fine(CLASS_NAME, "connectionError");
         this._listener.connectionError(channel, e);
     }
 

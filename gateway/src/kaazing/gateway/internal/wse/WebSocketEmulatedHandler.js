@@ -24,14 +24,9 @@
  * @private
  */
 var WebSocketEmulatedHandler = (function () {
-    ;
-    ;
-    ;
-    var CLASS_NAME = "WebSocketEmulatedHandler";
-    ;
-    ;
-    ;
-    var LOG = Logger.getLogger(CLASS_NAME);
+    ;;;var CLASS_NAME = "WebSocketEmulatedHandler";
+    
+    ;;;var LOG = Logger.getLogger(CLASS_NAME);
 
     var _authHandler = new WebSocketEmulatedAuthenticationHandler();
     var _controlFrameHandler = new WebSocketControlFrameHandler();
@@ -39,12 +34,13 @@ var WebSocketEmulatedHandler = (function () {
     var _extensionHandler = new WebSocketExtensionHandler();
 
     var WebSocketEmulatedHandler = function () {
-        ;
-        ;
-        ;
-        LOG.finest(CLASS_NAME, "<init>");
+        ;;;LOG.finest(CLASS_NAME, "<init>");
         this.setNextHandler(_authHandler);
         _authHandler.setNextHandler(_extensionHandler);
+
+        // Parent handler is needed to setup handler pipeline of negotiated extensions
+        // between _authHandler and _extensionHandler
+        _extensionHandler.setParentHandler(_authHandler);
         _extensionHandler.setNextHandler(_controlFrameHandler)
         _controlFrameHandler.setNextHandler(_delegateHandler);
     };

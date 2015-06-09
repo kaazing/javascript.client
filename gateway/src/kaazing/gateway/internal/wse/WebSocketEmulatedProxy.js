@@ -27,10 +27,7 @@
  * @ignore
  */
 var WebSocketEmulatedProxy = (function () {
-    ;
-    ;
-    ;
-    var WSEBLOG = Logger.getLogger('WebSocketEmulatedProxy');
+    ;;;var WSEBLOG = Logger.getLogger('WebSocketEmulatedProxy');
 
     /**
      * @private

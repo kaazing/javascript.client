@@ -24,20 +24,11 @@
  * @private
  */
 var WebSocketEmulatedAuthenticationHandler = (function ($module) /*extends WebSocketHandlerAdapter*/ {
-    ;
-    ;
-    ;
-    var CLASS_NAME = "WebSocketEmulatedAuthenticationHandler";
-    ;
-    ;
-    ;
-    var LOG = Logger.getLogger(CLASS_NAME);
+    ;;;var CLASS_NAME = "WebSocketEmulatedAuthenticationHandler";
+    ;;;var LOG = Logger.getLogger(CLASS_NAME);
 
     var WebSocketEmulatedAuthenticationHandler = function () {
-        ;
-        ;
-        ;
-        LOG.finest(CLASS_NAME, "<init>");
+        ;;;LOG.finest(CLASS_NAME, "<init>");
     };
 
     var $prototype = WebSocketEmulatedAuthenticationHandler.prototype = new WebSocketHandlerAdapter();

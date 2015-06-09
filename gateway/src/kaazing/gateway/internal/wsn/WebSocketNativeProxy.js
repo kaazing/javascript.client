@@ -37,10 +37,7 @@ var WebSocketNativeImpl = window.WebSocket;
  * @ignore
  */
 var WebSocketNativeProxy = (function () {
-    ;
-    ;
-    ;
-    var WSNPLOG = Logger.getLogger('WebSocketNativeProxy');
+    ;;;var WSNPLOG = Logger.getLogger('WebSocketNativeProxy');
 
     /**
      * @private

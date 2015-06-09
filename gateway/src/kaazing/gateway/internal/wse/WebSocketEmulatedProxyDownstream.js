@@ -24,10 +24,7 @@
  * @private
  */
 var WebSocketEmulatedProxyDownstream = (function () {
-    ;
-    ;
-    ;
-    var WSEBDLOG = Logger.getLogger('org.kaazing.gateway.client.html5.WebSocketEmulatedProxyDownstream');
+    ;;;var WSEBDLOG = Logger.getLogger('org.kaazing.gateway.client.html5.WebSocketEmulatedProxyDownstream');
 
     var STREAM_THRESHOLD = 512 * 1024; // 512k stream threshold
     var nextId = 1;

@@ -24,14 +24,8 @@
  * @private
  */
 var WebSocketNativeHandler = (function () {
-    ;
-    ;
-    ;
-    var CLASS_NAME = "WebSocketNativeHandler";
-    ;
-    ;
-    ;
-    var LOG = Logger.getLogger(CLASS_NAME);
+    ;;;var CLASS_NAME = "WebSocketNativeHandler";
+    ;;;var LOG = Logger.getLogger(CLASS_NAME);
 
     var createAuthenticationHandler = function () {
         var handler = new WebSocketNativeAuthenticationHandler();
@@ -77,10 +71,7 @@ var WebSocketNativeHandler = (function () {
     var _extensionHandler = new WebSocketExtensionHandler();
 
     var WebSocketNativeHandler = function () {
-        ;
-        ;
-        ;
-        LOG.finest(CLASS_NAME, "<init>");
+        ;;;LOG.finest(CLASS_NAME, "<init>");
         if (draft76compat) {
             this.setNextHandler(_hixie76Handler);
             _hixie76Handler.setNextHandler(_authHandler);
@@ -100,10 +91,7 @@ var WebSocketNativeHandler = (function () {
     };
 
     var handleConnectionOpened = function (channel, protocol) {
-        ;
-        ;
-        ;
-        LOG.finest(CLASS_NAME, "<init>");
+        ;;;LOG.finest(CLASS_NAME, "<init>");
     }
 
     var $prototype = WebSocketNativeHandler.prototype = new WebSocketHandlerAdapter();

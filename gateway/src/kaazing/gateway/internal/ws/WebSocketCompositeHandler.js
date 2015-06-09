@@ -25,14 +25,8 @@
  */
 var WebSocketCompositeHandler = (function () {
 
-    ;
-    ;
-    ;
-    var CLASS_NAME = "WebSocketCompositeHandler";
-    ;
-    ;
-    ;
-    var _LOG = Logger.getLogger(CLASS_NAME);
+    ;;;var CLASS_NAME = "WebSocketCompositeHandler";
+    ;;;var _LOG = Logger.getLogger(CLASS_NAME);
 
     //when IE 10 runs as IE 8 mode, Object.defineProperty returns true, but throws exception when called
     // so use a dummyObj to check Object.defineProperty function really works at page load time.
@@ -104,10 +98,7 @@ var WebSocketCompositeHandler = (function () {
     }
 
     $prototype.fallbackNext = function (channel) {
-        ;
-        ;
-        ;
-        _LOG.finest(CLASS_NAME, "fallbackNext");
+        ;;;_LOG.finest(CLASS_NAME, "fallbackNext");
         var strategyName = channel.getNextStrategy();
         if (strategyName == null) {
             this.doClose(channel, false, 1006, "");
@@ -151,20 +142,11 @@ var WebSocketCompositeHandler = (function () {
     }
 
     $prototype.processConnect = function (channel, location, protocol) {
-        ;
-        ;
-        ;
-        _LOG.finest(CLASS_NAME, "connect", channel);
+        ;;;_LOG.finest(CLASS_NAME, "connect", channel);
         var compositeChannel = channel;
-        ;
-        ;
-        ;
-        _LOG.finest("Current ready state = " + compositeChannel.readyState);
+        ;;;_LOG.finest("Current ready state = " + compositeChannel.readyState);
         if (compositeChannel.readyState === WebSocket.OPEN) {
-            ;
-            ;
-            ;
-            _LOG.fine("Attempt to reconnect an existing open WebSocket to a different location");
+            ;;;_LOG.fine("Attempt to reconnect an existing open WebSocket to a different location");
             throw new Error("Attempt to reconnect an existing open WebSocket to a different location");
         }
         var scheme = compositeChannel._compositeScheme;
@@ -173,10 +155,7 @@ var WebSocketCompositeHandler = (function () {
             if (strategy == null) {
                 throw new Error("Invalid connection scheme: " + scheme);
             }
-            ;
-            ;
-            ;
-            _LOG.finest("Turning off fallback since the URL is prefixed with java:");
+            ;;;_LOG.finest("Turning off fallback since the URL is prefixed with java:");
             compositeChannel._connectionStrategies.push(scheme);
         }
         else {
@@ -195,16 +174,10 @@ var WebSocketCompositeHandler = (function () {
 
     /*synchronized*/
     $prototype.processTextMessage = function (channel, message) {
-        ;
-        ;
-        ;
-        _LOG.finest(CLASS_NAME, "send", message);
+        ;;;_LOG.finest(CLASS_NAME, "send", message);
         var parent = channel;
         if (parent.readyState != WebSocket.OPEN) {
-            ;
-            ;
-            ;
-            _LOG.fine("Attempt to post message on unopened or closed web socket");
+            ;;;_LOG.fine("Attempt to post message on unopened or closed web socket");
             throw new Error("Attempt to post message on unopened or closed web socket");
         }
         var selectedChannel = parent._selectedChannel;
@@ -214,16 +187,10 @@ var WebSocketCompositeHandler = (function () {
 
     /*synchronized*/
     $prototype.processBinaryMessage = function (channel, message) {
-        ;
-        ;
-        ;
-        _LOG.finest(CLASS_NAME, "send", message);
+        ;;;_LOG.finest(CLASS_NAME, "send", message);
         var parent = channel;
         if (parent.readyState != WebSocket.OPEN) {
-            ;
-            ;
-            ;
-            _LOG.fine("Attempt to post message on unopened or closed web socket");
+            ;;;_LOG.fine("Attempt to post message on unopened or closed web socket");
             throw new Error("Attempt to post message on unopened or closed web socket");
         }
         var selectedChannel = parent._selectedChannel;
@@ -232,10 +199,7 @@ var WebSocketCompositeHandler = (function () {
 
     /*synchronized*/
     $prototype.processClose = function (channel, code, reason) {
-        ;
-        ;
-        ;
-        _LOG.finest(CLASS_NAME, "close");
+        ;;;_LOG.finest(CLASS_NAME, "close");
         var parent = channel;
 
         if (channel.readyState === WebSocket.CONNECTING || channel.readyState === WebSocket.OPEN) {

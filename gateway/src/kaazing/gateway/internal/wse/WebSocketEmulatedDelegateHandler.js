@@ -24,29 +24,17 @@
  * @private
  */
 var WebSocketEmulatedDelegateHandler = (function () {
-    ;
-    ;
-    ;
-    var CLASS_NAME = "WebSocketEmulatedDelegateHandler";
-    ;
-    ;
-    ;
-    var LOG = Logger.getLogger(CLASS_NAME);
+    ;;;var CLASS_NAME = "WebSocketEmulatedDelegateHandler";
+    ;;;var LOG = Logger.getLogger(CLASS_NAME);
 
     var WebSocketEmulatedDelegateHandler = function () {
-        ;
-        ;
-        ;
-        LOG.finest(CLASS_NAME, "<init>");
+        ;;;LOG.finest(CLASS_NAME, "<init>");
     };
 
     var $prototype = WebSocketEmulatedDelegateHandler.prototype = new WebSocketHandlerAdapter();
 
     $prototype.processConnect = function (channel, uri, protocol) {
-        ;
-        ;
-        ;
-        LOG.finest(CLASS_NAME, "connect", channel);
+        ;;;LOG.finest(CLASS_NAME, "connect", channel);
         if (channel.readyState == WebSocket.CLOSED) {
             throw new Error("WebSocket is already closed");
         }
@@ -59,10 +47,7 @@ var WebSocketEmulatedDelegateHandler = (function () {
     }
 
     $prototype.processTextMessage = function (channel, text) {
-        ;
-        ;
-        ;
-        LOG.finest(CLASS_NAME, "connect", channel);
+        ;;;LOG.finest(CLASS_NAME, "connect", channel);
         if (channel.readyState == WebSocket.OPEN) {
             channel._delegate.send(text);
         } else {
@@ -71,10 +56,7 @@ var WebSocketEmulatedDelegateHandler = (function () {
     }
 
     $prototype.processBinaryMessage = function (channel, obj) {
-        ;
-        ;
-        ;
-        LOG.finest(CLASS_NAME, "processBinaryMessage", channel);
+        ;;;LOG.finest(CLASS_NAME, "processBinaryMessage", channel);
         if (channel.readyState == WebSocket.OPEN) {
             channel._delegate.send(obj);
         } else {
@@ -83,10 +65,7 @@ var WebSocketEmulatedDelegateHandler = (function () {
     }
 
     $prototype.processClose = function (channel, code, reason) {
-        ;
-        ;
-        ;
-        LOG.finest(CLASS_NAME, "close", channel);
+        ;;;LOG.finest(CLASS_NAME, "close", channel);
         try {
             channel._delegate.close(code, reason);
         } catch (e) {

@@ -24,20 +24,11 @@
  * @private
  */
 var WebSocketControlFrameHandler = (function () /*extends WebSocketHandlerAdapter*/ {
-    ;
-    ;
-    ;
-    var CLASS_NAME = "WebSocketControlFrameHandler";
-    ;
-    ;
-    ;
-    var LOG = Logger.getLogger(CLASS_NAME);
+    ;;;var CLASS_NAME = "WebSocketControlFrameHandler";
+    ;;;var LOG = Logger.getLogger(CLASS_NAME);
 
     var WebSocketControlFrameHandler = function () {
-        ;
-        ;
-        ;
-        LOG.finest(CLASS_NAME, "<init>");
+        ;;;LOG.finest(CLASS_NAME, "<init>");
     };
 
     //internal functions
@@ -111,18 +102,12 @@ var WebSocketControlFrameHandler = (function () /*extends WebSocketHandlerAdapte
      * @private
      */
     $prototype.handleConnectionOpened = function (channel, protocol) {
-        ;
-        ;
-        ;
-        LOG.finest(CLASS_NAME, "handleConnectionOpened");
+        ;;;LOG.finest(CLASS_NAME, "handleConnectionOpened");
         this._listener.connectionOpened(channel, protocol);
     }
 
     $prototype.handleTextMessageReceived = function (channel, message) {
-        ;
-        ;
-        ;
-        LOG.finest(CLASS_NAME, "handleMessageReceived", message);
+        ;;;LOG.finest(CLASS_NAME, "handleMessageReceived", message);
 
         //check for escape message
         if (channel._isEscape) {
@@ -151,10 +136,7 @@ var WebSocketControlFrameHandler = (function () /*extends WebSocketHandlerAdapte
     }
 
     $prototype.handleMessageReceived = function (channel, message) {
-        ;
-        ;
-        ;
-        LOG.finest(CLASS_NAME, "handleMessageReceived", message);
+        ;;;LOG.finest(CLASS_NAME, "handleMessageReceived", message);
 
         //check for escape message
         if (channel._isEscape) {

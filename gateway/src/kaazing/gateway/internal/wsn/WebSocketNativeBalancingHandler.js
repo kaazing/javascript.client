@@ -24,20 +24,11 @@
  * @private
  */
 var WebSocketNativeBalancingHandler = (function ($module) /*extends WebSocketHandlerAdapter*/ {
-    ;
-    ;
-    ;
-    var CLASS_NAME = "WebSocketNativeBalancingHandler";
-    ;
-    ;
-    ;
-    var LOG = Logger.getLogger(CLASS_NAME);
+    ;;;var CLASS_NAME = "WebSocketNativeBalancingHandler";
+    ;;;var LOG = Logger.getLogger(CLASS_NAME);
 
     var WebSocketNativeBalancingHandler = function () {
-        ;
-        ;
-        ;
-        LOG.finest(CLASS_NAME, "<init>");
+        ;;;LOG.finest(CLASS_NAME, "<init>");
     };
 
     var handleRedirect = function ($this, channel, redirectUri) {
@@ -90,10 +81,7 @@ var WebSocketNativeBalancingHandler = (function ($module) /*extends WebSocketHan
     }
 
     $prototype.handleMessageReceived = function (channel, obj) {
-        ;
-        ;
-        ;
-        LOG.finest(CLASS_NAME, "handleMessageReceived", obj);
+        ;;;LOG.finest(CLASS_NAME, "handleMessageReceived", obj);
 
         //check for blancing message
         if (channel._balanced > 1 /* || message.remaining() < 4 */) {

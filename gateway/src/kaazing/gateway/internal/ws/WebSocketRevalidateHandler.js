@@ -47,10 +47,7 @@ var WebSocketRevalidateHandler = (function () {
     var $prototype = WebSocketRevalidateHandler.prototype;
 
     $prototype.connect = function (location) {
-        ;
-        ;
-        ;
-        LOG.finest("ENTRY Revalidate.connect with {0}", location)
+        ;;;LOG.finest("ENTRY Revalidate.connect with {0}", location)
         if (isWebSocketClosing(this.channel)) {
             return;
         }

@@ -24,20 +24,11 @@
  * @private
  */
 var WebSocketHixie76FrameCodecHandler = (function () /*extends WebSocketHandlerAdapter*/ {
-    ;
-    ;
-    ;
-    var CLASS_NAME = "WebSocketHixie76FrameCodecHandler";
-    ;
-    ;
-    ;
-    var LOG = Logger.getLogger(CLASS_NAME);
+    ;;;var CLASS_NAME = "WebSocketHixie76FrameCodecHandler";
+    ;;;var LOG = Logger.getLogger(CLASS_NAME);
 
     var WebSocketHixie76FrameCodecHandler = function () {
-        ;
-        ;
-        ;
-        LOG.finest(CLASS_NAME, "<init>");
+        ;;;LOG.finest(CLASS_NAME, "<init>");
     };
 
     var $prototype = WebSocketHixie76FrameCodecHandler.prototype = new WebSocketHandlerAdapter();

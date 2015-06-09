@@ -24,29 +24,17 @@
  * @private
  */
 var WebSocketNativeDelegateHandler = (function () {
-    ;
-    ;
-    ;
-    var CLASS_NAME = "WebSocketNativeDelegateHandler";
-    ;
-    ;
-    ;
-    var LOG = Logger.getLogger(CLASS_NAME);
+    ;;;var CLASS_NAME = "WebSocketNativeDelegateHandler";
+    ;;;var LOG = Logger.getLogger(CLASS_NAME);
 
     var WebSocketNativeDelegateHandler = function () {
-        ;
-        ;
-        ;
-        LOG.finest(CLASS_NAME, "<init>");
+        ;;;LOG.finest(CLASS_NAME, "<init>");
     };
 
     var $prototype = WebSocketNativeDelegateHandler.prototype = new WebSocketHandlerAdapter();
 
     $prototype.processConnect = function (channel, uri, protocol) {
-        ;
-        ;
-        ;
-        LOG.finest(CLASS_NAME, "connect", channel);
+        ;;;LOG.finest(CLASS_NAME, "connect", channel);
         if (channel.readyState == WebSocket.CLOSED) {
             throw new Error("WebSocket is already closed");
         }
@@ -60,10 +48,7 @@ var WebSocketNativeDelegateHandler = (function () {
     }
 
     $prototype.processTextMessage = function (channel, text) {
-        ;
-        ;
-        ;
-        LOG.finest(CLASS_NAME, "processTextMessage", channel);
+        ;;;LOG.finest(CLASS_NAME, "processTextMessage", channel);
         if (channel._delegate.readyState() == WebSocket.OPEN) {
             channel._delegate.send(text);
         } else {
@@ -72,10 +57,7 @@ var WebSocketNativeDelegateHandler = (function () {
     }
 
     $prototype.processBinaryMessage = function (channel, obj) {
-        ;
-        ;
-        ;
-        LOG.finest(CLASS_NAME, "processBinaryMessage", channel);
+        ;;;LOG.finest(CLASS_NAME, "processBinaryMessage", channel);
         if (channel._delegate.readyState() == WebSocket.OPEN) {
             channel._delegate.send(obj);
         } else {
@@ -84,10 +66,7 @@ var WebSocketNativeDelegateHandler = (function () {
     }
 
     $prototype.processClose = function (channel, code, reason) {
-        ;
-        ;
-        ;
-        LOG.finest(CLASS_NAME, "close", channel);
+        ;;;LOG.finest(CLASS_NAME, "close", channel);
         try {
             channel._delegate.close(code, reason);
         } catch (e) {
@@ -100,10 +79,7 @@ var WebSocketNativeDelegateHandler = (function () {
     }
 
     $prototype.setIdleTimeout = function (channel, timeout) {
-        ;
-        ;
-        ;
-        LOG.finest(CLASS_NAME, "idleTimeout", channel);
+        ;;;LOG.finest(CLASS_NAME, "idleTimeout", channel);
         try {
             channel._delegate.setIdleTimeout(timeout);
         } catch (e) {
