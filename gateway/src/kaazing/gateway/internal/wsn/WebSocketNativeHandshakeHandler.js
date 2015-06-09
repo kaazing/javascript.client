@@ -163,23 +163,23 @@ var WebSocketNativeHandshakeHandler = (function() /*extends WebSocketHandlerAdap
             if (extensionsHeader.length > 0) {
                 var extensions = extensionsHeader.join(", ").split(", ");
                 for (var j = 0; j < extensions.length; j++) {
-                    var tmp = extensions[j].split(";");
-                    var ext =  tmp[0].replace(/^\s+|\s+$/g,"");
-                    if (WebSocketHandshakeObject.KAAZING_SEC_EXTENSION_IDLE_TIMEOUT === ext) {
+                    var extensionElements = extensions[j].split(";");
+                    var extensionName =  extensionElements[0].replace(/^\s+|\s+$/g,"");
+                    if (WebSocketHandshakeObject.KAAZING_SEC_EXTENSION_IDLE_TIMEOUT === extensionName) {
                         //x-kaazing-idle-timeout extension, the timeout parameter is like "timeout=500"
-                        var timeout = tmp[1].match(/\d+/)[0];
+                        var timeout = extensionElements[1].match(/\d+/)[0];
                         if (timeout > 0) {
                             $this._nextHandler.setIdleTimeout(channel, timeout);
                         }
                         continue; //x-kaazing-idle-timeout is internal extension
                     }
-                    else if (WebSocketHandshakeObject.KAAZING_SEC_EXTENSION_PING_PONG === ext) {
+                    else if (WebSocketHandshakeObject.KAAZING_SEC_EXTENSION_PING_PONG === extensionName) {
                     	//x-kaazing-ping pong, cache the extension using the escapeKey
                     	try {
-                    		var escape = tmp[1].replace(/^\s+|\s+$/g,"");
+                    		var escape = extensionElements[1].replace(/^\s+|\s+$/g,"");
                             var escapeKey = parseInt(escape, 16);
-                            channel._controlFrames[escapeKey] = ext; // x-kaazing-ping-pong only send text messages
-                            channel._escapeSequences[escapeKey] = ext; 
+                            channel._controlFrames[escapeKey] = extensionName; // x-kaazing-ping-pong only send text messages
+                            channel._escapeSequences[escapeKey] = extensionName;
                             continue; //x-kaazing-ping-pong is internal only
                         } catch(e) {
                             // this is not escape parameter, ignored
@@ -187,6 +187,12 @@ var WebSocketNativeHandshakeHandler = (function() /*extends WebSocketHandlerAdap
                         }
                     }
                     else {
+                        var extensionInfo = WebSocketExtensionSpi.getRegisteredExtensionInfo(extensionName);
+
+                        if (extensionInfo == null) {
+                            // error - there should be extension registered for negotiated extension
+                            throw new Error("Extended Handshake failed. Negotiated extension - '" + extensionName + "' is not registered.");
+                        }
                         channel._negotiatedExtensions.push(extensions[j]);
                     }
                 }//end of extensions loop

@@ -120,7 +120,6 @@ var WebSocketNativeAuthenticationHandler = (function($module) /*extends WebSocke
             var listener = new WebSocketHandlerListener(this);
 
             listener.authenticationRequested = function(channel, location, challenge) {
-               //alert(CLASS_NAME + "authenticationRequested");
                $this.handleAuthenticate(channel,location, challenge);
             }
 

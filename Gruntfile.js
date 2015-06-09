@@ -178,7 +178,6 @@ module.exports = function(grunt) {
                     'dist/tmp/gateway/src/Blob.js',
 
                     // new handler files
-                    'dist/tmp/gateway/src/Internal.js',
                     'dist/tmp/gateway/src/AsyncActionQueue.js',
                     'dist/tmp/gateway/src/URLRequestHeader.js',
                     'dist/tmp/gateway/src/WSURI.js',
@@ -187,6 +186,7 @@ module.exports = function(grunt) {
                     'dist/tmp/gateway/src/Channel.js',
                     'dist/tmp/gateway/src/WebSocketChannel.js',
                     'dist/tmp/gateway/src/WebSocketHandlerAdapter.js',
+                    'dist/tmp/gateway/src/Internal.js',
                     'dist/tmp/gateway/src/WebSocketHandlerListener.js',
                     'dist/tmp/gateway/src/WebSocketExtensionHandler.js',
                     'dist/tmp/gateway/src/WebSocketSelectedChannel.js',

@@ -37,28 +37,43 @@ Kaazing.Internal = Kaazing.namespace("Internal");
             this.name = name;
         }
 
-        var $prototype = spi.prototype;
+        var $prototype = spi.prototype = new WebSocketHandlerAdapter();
 
-        $prototype.onBinaryReceived = function(channel, message) {
-            handler._listener.binaryMessageReceived(channel, message);
+        $prototype.handleConnectionOpened = function(channel, protocol) {
+            this._listener.connectionOpened(channel, protocol);
         }
 
-        $prototype.onTextReceived = function(channel, message) {
-            handler._listener.textMessageReceived(channel, message);
+        $prototype.setNextHandler = function(nextHandler) {
+            var $this = this;
+            this._nextHandler = nextHandler;
+            var listener = new WebSocketHandlerListener(this);
+            listener.connectionOpened = function(channel, protocol) {
+                $this.handleConnectionOpened(channel, protocol);
+            }
+            listener.textMessageReceived = function(channel, buf) {
+                $this.handleTextMessageReceived(channel, buf);
+            }
+            listener.binaryMessageReceived = function(channel, buf) {
+                $this.handleMessageReceived(channel, buf);
+            }
+            nextHandler.setListener(listener);
+        }
+
+        $prototype.setListener = function(listener) {
+            this._listener = listener;
         }
 
         return spi;
     })();
 
-    WebSocketExtensionSpi._registeredExtensions = [];
+    var registeredExtensions = [];
 
     WebSocketExtensionSpi.register = function(name, factoryFunction) {
-        var extensionInfo = {"name": name, "factoryFunction": factoryFunction}
-        WebSocketExtensionSpi._registeredExtensions.push(extensionInfo);
+        var extensionInfo = {"name": name, "factoryFunction": factoryFunction};
+        registeredExtensions.push(extensionInfo);
     };
 
     WebSocketExtensionSpi.getRegisteredExtensionInfo = function(name) {
-        var registeredExtensions = WebSocketExtensionSpi._registeredExtensions;
         for (var i = 0; i < registeredExtensions.length; i++) {
             if (registeredExtensions[i].name == name) {
                 return registeredExtensions[i];
@@ -69,7 +84,6 @@ Kaazing.Internal = Kaazing.namespace("Internal");
 
     WebSocketExtensionSpi.getRegisteredExtensionNames = function() {
         var registeredExtensionNames = [];
-        var registeredExtensions = WebSocketExtensionSpi._registeredExtensions;
         for (var i = 0; i < registeredExtensions.length; i++) {
             registeredExtensionNames.push(registeredExtensions[i].name);
         }

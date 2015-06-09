@@ -80,6 +80,10 @@ var WebSocketNativeHandler = (function() {
             	this.setNextHandler(_authHandler);
             }
             _authHandler.setNextHandler(_extensionHandler);
+
+            // Parent handler is needed to setup handler pipeline of negotiated extensions
+            // between _authHandler and _extensionHandler
+            _extensionHandler.setParentHandler(_authHandler);
             _extensionHandler.setNextHandler(_handshakeHandler);
             _handshakeHandler.setNextHandler(_controlFrameHandler);
 			_controlFrameHandler.setNextHandler(_balanceHandler);

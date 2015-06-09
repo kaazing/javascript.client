@@ -32,63 +32,35 @@ var WebSocketExtensionHandler = (function(){
     $prototype.handleConnectionOpened = function(channel, protocol) {
         var negotiatedExtensions = channel._negotiatedExtensions;
         if (negotiatedExtensions) {
+            // negotiated extensions: ext1->ext2->ext3->....->extN
+            // handler pipeline of negotiated extensions: _parentHandler->extN->...->ext3->ext2->ext1->extensionHandler(this)
+            negotiatedExtensions = negotiatedExtensions.reverse();
+            var parentHandler = this._parentHandler;
             for (var i = 0; i < negotiatedExtensions.length; i++) {
                 var extensionElements = negotiatedExtensions[i].split(";");
                 var extensionName = extensionElements[0].replace(/^\s+|\s+$/g,"");
                 var extensionParameter = null;
-                var extensionInfo = WebSocketExtensionSpi.getRegisteredExtensionInfo(extensionName);
-
-                if (extensionInfo == null) {
-                    // error - there should be extension registered for negotiated extension
-                    this._listener.connectionFailed(channel);
-                    return;
-                }
 
                 if (extensionElements.length == 2) {
                     extensionParameter = extensionElements[1].replace(/^\s+|\s+$/g,"");
                 }
 
+                var extensionInfo = WebSocketExtensionSpi.getRegisteredExtensionInfo(extensionName);
                 var extensionSpi = extensionInfo.factoryFunction(extensionName, extensionParameter);
-                this._negotiatedExtensionSpis.push(extensionSpi);
+                parentHandler.setNextHandler(extensionSpi);
+                parentHandler = extensionSpi;
             }
+            parentHandler.setNextHandler(this);
         }
         this._listener.connectionOpened(channel, protocol);
     }
 
     $prototype.handleTextMessageReceived = function(channel, message) {
-        var currentMessage = message;
-
-        for (var i = 0; i < this._negotiatedExtensionSpis.length; i++) {
-            currentMessage = this._negotiatedExtensionSpis[i].onTextReceived(channel, currentMessage);
-            if (currentMessage == null) {
-                // short-circuit
-                return;
-            }
-        }
-
-        if (currentMessage != null) {
-            this._listener.textMessageReceived(channel, message);
-        }
+        this._listener.textMessageReceived(channel, message);
     }
 
     $prototype.handleMessageReceived = function(channel, message) {
-        var currentMessage = message;
-
-        for (var i = 0; i < this._negotiatedExtensionSpis.length; i++) {
-            currentMessage = this._negotiatedExtensionSpis[i].onBinaryReceived(channel, currentMessage);
-            if (currentMessage == null) {
-                // short-circuit
-                return;
-            }
-        }
-
-        if (currentMessage != null) {
-            this._listener.binaryMessageReceived(channel, message);
-        }
-    }
-
-    $prototype.processTextMessage = function(channel, message) {
-        this._nextHandler.processTextMessage(channel, message);
+        this._listener.binaryMessageReceived(channel, message);
     }
 
     $prototype.setNextHandler = function(nextHandler) {
@@ -111,6 +83,9 @@ var WebSocketExtensionHandler = (function(){
         this._listener = listener;
     }
 
+    $prototype.setParentHandler = function(parentHandler) {
+        this._parentHandler = parentHandler;
+    }
 
     return WebSocketExtensionHandler;
 })();
