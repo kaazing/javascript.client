@@ -187,9 +187,9 @@ var WebSocketNativeHandshakeHandler = (function() /*extends WebSocketHandlerAdap
                         }
                     }
                     else {
-                        var extensionInfo = WebSocketExtensionSpi.getRegisteredExtensionInfo(extensionName);
+                        var extensionSpiFactory = WebSocketExtensionSpi.get(extensionName);
 
-                        if (extensionInfo == null) {
+                        if (extensionSpiFactory == null) {
                             // error - there should be extension registered for negotiated extension
                             throw new Error("Extended Handshake failed. Negotiated extension - '" + extensionName + "' is not registered.");
                         }

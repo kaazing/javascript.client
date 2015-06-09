@@ -24,7 +24,6 @@
 var WebSocketExtensionHandler = (function(){
 
     var WebSocketExtensionHandler = function() {
-        this._negotiatedExtensionSpis = [];
     }
 
     var $prototype = WebSocketExtensionHandler.prototype = new WebSocketHandlerAdapter();
@@ -45,8 +44,8 @@ var WebSocketExtensionHandler = (function(){
                     extensionParameter = extensionElements[1].replace(/^\s+|\s+$/g,"");
                 }
 
-                var extensionInfo = WebSocketExtensionSpi.getRegisteredExtensionInfo(extensionName);
-                var extensionSpi = extensionInfo.factoryFunction(extensionName, extensionParameter);
+                var extensionSpiFactory = WebSocketExtensionSpi.get(extensionName);
+                var extensionSpi = extensionSpiFactory.create(extensionParameter);
                 parentHandler.setNextHandler(extensionSpi);
                 parentHandler = extensionSpi;
             }

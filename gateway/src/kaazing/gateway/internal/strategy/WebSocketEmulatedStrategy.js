@@ -28,7 +28,7 @@
 		var emulatedHandler = new WebSocketEmulatedHandler();
 		handler.setNextHandler(emulatedHandler);
 
-		var channelFactory = new WebSocketEmulatedChannelFactory();
+        var channelFactory = new WebSocketEmulatedChannelFactory();
 
 		WebSocketStrategy._strategyMap[JAVASCRIPT_WSE] = new WebSocketStrategy("ws", handler, channelFactory);
         WebSocketStrategy._strategyMap[JAVASCRIPT_WSE_SSL] = new WebSocketStrategy("wss", handler, channelFactory);

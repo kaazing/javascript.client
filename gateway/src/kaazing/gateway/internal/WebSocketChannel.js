@@ -26,28 +26,28 @@
 var WebSocketChannel = (function() /* extends Channel*/ {
 
     var WebSocketChannel = function(location, protocol, isBinary) {
-	        Channel.apply(this, arguments);
-			this._location = location;
-			this._protocol = protocol;
-			this._controlFrames = {}; // control frame dictionary for text messages
-			this._controlFramesBinary = {}; // control frame dictionary for binary messages
-			this._escapeSequences = {};// leading bytes for inject message, we only inject text messages
-			this._handshakePayload = ""; // = new ByteBuffer();
-			this._isEscape = false;
+            Channel.apply(this, arguments);
+            this._location = location;
+            this._protocol = protocol;
+            this._controlFrames = {}; // control frame dictionary for text messages
+            this._controlFramesBinary = {}; // control frame dictionary for binary messages
+            this._escapeSequences = {};// leading bytes for inject message, we only inject text messages
+            this._handshakePayload = ""; // = new ByteBuffer();
+            this._isEscape = false;
             this._bufferedAmount = 0;
             this._negotiatedExtensions = [];
             this._acceptedProtocol;
-		};
+        };
 
-		var $prototype = WebSocketChannel.prototype = new Channel(); //extends Channel
+        var $prototype = WebSocketChannel.prototype = new Channel(); //extends Channel
 
         $prototype.getBufferedAmount = function() {
             return this._bufferedAmount;
         }
 
-		$prototype.toString = function() {
-			return "[WebSocketChannel " + _location + " " + _protocol != null ? _protocol : "-" + "]";
-		}
+        $prototype.toString = function() {
+            return "[WebSocketChannel " + _location + " " + _protocol != null ? _protocol : "-" + "]";
+        }
 
     return WebSocketChannel;
 })();

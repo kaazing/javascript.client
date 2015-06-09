@@ -32,6 +32,22 @@ Kaazing.Internal = Kaazing.namespace("Internal");
 
 (function($module){
 
+    var WebSocketExtensionSpiFactory = (function(){
+        var factorySpi = function(name, factoryFunction) {
+            this.name = name;
+            this.factoryFunction = factoryFunction;
+        }
+
+        var $prototype = factorySpi.prototype;
+
+        $prototype.create = function(parameter) {
+            return this.factoryFunction(parameter);
+        }
+        return factorySpi;
+    })();
+
+    Kaazing.Internal.WebSocketExtensionSpiFactory = WebSocketExtensionSpiFactory;
+
     var WebSocketExtensionSpi = (function(){
         var spi = function(name) {
             this.name = name;
@@ -68,12 +84,11 @@ Kaazing.Internal = Kaazing.namespace("Internal");
 
     var registeredExtensions = [];
 
-    WebSocketExtensionSpi.register = function(name, factoryFunction) {
-        var extensionInfo = {"name": name, "factoryFunction": factoryFunction};
-        registeredExtensions.push(extensionInfo);
+    WebSocketExtensionSpi.register = function(extensionSpiFactory) {
+        registeredExtensions.push(extensionSpiFactory);
     };
 
-    WebSocketExtensionSpi.getRegisteredExtensionInfo = function(name) {
+    WebSocketExtensionSpi.get = function(name) {
         for (var i = 0; i < registeredExtensions.length; i++) {
             if (registeredExtensions[i].name == name) {
                 return registeredExtensions[i];
