@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2007-2014 Kaazing Corporation. All rights reserved.
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -8,9 +8,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -23,9 +23,9 @@
 /**
  * @private
  */
-var WebSocketCompositeChannel = (function() {
+var WebSocketCompositeChannel = (function () {
 
-    var WebSocketCompositeChannel = function(location, protocol) {
+    var WebSocketCompositeChannel = function (location, protocol) {
         this._location = location.getWSEquivalent();
         this._protocol = protocol;
 
@@ -35,26 +35,25 @@ var WebSocketCompositeChannel = (function() {
         this._selectedChannel;
         this.readyState = 0; //WebSocket.CONNECTING;
         this._closing = false;
-        this._negotiatedExtensions = {}; //server accepted extensions 
 
         this._compositeScheme = location._compositeScheme;
     };
-        
+
     var $prototype = WebSocketCompositeChannel.prototype = new WebSocketChannel();
 
-    $prototype.getReadyState = function() {
+    $prototype.getReadyState = function () {
         return this.readyState;
     }
 
-    $prototype.getWebSocket = function() {
+    $prototype.getWebSocket = function () {
         return this._webSocket;
     }
 
-    $prototype.getCompositeScheme = function() {
+    $prototype.getCompositeScheme = function () {
         return this._compositeScheme;
     }
 
-    $prototype.getNextStrategy = function() {
+    $prototype.getNextStrategy = function () {
         if (this._connectionStrategies.length <= 0) {
             return null;
         }
@@ -63,7 +62,7 @@ var WebSocketCompositeChannel = (function() {
         }
     }
 
-    $prototype.getRedirectPolicy = function() {
+    $prototype.getRedirectPolicy = function () {
         return this.getWebSocket().getRedirectPolicy();
     }
 

@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2007-2014 Kaazing Corporation. All rights reserved.
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -8,9 +8,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -23,45 +23,45 @@
 /**
  * @ignore
  */
-var XDRHttpDirect = (function() {
+var XDRHttpDirect = (function () {
 
-	var id = 0;
+    var id = 0;
 
     //console.log("XDRHttpRequest");
     // IE8, IE9 XDomainRequest is cross-domain
     function XDRHttpDirect(outer) {
         this.outer = outer;
     }
-        
-    var $prototype = XDRHttpDirect.prototype;         
-    $prototype.open = function(method, location) {
+
+    var $prototype = XDRHttpDirect.prototype;
+    $prototype.open = function (method, location) {
         //console.log("xdr "+ id + " .open(" + [method, location] + ")" + new Date().getTime());
         var $this = this;
         var xhr = this.outer;
-        
+
         xhr.responseText = "";
         var readyState = 2;
         var progressAt = 0;
         var startOfResponseAt = 0;
-        
-        this._method = method;        
+
+        this._method = method;
         this._location = location;
-              
+
         if (location.indexOf("?") == -1) {
             location += "?.kac=ex&.kct=application/x-message-http";
         }
         else {
             location += "&.kac=ex&.kct=application/x-message-http";
         }
-        this.location = location;              
+        this.location = location;
         var xdr = this.xdr = new XDomainRequest();
-        
-        var onProgressFunc = function(e) {
+
+        var onProgressFunc = function (e) {
             //console.log("xdr "+ id + " .onprogress1(" + [e] + ")" + new Date().getTime());
             try {
                 // process emulated headers in payload
                 var responseText = xdr.responseText;
-                if(readyState <= 2) {
+                if (readyState <= 2) {
                     var endOfHeadersAt = responseText.indexOf("\r\n\r\n");
                     //console.log("endOfHeadersAt: " + endOfHeadersAt);
                     if (endOfHeadersAt == -1) {
@@ -79,25 +79,25 @@ var XDRHttpDirect = (function() {
                     var headerLines = responseText.substring(startOfHeadersAt, endOfHeadersAt).split("\r\n");
                     //console.log("_responseHeaders: " + headerLines);
                     xhr._responseHeaders = {};
-                    for (var i=0; i < headerLines.length; i++) {
+                    for (var i = 0; i < headerLines.length; i++) {
                         var header = headerLines[i].split(":");
-                        xhr._responseHeaders[header[0].replace(/^\s+|\s+$/g,"")] = header[1].replace(/^\s+|\s+$/g,"");
+                        xhr._responseHeaders[header[0].replace(/^\s+|\s+$/g, "")] = header[1].replace(/^\s+|\s+$/g, "");
                     }
-        	        progressAt = startOfResponseAt;
-              	    //console.log("xdr "+ id + " .readyState = 2");
+                    progressAt = startOfResponseAt;
+                    //console.log("xdr "+ id + " .readyState = 2");
                     readyState = xhr.readyState = 3;
                     if (typeof($this.onreadystatechange) == "function") {
-  	                    $this.onreadystatechange(xhr);
-    	            }
+                        $this.onreadystatechange(xhr);
+                    }
 
                 }
- 
+
                 // detect new data
                 var newDataLength = xdr.responseText.length;
                 if (newDataLength > progressAt) {
-                	xhr.responseText = responseText.slice(startOfResponseAt);
+                    xhr.responseText = responseText.slice(startOfResponseAt);
                     progressAt = newDataLength;
-                 
+
                     if (typeof($this.onprogress) == "function") {
                         //console.log("onprogress: " + xhr.responseText);
                         $this.onprogress(xhr);
@@ -107,67 +107,67 @@ var XDRHttpDirect = (function() {
                 }
             }
             catch (e1) {
-               $this.onload(xhr);
+                $this.onload(xhr);
             }
             //console.log("xdr "+ id + " .onprogress2(" + [e] + ")" + new Date().getTime());
         }
 
         xdr.onprogress = onProgressFunc;
-        xdr.onerror = function(e) {
+        xdr.onerror = function (e) {
             //console.log("xdr.onerror(" + [e] + ")" + new Date().getTime());
             xhr.readyState = 0;
             if (typeof(xhr.onerror) == "function") {
                 xhr.onerror(xhr);
             }
         }
-        xdr.onload = function(e) {
+        xdr.onload = function (e) {
             //console.log("xdr "+ id + " .onload(" + [e] + ")" + new Date().getTime());
             if (readyState <= 3) {
-            	onProgressFunc(e);
+                onProgressFunc(e);
             }
             reayState = xhr.readyState = 4;
-	        if (typeof(xhr.onreadystatechange) == "function") {
-  	             xhr.onreadystatechange(xhr);
-    	    }
+            if (typeof(xhr.onreadystatechange) == "function") {
+                xhr.onreadystatechange(xhr);
+            }
             if (typeof(xhr.onload) == "function") {
                 xhr.onload(xhr);
             }
         }
         xdr.open("POST", location);
-     }
-            
-     $prototype.send = function(payload) {
-         //console.log("xdr "+ id + " .send()" + new Date().getTime());
-         
-         // wrapper http request, remove &.kct=application%2Fx-message-http to match outer request path
-         var wpayload = this._method + " " + this.location.substring(this.location.indexOf("/", 9), this.location.indexOf("&.kct")) + " HTTP/1.1\r\n";
-         //headers
-         for (var i = 0; i < this.outer._requestHeaders.length; i++) {
-  	         wpayload += this.outer._requestHeaders[i][0] + ": " + this.outer._requestHeaders[i][1] + "\r\n";
-         }
-         var content = payload || "";
-         if (content.length > 0 || this._method.toUpperCase() === "POST") {
-             // calculate content-length
-             var len = 0;
-             for (var i = 0; i < content.length; i++) {
-                 len++;
-                 if (content.charCodeAt(i) >= 0x80) {
-                     // handle \u0100 as well as \u0080 
-                     len++;
-                 }
-             }
-             wpayload += "Content-Length: " + len + "\r\n";
-         }
-         // end of header
-         wpayload += "\r\n";
-         wpayload += content;
-         this.xdr.send(wpayload);
-     }
+    }
 
-     $prototype.abort = function() {
-          //console.log("xdr "+ id + " .abort() + new Date().getTime()" + new Date().getTime());
-          this.xdr.abort();
-     }
-                        
-     return XDRHttpDirect;
+    $prototype.send = function (payload) {
+        //console.log("xdr "+ id + " .send()" + new Date().getTime());
+
+        // wrapper http request, remove &.kct=application%2Fx-message-http to match outer request path
+        var wpayload = this._method + " " + this.location.substring(this.location.indexOf("/", 9), this.location.indexOf("&.kct")) + " HTTP/1.1\r\n";
+        //headers
+        for (var i = 0; i < this.outer._requestHeaders.length; i++) {
+            wpayload += this.outer._requestHeaders[i][0] + ": " + this.outer._requestHeaders[i][1] + "\r\n";
+        }
+        var content = payload || "";
+        if (content.length > 0 || this._method.toUpperCase() === "POST") {
+            // calculate content-length
+            var len = 0;
+            for (var i = 0; i < content.length; i++) {
+                len++;
+                if (content.charCodeAt(i) >= 0x80) {
+                    // handle \u0100 as well as \u0080
+                    len++;
+                }
+            }
+            wpayload += "Content-Length: " + len + "\r\n";
+        }
+        // end of header
+        wpayload += "\r\n";
+        wpayload += content;
+        this.xdr.send(wpayload);
+    }
+
+    $prototype.abort = function () {
+        //console.log("xdr "+ id + " .abort() + new Date().getTime()" + new Date().getTime());
+        this.xdr.abort();
+    }
+
+    return XDRHttpDirect;
 })();

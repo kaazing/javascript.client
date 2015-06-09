@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2007-2014 Kaazing Corporation. All rights reserved.
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -8,9 +8,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -20,10 +20,10 @@
  */
 
 
-(function() {
+(function () {
     Base64 = {};
 
-    Base64.encode = function(bytes) {
+    Base64.encode = function (bytes) {
         var base64 = [];
         var byte0;
         var byte1;
@@ -59,21 +59,21 @@
         return base64.join("");
     }
 
-    Base64.decode = function(base64) {
+    Base64.decode = function (base64) {
         if (base64.length === 0) {
             return [];
         }
 
         if (base64.length % 4 !== 0) {
-            throw new Error ("Invalid base64 string (must be quads)");
+            throw new Error("Invalid base64 string (must be quads)");
         }
 
         var bytes = [];
-        for (var i=0; i < base64.length; i+=4) {
+        for (var i = 0; i < base64.length; i += 4) {
             var char0 = base64.charAt(i);
-            var char1 = base64.charAt(i+1);
-            var char2 = base64.charAt(i+2);
-            var char3 = base64.charAt(i+3);
+            var char1 = base64.charAt(i + 1);
+            var char2 = base64.charAt(i + 2);
+            var char3 = base64.charAt(i + 3);
 
             var index0 = MAPPED[char0];
             var index1 = MAPPED[char1];
@@ -93,25 +93,25 @@
     };
 
     var INDEXED = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/".split("");
-    var MAPPED = { "=": 0 };
+    var MAPPED = {"=": 0};
 
-    for (var i=0; i < INDEXED.length; i++) {
+    for (var i = 0; i < INDEXED.length; i++) {
         MAPPED[INDEXED[i]] = i;
     }
 
 
     // If the browser does not have a built in btoa and atob (IE), use these
     if (typeof(window.btoa) === "undefined") {
-        window.btoa = function(s) {
+        window.btoa = function (s) {
             var bytes = s.split("");
-            for (var i=0; i<bytes.length; i++) {
+            for (var i = 0; i < bytes.length; i++) {
                 bytes[i] = (bytes[i]).charCodeAt();
             }
             return Base64.encode(bytes);
         };
-        window.atob = function(bytes) {
+        window.atob = function (bytes) {
             var decoded = Base64.decode(bytes);
-            for (var i=0; i<decoded.length; i++) {
+            for (var i = 0; i < decoded.length; i++) {
                 decoded[i] = String.fromCharCode(decoded[i])
             }
             return decoded.join("");

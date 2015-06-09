@@ -22,9 +22,9 @@
 /**
  * @private
  */
-var WebSocketStrategy = (function() {
+var WebSocketStrategy = (function () {
 
-    var WebSocketStrategy = function(nativeEquivalent, handler, channelFactory) {
+    var WebSocketStrategy = function (nativeEquivalent, handler, channelFactory) {
         this._nativeEquivalent = nativeEquivalent;
         this._handler = handler;
         this._channelFactory = channelFactory;
@@ -35,10 +35,7 @@ var WebSocketStrategy = (function() {
 
     // Map of list of strategies that can be applied when establishing the connection
     // keyed by the scheme
-    WebSocketStrategy._strategyChoices = {
-					                                 "ws"  : new Array(),
-				                                   "wss" : new Array()
-					                               };
+    WebSocketStrategy._strategyChoices = {"ws": new Array(), "wss": new Array()};
 
     return WebSocketStrategy;
 })();

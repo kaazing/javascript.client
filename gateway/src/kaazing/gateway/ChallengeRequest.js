@@ -20,7 +20,7 @@
  */
 
 
-(function($module) {
+(function ($module) {
 
     /**
      * An immutable object representing the challenge presented by the server when the client accessed
@@ -44,7 +44,7 @@
      * @param location  the protected URI location triggering the challenge
      * @param challenge an entire server-provided 'WWW-Authenticate:' string
      */
-    var ChallengeRequest = function(location, challenge) {
+    var ChallengeRequest = function (location, challenge) {
         if (location == null) {
             throw new Error("location is not defined.");
         }

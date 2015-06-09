@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2007-2014 Kaazing Corporation. All rights reserved.
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -8,9 +8,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -23,17 +23,17 @@
 /**
  * @private
  */
-var WebSocketHandshakeObject = (function() {
+var WebSocketHandshakeObject = (function () {
 
-	var WebSocketHandshakeObject = function() {
-		var _name = "";
-		var _escape = "";
-	};
-	
-	WebSocketHandshakeObject.KAAZING_EXTENDED_HANDSHAKE = "x-kaazing-handshake";
-	WebSocketHandshakeObject.HEADER_SEC_EXTENSIONS = "X-WebSocket-Extensions";
-	WebSocketHandshakeObject.KAAZING_SEC_EXTENSION_IDLE_TIMEOUT = "x-kaazing-idle-timeout";
-	WebSocketHandshakeObject.KAAZING_SEC_EXTENSION_PING_PONG = "x-kaazing-ping-pong";
+    var WebSocketHandshakeObject = function () {
+        var _name = "";
+        var _escape = "";
+    };
 
-	return WebSocketHandshakeObject;
+    WebSocketHandshakeObject.KAAZING_EXTENDED_HANDSHAKE = "x-kaazing-handshake";
+    WebSocketHandshakeObject.HEADER_SEC_EXTENSIONS = "X-WebSocket-Extensions";
+    WebSocketHandshakeObject.KAAZING_SEC_EXTENSION_IDLE_TIMEOUT = "x-kaazing-idle-timeout";
+    WebSocketHandshakeObject.KAAZING_SEC_EXTENSION_PING_PONG = "x-kaazing-ping-pong";
+
+    return WebSocketHandshakeObject;
 })();

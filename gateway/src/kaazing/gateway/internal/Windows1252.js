@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2007-2014 Kaazing Corporation. All rights reserved.
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -8,9 +8,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -28,7 +28,7 @@
  */
 var Windows1252 = {};
 
-(function() {
+(function () {
     ;;;var W1252LOG = Logger.getLogger('org.kaazing.gateway.client.html5.Windows1252');
 
     /**
@@ -36,42 +36,43 @@ var Windows1252 = {};
      *
      * @ignore
      */
-    var charCodeToByte = { 0x20ac: 128
-        , 129 : 129     // C1 control code
-        , 0x201A : 130
-        , 0x0192 : 131
-        , 0x201E : 132
-        , 0x2026 : 133
-        , 0x2020 : 134
-        , 0x2021 : 135
-        , 0x02C6 : 136
-        , 0x2030 : 137
+    var charCodeToByte = {
+        0x20ac: 128
+        , 129: 129     // C1 control code
+        , 0x201A: 130
+        , 0x0192: 131
+        , 0x201E: 132
+        , 0x2026: 133
+        , 0x2020: 134
+        , 0x2021: 135
+        , 0x02C6: 136
+        , 0x2030: 137
         , 0x0160: 138
-        , 0x2039 : 139
-        , 0x0152 : 140
+        , 0x2039: 139
+        , 0x0152: 140
 
-        , 141 : 141     // C1 control code
-        , 0x017D : 142
-        , 143 : 143     // C1 control code
-        , 144 : 144     // C1 control code
+        , 141: 141     // C1 control code
+        , 0x017D: 142
+        , 143: 143     // C1 control code
+        , 144: 144     // C1 control code
 
-        , 0x2018 : 145
-        , 0x2019 : 146
-        , 0x201C : 147
-        , 0x201D : 148
-        , 0x2022 : 149
-        , 0x2013 : 150
-        , 0x2014 : 151
-        , 0x02DC : 152
-        , 0x2122 : 153
-        , 0x0161 : 154
-        , 0x203A : 155
-        , 0x0153 : 156
+        , 0x2018: 145
+        , 0x2019: 146
+        , 0x201C: 147
+        , 0x201D: 148
+        , 0x2022: 149
+        , 0x2013: 150
+        , 0x2014: 151
+        , 0x02DC: 152
+        , 0x2122: 153
+        , 0x0161: 154
+        , 0x203A: 155
+        , 0x0153: 156
 
-        , 157 : 157     // C1 control code
+        , 157: 157     // C1 control code
 
-        , 0x017E : 158
-        , 0x0178 : 159
+        , 0x017E: 158
+        , 0x0178: 159
     }
 
 
@@ -80,42 +81,43 @@ var Windows1252 = {};
      *
      * @ignore
      */
-    var byteToCharCode = { 128: 0x20ac
+    var byteToCharCode = {
+        128: 0x20ac
         , 129: 129     // C1 control code
-        , 130 : 0x201A
+        , 130: 0x201A
 
-        , 131 : 0x0192
-        , 132 : 0x201E
-        , 133 : 0x2026
-        , 134 : 0x2020
-        , 135 : 0x2021
-        , 136 : 0x02C6
-        , 137 : 0x2030
-        , 138 : 0x0160
-        , 139 : 0x2039
-        , 140 : 0x0152
+        , 131: 0x0192
+        , 132: 0x201E
+        , 133: 0x2026
+        , 134: 0x2020
+        , 135: 0x2021
+        , 136: 0x02C6
+        , 137: 0x2030
+        , 138: 0x0160
+        , 139: 0x2039
+        , 140: 0x0152
 
-        , 141 : 141     // C1 control code
-        , 142 : 0x017D
-        , 143 : 143     // C1 control code
-        , 144 : 144     // C1 control code
+        , 141: 141     // C1 control code
+        , 142: 0x017D
+        , 143: 143     // C1 control code
+        , 144: 144     // C1 control code
 
-        , 145 : 0x2018
-        , 146 : 0x2019
-        , 147 : 0x201C
-        , 148 : 0x201D
-        , 149 : 0x2022
-        , 150 : 0x2013
-        , 151 : 0x2014
-        , 152 : 0x02DC
-        , 153 : 0x2122
-        , 154 : 0x0161
-        , 155 : 0x203A
-        , 156 : 0x0153
+        , 145: 0x2018
+        , 146: 0x2019
+        , 147: 0x201C
+        , 148: 0x201D
+        , 149: 0x2022
+        , 150: 0x2013
+        , 151: 0x2014
+        , 152: 0x02DC
+        , 153: 0x2122
+        , 154: 0x0161
+        , 155: 0x203A
+        , 156: 0x0153
 
-        , 157 : 157     // C1 control code
-        , 158 : 0x017E
-        , 159 : 0x0178
+        , 157: 157     // C1 control code
+        , 158: 0x017E
+        , 159: 0x0178
     }
 
     /**
@@ -123,7 +125,7 @@ var Windows1252 = {};
      *
      * @ignore
      */
-    Windows1252.toCharCode = function(n) {
+    Windows1252.toCharCode = function (n) {
         //W1252LOG.entering(this, 'Windows1252.toCharCode', n);
         if (n < 128 || (n > 159 && n < 256)) {
             //W1252LOG.exiting(this, 'Windows1252.toCharCode', n);
@@ -131,7 +133,10 @@ var Windows1252 = {};
         } else {
             var result = byteToCharCode[n];
             if (typeof(result) == "undefined") {
-                ;;;W1252LOG.severe(this, 'Windows1252.toCharCode: Error: Could not find ' + n);
+                ;
+                ;
+                ;
+                W1252LOG.severe(this, 'Windows1252.toCharCode: Error: Could not find ' + n);
                 throw new Error("Windows1252.toCharCode could not find: " + n);
             }
             //W1252LOG.exiting(this, 'Windows1252.toCharCode', result);
@@ -144,7 +149,7 @@ var Windows1252 = {};
      *
      * @ignore
      */
-    Windows1252.fromCharCode = function(code) {
+    Windows1252.fromCharCode = function (code) {
         //W1252LOG.entering(this, 'Windows1252.fromCharCode', code);
         if (code < 256) {
             //W1252LOG.exiting(this, 'Windows1252.fromCharCode', code);
@@ -152,7 +157,10 @@ var Windows1252 = {};
         } else {
             var result = charCodeToByte[code];
             if (typeof(result) == "undefined") {
-                ;;;W1252LOG.severe(this, 'Windows1252.fromCharCode: Error: Could not find ' + code);
+                ;
+                ;
+                ;
+                W1252LOG.severe(this, 'Windows1252.fromCharCode: Error: Could not find ' + code);
                 throw new Error("Windows1252.fromCharCode could not find: " + code);
             }
             //W1252LOG.exiting(this, 'Windows1252.fromCharCode', result);
@@ -170,10 +178,13 @@ var Windows1252 = {};
      *
      * @ignore
      */
-    var escapedToArray = function(s) {
-        ;;;W1252LOG.entering(this, 'Windows1252.escapedToArray', s);
+    var escapedToArray = function (s) {
+        ;
+        ;
+        ;
+        W1252LOG.entering(this, 'Windows1252.escapedToArray', s);
         var a = [];
-        for (var i=0; i<s.length; i++) {
+        for (var i = 0; i < s.length; i++) {
             var code = Windows1252.fromCharCode(s.charCodeAt(i));
 
             if (code == 0x7f) {
@@ -187,7 +198,7 @@ var Windows1252 = {};
                 }
 
                 var next_code = Windows1252.fromCharCode(s.charCodeAt(i));
-                switch(next_code) {
+                switch (next_code) {
                     case 0x7f:
                         a.push(0x7f);
                         break;
@@ -201,7 +212,10 @@ var Windows1252 = {};
                         a.push(0x0d);
                         break;
                     default:
-                        ;;;W1252LOG.severe(this, 'Windows1252.escapedToArray: Error: Escaping format error');
+                        ;
+                        ;
+                        ;
+                        W1252LOG.severe(this, 'Windows1252.escapedToArray: Error: Escaping format error');
                         throw new Error("Escaping format error");
                 }
             } else {
@@ -211,13 +225,16 @@ var Windows1252 = {};
         return a;
     }
 
-    var toEscapedByteString = function(buf) {
-        ;;;W1252LOG.entering(this, 'Windows1252.toEscapedByteString', buf);
+    var toEscapedByteString = function (buf) {
+        ;
+        ;
+        ;
+        W1252LOG.entering(this, 'Windows1252.toEscapedByteString', buf);
         var a = [];
-        while(buf.remaining()) {
+        while (buf.remaining()) {
             var n = buf.getUnsigned();
             var chr = String.fromCharCode(Windows1252.toCharCode(n));
-            switch(chr) {
+            switch (chr) {
                 case ESCAPE_CHAR:
                     a.push(ESCAPE_CHAR);
                     a.push(ESCAPE_CHAR);
@@ -243,13 +260,16 @@ var Windows1252 = {};
      *
      * @ignore
      */
-    Windows1252.toArray = function(s, escaped) {
-        ;;;W1252LOG.entering(this, 'Windows1252.toArray', {'s':s, 'escaped':escaped});
+    Windows1252.toArray = function (s, escaped) {
+        ;
+        ;
+        ;
+        W1252LOG.entering(this, 'Windows1252.toArray', {'s': s, 'escaped': escaped});
         if (escaped) {
             return escapedToArray(s);
         } else {
             var a = [];
-            for (var i=0; i<s.length; i++) {
+            for (var i = 0; i < s.length; i++) {
                 a.push(Windows1252.fromCharCode(s.charCodeAt(i)));
             }
             return a;
@@ -261,20 +281,22 @@ var Windows1252 = {};
      *
      * @ignore
      */
-    Windows1252.toByteString = function(buf, escaped) {
-        ;;;W1252LOG.entering(this, 'Windows1252.toByteString', {'buf':buf, 'escaped':escaped});
+    Windows1252.toByteString = function (buf, escaped) {
+        ;
+        ;
+        ;
+        W1252LOG.entering(this, 'Windows1252.toByteString', {'buf': buf, 'escaped': escaped});
         if (escaped) {
             return toEscapedByteString(buf);
         } else {
             var a = [];
-            while(buf.remaining()) {
+            while (buf.remaining()) {
                 var n = buf.getUnsigned();
                 a.push(String.fromCharCode(Windows1252.toCharCode(n)));
             }
             return a.join("");
         }
     }
-
 
 
 })();

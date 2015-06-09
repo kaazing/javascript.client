@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2007-2014 Kaazing Corporation. All rights reserved.
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -8,9 +8,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -26,29 +26,29 @@
  *
  *   @private
  */
-var AsyncActionQueue = function() {
+var AsyncActionQueue = function () {
     this._queue = [];
     this._count = 0;
     this.completion
 }
 
-AsyncActionQueue.prototype.enqueue = function(cb) {
+AsyncActionQueue.prototype.enqueue = function (cb) {
     var $this = this;
     var action = {};
     action.cb = cb;
     action.id = this._count++;
     this._queue.push(action);
 
-    var func = function() {
+    var func = function () {
         $this.processQueue(action.id, cb, arguments)
     }
 
     return func;
 }
 
-AsyncActionQueue.prototype.processQueue = function(id, cb, args) {
+AsyncActionQueue.prototype.processQueue = function (id, cb, args) {
     // find entry in callback queue, populate its arguments
-    for (var i=0; i<this._queue.length; i++) {
+    for (var i = 0; i < this._queue.length; i++) {
         if (this._queue[i].id == id) {
             this._queue[i].args = args;
             break;
