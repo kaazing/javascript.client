@@ -71,10 +71,7 @@ var WebSocketNativeDelegateHandler = (function () {
             channel._delegate.close(code, reason);
         } catch (e) {
             // ignore exceptions thrown by older WebSocket impls in browsers
-            ;
-            ;
-            ;
-            LOG.finest(CLASS_NAME, "processClose exception: ", e);
+            ;;;LOG.finest(CLASS_NAME, "processClose exception: ", e);
         }
     }
 
@@ -84,10 +81,7 @@ var WebSocketNativeDelegateHandler = (function () {
             channel._delegate.setIdleTimeout(timeout);
         } catch (e) {
             // ignore exceptions thrown by older WebSocket impls in browsers
-            ;
-            ;
-            ;
-            LOG.finest(CLASS_NAME, "setIdleTimeout exception: ", e);
+            ;;;LOG.finest(CLASS_NAME, "setIdleTimeout exception: ", e);
         }
     }
 

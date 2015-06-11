@@ -53,31 +53,20 @@ Kaazing.Internal = Kaazing.namespace("Internal");
             this.name = name;
         }
 
-        var $prototype = spi.prototype = new WebSocketHandlerAdapter();
+        var $prototype = spi.prototype;
 
-        $prototype.handleConnectionOpened = function (channel, protocol) {
-            this._listener.connectionOpened(channel, protocol);
+        $prototype.onBinaryReceived = function(channel, message) {
+            this.next.onBinaryReceived(channel, message);
         }
 
-        $prototype.setNextHandler = function (nextHandler) {
-            var $this = this;
-            this._nextHandler = nextHandler;
-            var listener = new WebSocketHandlerListener(this);
-            listener.connectionOpened = function (channel, protocol) {
-                $this.handleConnectionOpened(channel, protocol);
-            }
-            listener.textMessageReceived = function (channel, buf) {
-                $this.handleTextMessageReceived(channel, buf);
-            }
-            listener.binaryMessageReceived = function (channel, buf) {
-                $this.handleMessageReceived(channel, buf);
-            }
-            nextHandler.setListener(listener);
+        $prototype.onTextReceived = function(channel, message) {
+            this.next.onTextReceived(channel, message);
         }
 
-        $prototype.setListener = function (listener) {
-            this._listener = listener;
+        $prototype.setNext = function(nextExtension) {
+            this.next = nextExtension;
         }
+
 
         return spi;
     })();
