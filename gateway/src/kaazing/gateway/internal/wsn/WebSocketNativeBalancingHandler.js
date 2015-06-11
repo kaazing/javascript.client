@@ -108,10 +108,7 @@ var WebSocketNativeBalancingHandler = (function ($module) /*extends WebSocketHan
             }
             else {
                 //invalidate balancing message
-                ;
-                ;
-                ;
-                LOG.warning(CLASS_NAME, "Invalidate balancing message: " + target);
+                ;;;LOG.warning(CLASS_NAME, "Invalidate balancing message: " + target);
             }
             return;
         }
@@ -132,10 +129,7 @@ var WebSocketNativeBalancingHandler = (function ($module) /*extends WebSocketHan
             }
         }
         listener.textMessageReceived = function (channel, message) {
-            ;
-            ;
-            ;
-            LOG.finest(CLASS_NAME, "textMessageReceived", message);
+            ;;;LOG.finest(CLASS_NAME, "textMessageReceived", message);
 
             //check for blancing message
             if (channel._balanced > 1 /* || message.remaining() < 4 */) {
@@ -161,10 +155,7 @@ var WebSocketNativeBalancingHandler = (function ($module) /*extends WebSocketHan
                 }
                 else {
                     //invalidate balancing message
-                    ;
-                    ;
-                    ;
-                    LOG.warning(CLASS_NAME, "Invalidate balancing message: " + target);
+                    ;;;LOG.warning(CLASS_NAME, "Invalidate balancing message: " + target);
                 }
                 return;
             }

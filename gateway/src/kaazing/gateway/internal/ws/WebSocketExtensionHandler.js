@@ -19,8 +19,7 @@
  * under the License.
  */
 
-// It is injected in the message processing pipeline. The extension handler
-// delegates the control to the negotiated extensions
+// The extension handler delegates the control to the negotiated extensions
 var WebSocketExtensionHandler = (function () {
 
     var WebSocketExtensionHandler = function () {
@@ -30,11 +29,14 @@ var WebSocketExtensionHandler = (function () {
 
     $prototype.handleConnectionOpened = function (channel, protocol) {
         var negotiatedExtensions = channel._negotiatedExtensions;
-        if (negotiatedExtensions) {
-            // negotiated extensions: ext1->ext2->ext3->....->extN
-            // handler pipeline of negotiated extensions: _parentHandler->extN->...->ext3->ext2->ext1->extensionHandler(this)
-            negotiatedExtensions = negotiatedExtensions.reverse();
-            var parentHandler = this._parentHandler;
+        if (negotiatedExtensions && negotiatedExtensions.length > 0) {
+            var head = null;
+            var tail = null
+            // Create Extension Pipeline and attach it to the channel.
+            // Extension pipeline is delegated the control from this class(WebSocketExtensionHandler)
+            // Once the message is processed by the extension pipeline, the message is forwarded to
+            // rest of the handler chain. Cannot attach extension pipeline to handler chain as it
+            // is singleton but extension pipeline is per connection.
             for (var i = 0; i < negotiatedExtensions.length; i++) {
                 var extensionElements = negotiatedExtensions[i].split(";");
                 var extensionName = extensionElements[0].replace(/^\s+|\s+$/g, "");
@@ -46,21 +48,51 @@ var WebSocketExtensionHandler = (function () {
 
                 var extensionSpiFactory = WebSocketExtensionSpi.get(extensionName);
                 var extensionSpi = extensionSpiFactory.create(extensionParameter);
-                parentHandler.setNextHandler(extensionSpi);
-                parentHandler = extensionSpi;
+                if (head == null) {
+                    head = extensionSpi;
+                }
+                if (tail == null) {
+                    tail = extensionSpi;
+                }
+                else {
+                    tail.setNext(extensionSpi);
+                }
             }
-            parentHandler.setNextHandler(this);
+            tail.setNext(this);
+            channel._extensionPipeline = head;
         }
         this._listener.connectionOpened(channel, protocol);
     }
 
+    // ----- START: Handler Pipeline ----- //
     $prototype.handleTextMessageReceived = function (channel, message) {
-        this._listener.textMessageReceived(channel, message);
+        if (channel._extensionPipeline == null) {
+            this._listener.textMessageReceived(channel, message);
+        }
+        else {
+            channel._extensionPipeline.onTextReceived(channel, message);
+        }
     }
 
     $prototype.handleMessageReceived = function (channel, message) {
+        if (channel._extensionPipeline == null) {
+            this._listener.binaryMessageReceived(channel, message);
+        }
+        else {
+            channel._extensionPipeline.onBinaryReceived(channel, message);
+        }
+    }
+    // ----- END: Handler Pipeline ----- //
+
+    // ----- START: Extension Pipeline ----- //
+    $prototype.onTextReceived = function(channel, message) {
+        this._listener.textMessageReceived(channel, message);
+    }
+
+    $prototype.onBinaryReceived = function(channel, message) {
         this._listener.binaryMessageReceived(channel, message);
     }
+    // ----- END: Extension Pipeline ----- //
 
     $prototype.setNextHandler = function (nextHandler) {
         var $this = this;

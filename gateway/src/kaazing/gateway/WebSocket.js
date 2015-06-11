@@ -339,10 +339,7 @@
         var webSocketChannelListener = {};
 
         var WebSocket = function (url, protocol, challengeHandler, connectTimeout, redirectPolicy) {
-            ;
-            ;
-            ;
-            LOG.entering(this, 'WebSocket.<init>', {'url': url, 'protocol': protocol});
+            ;;;LOG.entering(this, 'WebSocket.<init>', {'url': url, 'protocol': protocol});
             this.url = url;
             this.protocol = protocol;
             this.connectTimeout = 0;
@@ -531,10 +528,7 @@
             //LOG.debug("ENTRY WebSocket.send with {0}", data)
             switch (this.readyState) {
                 case 0:
-                    ;
-                    ;
-                    ;
-                    LOG.error("WebSocket.send: Error: Attempt to send message on unopened or closed WebSocket")
+                    ;;;LOG.error("WebSocket.send: Error: Attempt to send message on unopened or closed WebSocket")
                     throw new Error("Attempt to send message on unopened or closed WebSocket");
 
                 case 1:
@@ -550,10 +544,7 @@
                     break;
 
                 default:
-                    ;
-                    ;
-                    ;
-                    LOG.error("WebSocket.send: Illegal state error");
+                    ;;;LOG.error("WebSocket.send: Illegal state error");
                     throw new Error("Illegal state error");
             }
         }
@@ -591,10 +582,7 @@
                 case 3:
                     break;
                 default:
-                    ;
-                    ;
-                    ;
-                    LOG.error("WebSocket.close: Illegal state error");
+                    ;;;LOG.error("WebSocket.close: Illegal state error");
                     throw new Error("Illegal state error");
             }
         }
@@ -723,10 +711,7 @@
 
 
         var doClose = function ($this, wasClean, code, reason) {
-            ;
-            ;
-            ;
-            LOG.entering($this, 'WebSocket.doClose');
+            ;;;LOG.entering($this, 'WebSocket.doClose');
 
             delete $this._channel; //clean up channel
             setTimeout(function () {
@@ -780,10 +765,7 @@
         }
 
         webSocketChannelListener.handleError = function ($this, event) {
-            ;
-            ;
-            ;
-            LOG.entering($this, 'WebSocket.handleError' + event);
+            ;;;LOG.entering($this, 'WebSocket.handleError' + event);
             setTimeout(function () {
                 $this.dispatchEvent(event);
             }, 0);
@@ -840,10 +822,7 @@
                     callback(e);
                 }
             } catch (e) {
-                ;
-                ;
-                ;
-                LOG.severe(this, type + ' event handler: Error thrown from application');
+                ;;;LOG.severe(this, type + ' event handler: Error thrown from application');
             }
 
             var listeners = this._eventListeners[type];
@@ -852,10 +831,7 @@
                     try {
                         listeners[i](e);
                     } catch (e2) {
-                        ;
-                        ;
-                        ;
-                        LOG.severe(this, type + ' event handler: Error thrown from application');
+                        ;;;LOG.severe(this, type + ' event handler: Error thrown from application');
                     }
                 }
             }
