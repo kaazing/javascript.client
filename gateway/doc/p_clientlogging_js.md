@@ -68,6 +68,6 @@ To Enable the JavaScript Client Logs
 See Also
 --------
 
-To learn how to build clients using the Kaazing client libraries, see the Kaazing client developer documentation in the **For Developer's** section of the [documentation](../index.md) page.
+To learn how to build clients using the Kaazing client libraries, see the Kaazing client developer documentation in the **For Developer's** section of the [documentation](https://github.com/kaazing/gateway/blob/develop/doc/index.md) page.
 
 
