@@ -7,7 +7,7 @@ The javascript.client project implements the [WebSocket standard](https://tools.
 # Building This Project
 
 ## Installing Dependencies
-Before building the kaazing-client-javascript, please install and configure the following dependencies:
+Before building kaazing-client-javascript, please install and configure the following dependencies:
 
 * [Git](http://git-scm.com/): The [Github Guide to Installing Git](https://help.github.com/articles/set-up-git) is a good source of information.
 * [Node.js](http://nodejs.org/): Node is used to install necessary dependancies. Depending on your system, you can install Node either from source or as a pre-packaged bundle.
