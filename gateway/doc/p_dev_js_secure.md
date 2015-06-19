@@ -6,7 +6,7 @@ Secure Your JavaScript Client
 =============================
 
 Note: To use the Gateway, a KAAZING client library, or a KAAZING demo, fork the repository from [kaazing.org](http://kaazing.org).
-Before you add security to your clients, follow the steps in [Secure Network Traffic with the Gateway](../security/o_tls.md) and [Configure Authentication and Authorization](../security/o_aaa_config_authentication.md) to set up security on KAAZING Gateway for your client. The authentication and authorization methods configured on the Gateway influence your client security implementation. In this procedure, we provide an example of the most common implementation.
+Before you add security to your clients, follow the steps in [Secure Network Traffic with the Gateway](../security/o_tls.md) and [Configure Authentication and Authorization](https://github.com/kaazing/gateway/blob/develop/doc/security/o_auth_configure.md) to set up security on KAAZING Gateway for your client. The authentication and authorization methods configured on the Gateway influence your client security implementation. In this procedure, we provide an example of the most common implementation.
 
 
 To Secure Your JavaScript Client
@@ -27,7 +27,7 @@ Authenticating your client involves implementing a challenge handler to respond 
 
 A challenge handler is a constructor used in an application to respond to authentication challenges from the Gateway when the application attempts to access a protected resource. Each of the resources protected by the Gateway is configured with a different authentication scheme (for example, Basic, Application Basic, Application Negotiate, or Application Token), and your application requires a challenge handler for each of the schemes that it will encounter or a single challenge handler that will respond to all challenges. Also, you can add a dispatch challenge handler to route challenges to specific challenge handlers according to the URI of the requested resource.
 
-For information about each authentication scheme type, see [Configure the HTTP Challenge Scheme](../security/p_aaa_config_authscheme.md).
+For information about each authentication scheme type, see [Configure the HTTP Challenge Scheme](https://github.com/kaazing/gateway/blob/develop/doc/security/p_authentication_config_http_challenge_scheme.md).
 
 Clients with a single challenge handling strategy for all 401 challenges can simply set a specific challenge handler as the default using `webSocketFactory.setChallengeHandler()`. The following is an example of how to implement a single challenge handler for all challenges:
 
