@@ -2,7 +2,7 @@
 
 # About this Project
 
-The amqp-0-9-1 project implements the [WebSocket standard](https://tools.ietf.org/html/rfc6455) and AMQP protocol in JavaScript. It provides an AMQP client API that enables developers to build JavaScript applications that communicate with an AMQP message broker over WebSocket via an RFC-6455 endpoint, such KAAZING Gateway.
+The amqp-0-9-1 project implements the [WebSocket standard](https://tools.ietf.org/html/rfc6455) and AMQP protocol in JavaScript. It provides an AMQP client API that enables developers to build JavaScript applications that communicate with an AMQP message broker over WebSocket via an RFC-6455 endpoint, such as KAAZING Gateway.
 
 # Building this Project
 
