@@ -2,7 +2,7 @@
 
 # About This Project
 
-The javascript.client project implements the [WebSocket standard](https://tools.ietf.org/html/rfc6455) in JavaScript. It provides a WebSocket client API that enables developers to build JavaScript applications that communicate over WebSocket with an RFC-6455 endpoint, such KAAZING Gateway.
+The javascript.client project implements the [WebSocket standard](https://tools.ietf.org/html/rfc6455) in JavaScript. It provides a WebSocket client API that enables developers to build JavaScript applications that communicate over WebSocket with an RFC-6455 endpoint, such as KAAZING Gateway.
 
 # Building This Project
 
