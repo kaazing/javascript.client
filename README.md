@@ -29,9 +29,9 @@ Before building kaazing-client-javascript, please install and configure the foll
 
 You can also download and run this project from [kaazing.org/download](http://kaazing.org/download/)
 
-# Learning How to Use an RFC 6455 endpoint
+# Using KAAZING Gateway or any RFC-6455 Endpoint
 
-You can use an RFC-6455 endpoint, such KAAZING Gateway. To learn how to administer the Gateway, its configuration files, and security, see the documentation on [developer.kaazing.com](http://developer.kaazing.com/documentation/5.0/index.html).
+You can use an RFC-6455 endpoint, such KAAZING Gateway, to connect to a back-end service. To learn how to administer the Gateway, its configuration files, and security, see the documentation on [developer.kaazing.com](http://developer.kaazing.com/documentation/5.0/index.html).
 
 # Learning How to Develop Client Applications
 
