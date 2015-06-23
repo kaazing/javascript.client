@@ -4,7 +4,7 @@
 
 The amqp-0-9-1 project implements the [WebSocket standard](https://tools.ietf.org/html/rfc6455) and AMQP protocol in JavaScript. It provides an AMQP client API that enables developers to build JavaScript applications that communicate with an AMQP message broker over WebSocket via an RFC-6455 endpoint, such as KAAZING Gateway.
 
-# Building this Project
+# Building This Project
 
 ## Minimum Requirements for Building the Projects in This Repo
 
@@ -26,7 +26,7 @@ The amqp-0-9-1 project implements the [WebSocket standard](https://tools.ietf.or
 
 # Using KAAZING Gateway or any RFC-6455 Endpoint
 
-You can use an RFC-6455 endpoint, such KAAZING Gateway, to connect to a back-end service or AMQP broker. To learn how to administer the Gateway, its configuration files, and security, see the documentation on [developer.kaazing.com](http://developer.kaazing.com/documentation/5.0/index.html).
+You can use an RFC-6455 endpoint, such as KAAZING Gateway, to connect to a back-end service or AMQP broker. To learn how to administer the Gateway, its configuration files, and security, see the documentation on [developer.kaazing.com](http://developer.kaazing.com/documentation/5.0/index.html).
 
 # Learning How to Develop Client Applications
 
