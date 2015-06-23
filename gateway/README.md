@@ -1,6 +1,6 @@
 # gateway
 
-# About this Project
+# About This Project
 
 The gateway (WebSocket) project implements the [WebSocket standard](https://tools.ietf.org/html/rfc6455) in JavaScript. It provides a WebSocket client API that enables developers to build JavaScript applications that communicate to a back-end service over WebSocket via an RFC-6455 endpoint, such as KAAZING Gateway.
 
