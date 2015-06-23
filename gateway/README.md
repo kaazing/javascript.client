@@ -2,13 +2,13 @@
 
 # About This Project
 
-The javascript.client project implements the [WebSocket standard](https://tools.ietf.org/html/rfc6455) in JavaScript. It provides a WebSocket client API that enables developers to build JavaScript applications that communicate over WebSocket with an RFC-6455 endpoint, such as KAAZING Gateway.
+The gateway (WebSocket) project implements the [WebSocket standard](https://tools.ietf.org/html/rfc6455) in JavaScript. It provides a WebSocket client API that enables developers to build JavaScript applications that communicate over WebSocket with an RFC-6455 endpoint, such as KAAZING Gateway.
 
 # Building This Project
 
 ## Minimum Requirements for Building the Projects in This Repo
 
-Before building kaazing-client-javascript, please install and configure the following dependencies:
+Before building this project, please install and configure the following dependencies:
 
 * [Git](http://git-scm.com/): The [Github Guide to Installing Git](https://help.github.com/articles/set-up-git) is a good source of information.
 * [Node.js](http://nodejs.org/): Node is used to install necessary dependancies. Depending on your system, you can install Node either from source or as a pre-packaged bundle.
@@ -17,7 +17,7 @@ Before building kaazing-client-javascript, please install and configure the foll
 
 **Note**: These may need elevated privileges requiring the use of either sudo (for OSX, *nix, BSD etc) or running the command shell as an Administrator (for Windows) to install Grunt & Bower globally.
 
-## Steps for building this project
+## Steps for Building this Project
 
 0. Clone the repo: ```git clone https://github.com/kaazing/javascript.client.git```
 0. Go to the cloned directory: ```cd javascript.client```
@@ -28,7 +28,7 @@ Before building kaazing-client-javascript, please install and configure the foll
 
 # Using KAAZING Gateway or any RFC-6455 Endpoint
 
-You can use an RFC-6455 endpoint, such KAAZING Gateway, to connect to a back-end service. To learn how to administer the Gateway, its configuration files, and security, see the documentation on [developer.kaazing.com](http://developer.kaazing.com/documentation/5.0/index.html).
+You can use an RFC-6455 endpoint, such as KAAZING Gateway, to connect to a back-end service. To learn how to administer the Gateway, its configuration files, and security, see the documentation on [developer.kaazing.com](http://developer.kaazing.com/documentation/5.0/index.html).
 
 # Learning How to Develop Client Applications
 
