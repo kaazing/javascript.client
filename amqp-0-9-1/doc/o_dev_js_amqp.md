@@ -1,7 +1,3 @@
--   [Home](../../index.md)
--   [Documentation](../index.md)
--   Build JavaScript AMQP Clients
-
 Build JavaScript AMQP Clients
 =============================
 
