@@ -39,7 +39,6 @@ In this section, you will learn the major steps when developing clients using th
 -   [Creating the JavaScript AMQP Demo](#creating-the-javascript-amqp-demo)
 -   [JavaScript AMQP Demo Code](#javascript-amqp-demo-code)
 -   [Other Coding Styles](#other-coding-styles)
--   [Migrate JavaScript Applications to KAAZING Gateway 5.0](#migrate-javascript-applications-to-kaazing-gateway-50)
 
 ### Development Overview
 
@@ -1646,66 +1645,6 @@ var log = function(message) {
 ```
 
 You can also combine one or more of these programming styles.
-
-Migrate JavaScript Applications to KAAZING Gateway 5.0
-------------------------------------------------------
-
-If you wish to migrate your KAAZING Gateway 3.3-3.5 JavaScript clients to KAAZING Gateway 5.0 and use its new library, do the following:
-
--   Add the new WebSocket.js library to your client, as described in the procedure [To Use the KAAZING Gateway JavaScript AMQP Client Library](#procedure).
--   Add the new Amqp-0-9-1.js library. WebSocket.js and Amqp-0-9-1.js have replaced the Amqp-0-9-1.js library from 3.3-3.5.
--   Update fixed parameter position API calls to configuration style API calls (i.e. using the `Configuration` object). In KAAZING Gateway \ - Community Edition 3.3-3.5, the JavaScript AMQP API classes `AmqpClient` and `AmqpChannel` supported two styles, a fixed parameter position API and a configuration style API. In KAAZING Gateway 5.0, only configuration style APIs are supported. For example, if you had the following code:
-
-    ``` js
-    var client = new amqpClient();
-    client.connect('ws://localhost:8001/amqp', '/', {username: 'guest', password: 'guest'}, openHandler);
-    ```
-
-    You would update it to:
-
-    ``` js
-    amqpClient = Kaazing.AMQP.AmqpClientFactory.createAmqpClient();
-    var credentials = {
-        username: 'guest',
-        password: 'guest'
-    };
-    amqpClient.connect({
-        url: 'ws://localhost:8001/amqp',
-        virtualHost: '/',
-        credentials: credentials
-        },
-        openHandler);
-    ```
-
--   Modify challenge handler registration. In KAAZING Gateway 5.0, `ChallengeHandlers` from 3.3-3.5 was replaced with the `setChallengeHandler` method of `WebSocketFactory`. The `setChallengeHandler` method is used to register a ChallengeHandler, which is then used during authentication for connections and subsequent revalidation that occurs at regular intervals.
-
-    **KAAZING Gateway 3.3-3.5:**
-
-    ``` js
-    function setupSSO() {
-        /* Respond to authentication challenges with popup login dialog */
-        var basicHandler = new BasicChallengeHandler();
-        basicHandler.loginHandler = function(callback) {
-            popupLoginDialog(callback);
-        }
-        ChallengeHandlers.setDefault(basicHandler);
-    }
-    ```
-
-    **KAAZING Gateway 5.0:**
-
-    ``` js
-    function setupSSO(webSocketFactory) {
-        /* Respond to authentication challenges with popup login dialog */
-        var basicHandler = new Kaazing.Gateway.BasicChallengeHandler();
-        basicHandler.loginHandler = function(callback) {
-            popupLoginDialog(callback);
-        }
-        webSocketFactory.setChallengeHandler(basicHandler);
-    }
-    ```
-
--   Review the [AmqpClient JavaScript API](../apidoc/client/javascript/amqp/index.md).
 
 Next Step
 ---------
