@@ -22,8 +22,8 @@ This procedure is part of [Build JavaScript WebSocket Clients](o_dev_js.md):
 4.  [Secure Your JavaScript Client](p_dev_js_secure.md)
 5.  [Display Logs for the JavaScript Client](p_clientlogging_js.md)
 
-To Migrate ByteSocket Applications to KAAZING Gateway 5.0
----------------------------------------------------------
+To Migrate KAAZING Gateway 4.x WebSocket JavaScript Applications to KAAZING Gateway 5.0
+---------------------------------------------------------------------------------------
 
 The only major changes from the KAAZING Gateway 4.x WebSocket API are changes to how namespace objects are accessed.
 
