@@ -1,7 +1,3 @@
--   [Home](../index.md)
--   [Documentation](#)
--   Real-Time Interactive Guide to AMQP
-
 Real-Time Interactive Guide to AMQP
 ===================================
 

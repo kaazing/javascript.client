@@ -1,7 +1,3 @@
--   [Home](../../index.md)
--   [Documentation](../index.md)
--   Use the JavaScript WebSocket API
-
 Use the JavaScript WebSocket API
 ================================
 
