@@ -1,7 +1,3 @@
--   [Home](../../index.md)
--   [Documentation](../index.md)
--   Build JavaScript WebSocket Clients
-
 Build JavaScript WebSocket Clients
 ==================================
 

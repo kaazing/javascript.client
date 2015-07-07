@@ -1,7 +1,3 @@
--   [Home](../../index.md)
--   [Documentation](../index.md)
--   Use the JavaScript EventSource API
-
 Use the JavaScript EventSource API
 =====================================================================
 
