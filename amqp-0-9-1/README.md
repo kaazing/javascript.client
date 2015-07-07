@@ -1,8 +1,8 @@
-# gateway
+# amqp-0-9-1
 
 # About This Project
 
-The gateway (WebSocket) project implements the [WebSocket standard](https://tools.ietf.org/html/rfc6455) in JavaScript. It provides a WebSocket client API that enables developers to build JavaScript applications that communicate to a back-end service over WebSocket via an RFC-6455 endpoint, such as KAAZING Gateway.
+The amqp-0-9-1 project implements the [WebSocket standard](https://tools.ietf.org/html/rfc6455) and AMQP protocol in JavaScript. It provides an AMQP client API that enables developers to build JavaScript applications that communicate to an AMQP broker over WebSocket via an RFC-6455 endpoint, such as KAAZING Gateway.
 
 # Building Projects
 
@@ -16,7 +16,7 @@ Before building kaazing-client-javascript, please install and configure the foll
 
 **Note**: These may need elevated privileges requiring the use of either sudo (for OSX, *nix, BSD etc) or running the command shell as an Administrator (for Windows) to install Grunt & Bower globally.
 
-## Steps for Building this Project
+## Steps for building this project
 
 0. Clone the repo: ```git clone https://github.com/kaazing/javascript.client.git```
 0. Go to the cloned directory: ```cd javascript.client```
@@ -35,4 +35,4 @@ To learn how to develop client applications with this project, see the documenta
 
 # View a Running Demo
 
-To view demos of clients built with these projects, see [kaazing.org](http://kaazing.org/)
+To view demos of clients built with this project, see [kaazing.org](http://kaazing.org/)
