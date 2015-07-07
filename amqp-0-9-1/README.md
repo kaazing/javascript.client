@@ -1,13 +1,12 @@
 # amqp-0-9-1
 
-# About This Project
+# About this Project
 
-The amqp-0-9-1 project implements the [WebSocket standard](https://tools.ietf.org/html/rfc6455) and AMQP protocol in JavaScript. It provides an AMQP client API that enables developers to build JavaScript applications that communicate to an AMQP broker over WebSocket via an RFC-6455 endpoint, such as KAAZING Gateway.
+The amqp-0-9-1 project implements the [WebSocket standard](https://tools.ietf.org/html/rfc6455) and AMQP protocol in JavaScript. It provides an AMQP client API that enables developers to build JavaScript applications that communicate with an AMQP message broker over WebSocket via an RFC-6455 endpoint, such as KAAZING Gateway.
 
-# Building Projects
+# Building This Project
 
 ## Minimum Requirements for Building the Projects in This Repo
-Before building kaazing-client-javascript, please install and configure the following dependencies:
 
 * [Git](http://git-scm.com/): The [Github Guide to Installing Git](https://help.github.com/articles/set-up-git) is a good source of information.
 * [Node.js](http://nodejs.org/): Node is used to install necessary dependancies. Depending on your system, you can install Node either from source or as a pre-packaged bundle.
@@ -16,7 +15,7 @@ Before building kaazing-client-javascript, please install and configure the foll
 
 **Note**: These may need elevated privileges requiring the use of either sudo (for OSX, *nix, BSD etc) or running the command shell as an Administrator (for Windows) to install Grunt & Bower globally.
 
-## Steps for building this project
+## Steps for Building This Project
 
 0. Clone the repo: ```git clone https://github.com/kaazing/javascript.client.git```
 0. Go to the cloned directory: ```cd javascript.client```
@@ -27,12 +26,13 @@ Before building kaazing-client-javascript, please install and configure the foll
 
 # Using KAAZING Gateway or any RFC-6455 Endpoint
 
-You can use an RFC-6455 endpoint, such as KAAZING Gateway, to connect to a back-end service. To learn how to administer the Gateway, its configuration files, and security, see the documentation on [developer.kaazing.com](http://developer.kaazing.com/documentation/5.0/index.html).
+You can use an RFC-6455 endpoint, such as KAAZING Gateway, to connect to a back-end service or AMQP broker. To learn how to administer the Gateway, its configuration files, and security, see the documentation on [developer.kaazing.com](http://developer.kaazing.com/documentation/5.0/index.html).
 
 # Learning How to Develop Client Applications
 
-To learn how to develop client applications with this project, see the documentation on [developer.kaazing.com](http://developer.kaazing.com/documentation/5.0/index.html).
+To learn how to develop client applications with these projects, see the documentation on [developer.kaazing.com](http://developer.kaazing.com/documentation/5.0/index.html).
 
 # View a Running Demo
 
-To view demos of clients built with this project, see [kaazing.org](http://kaazing.org/)
+To view demos of clients built with these projects, see [kaazing.org](http://kaazing.org/)
+
