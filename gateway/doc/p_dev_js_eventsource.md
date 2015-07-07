@@ -9,7 +9,7 @@ Use the JavaScript EventSource API
 
 This section describes how you can use the `EventSource` API provided by the Kaazing JavaScript client library. This API allows you to take advantage of the Server-Sent Events standard as described in the [HTML5 specification](http://www.w3.org/html/wg/html5/#server-sent-events). For example, you can create a JavaScript client that uses the JavaScript HTML5 Communications client library to receive streaming data from a news feed or streaming financial data. The support for Server-Sent Events is provided by the `EventSource` class and its supporting classes.
 
-The following steps show you how to use the `EventSource` API. This example highlights some of the most commonly used `EventSource` methods and is not meant to be an end-to-end tutorial. Refer to the [EventSource API documentation](../apidoc/client/javascript/gateway/EventSource.md) for a complete description of all the available methods.
+The following steps show you how to use the `EventSource` API. This example highlights some of the most commonly used `EventSource` methods and is not meant to be an end-to-end tutorial. Refer to the [EventSource API documentation](http://developer.kaazing.com/documentation/5.0/apidoc/client/javascript/gateway/EventSource.html) for a complete description of all the available methods.
 
 Before You Begin
 ----------------
@@ -55,6 +55,6 @@ Next Step
 See Also
 --------
 
-[EventSource API documentation](../apidoc/client/javascript/gateway/EventSource.md)
+[EventSource API documentation](http://developer.kaazing.com/documentation/5.0/apidoc/client/javascript/gateway/EventSource.html)
 
 
