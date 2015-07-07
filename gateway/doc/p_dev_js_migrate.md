@@ -1,7 +1,3 @@
--   [Home](../../index.md)
--   [Documentation](../index.md)
--   Migrate JavaScript Applications to KAAZING Gateway 5.0
-
 Migrate JavaScript Applications to KAAZING Gateway 5.0
 ==========================================================================
 
