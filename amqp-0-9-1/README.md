@@ -15,7 +15,7 @@ The amqp-0-9-1 project implements the [WebSocket standard](https://tools.ietf.or
 
 **Note**: These may need elevated privileges requiring the use of either sudo (for OSX, *nix, BSD etc) or running the command shell as an Administrator (for Windows) to install Grunt & Bower globally.
 
-## Steps for Building this Project
+## Steps for Building This Project
 
 0. Clone the repo: ```git clone https://github.com/kaazing/javascript.client.git```
 0. Go to the cloned directory: ```cd javascript.client```
@@ -35,3 +35,4 @@ To learn how to develop client applications with these projects, see the documen
 # View a Running Demo
 
 To view demos of clients built with these projects, see [kaazing.org](http://kaazing.org/)
+
