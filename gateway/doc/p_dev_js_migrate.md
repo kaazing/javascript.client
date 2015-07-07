@@ -25,7 +25,7 @@ This procedure is part of [Build JavaScript WebSocket Clients](o_dev_js.md):
 To Migrate KAAZING Gateway 4.x WebSocket JavaScript Applications to KAAZING Gateway 5.0
 ---------------------------------------------------------------------------------------
 
-The only major changes from the KAAZING Gateway 4.x WebSocket API are changes to how namespace objects are accessed.
+The only major changes from the KAAZING Gateway 4.x WebSocket API are changes to how namespace objects are accessed. In the KAAZING Gateway 4.x WebSocket API, all the publicly-accessible JavaScript objects were available under `window` object. However, in KAAZING Gateway 5.x, the namespace object `Kaazing.Gateway` is introduced and the JavaScript objects are now available under the `Kaazing.Gateway` namespace object.
 
 In the KAAZING Gateway 4.x WebSocket API, the namespace object was accessed like this:
 
