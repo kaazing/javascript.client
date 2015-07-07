@@ -1,7 +1,3 @@
--   [Home](../../index.md)
--   [Documentation](../index.md)
--   Secure Your JavaScript Client
-
 Secure Your JavaScript Client
 =============================
 
