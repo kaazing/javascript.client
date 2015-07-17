@@ -3,7 +3,7 @@ Use the JavaScript WebSocket API
 
 **Note:** To use the Gateway, a KAAZING client library, or a KAAZING demo, fork the repository from [kaazing.org](http://kaazing.org).
 
-This section describes how you can use the `WebSocket` API provided by the KAAZING Gateway JavaScript client library ([JavaScript Client API](../apidoc/client/javascript/gateway/index.md "JsDoc")). This API allows you to take advantage of the WebSocket standard as described in the [HTML5 specification](http://www.w3.org/TR/html5/ "HTML5") and [WebSocket API](http://dev.w3.org/html5/websockets/ "The WebSocket API") including the sending and receiving of string and binary messages.
+This section describes how you can use the `WebSocket` API provided by the KAAZING Gateway JavaScript client library ([JavaScript Client API](http://developer.kaazing.com/documentation/5.0/apidoc/client/javascript/gateway/index.html). This API allows you to take advantage of the WebSocket standard as described in the [HTML5 specification](http://www.w3.org/TR/html5/ "HTML5") and [WebSocket API](http://dev.w3.org/html5/websockets/ "The WebSocket API") including the sending and receiving of string and binary messages.
 
 The steps in this topic show you how to create a simple JavaScript client using the WebSocket API as implemented in the KAAZING Gateway JavaScript WebSocket library. The Gateway JavaScript client library is fully-compliant with the WebSocket API standard and includes several enhancements.
 
@@ -16,7 +16,7 @@ This topic covers the following information:
 -   [Build the WebSocket JavaScript Demo](#build-the-websocket-javascript-demo)
 -   [Setting and Overriding HttpRedirectPolicy Defaults on the WebSocketFactory](#setting-and-overriding-httpredirectpolicy-defaults-on-the-websocketfactory)
 
-The examples in this topic highlight some of the most commonly used WebSocket methods. Refer to the [JavaScript Client API](../apidoc/client/javascript/gateway/index.md "JsDoc") for a complete description of all the available methods.
+The examples in this topic highlight some of the most commonly used WebSocket methods. Refer to the [JavaScript Client API](http://developer.kaazing.com/documentation/5.0/apidoc/client/javascript/gateway/index.html) for a complete description of all the available methods.
 
 Before You Begin
 ----------------
@@ -219,7 +219,7 @@ Build the WebSocket JavaScript Demo
 
 The following example demonstrates how to build the WebSocket JavaScript demo using the WebSocket JavaScript library and the KAAZING Gateway.
 
-The demo you build will send and receive text and binary messages with the Gateway or RFC-6455 WebSocket endpoint over WebSocket using a JavaScript client and KAAZING Gateway [JavaScript Client API](../apidoc/client/javascript/gateway/index.md "JsDoc"). The JavaScript client consists of an HTML page hosted that can be hosted by the directory service on the Gateway or simply dragged into a web browser. You will add a `script` tag that points to the JavaScript WebSocket library from the HTML page, an HTML form, and the JavaScript needed to connect to a RFC-6455 WebSocket endpoint over WebSocket and send and receive WebSocket messages with the Echo service hosted on [websocket.org](http://www.websocket.org).
+The demo you build will send and receive text and binary messages with the Gateway or RFC-6455 WebSocket endpoint over WebSocket using a JavaScript client and KAAZING Gateway [JavaScript Client API](http://developer.kaazing.com/documentation/5.0/apidoc/client/javascript/gateway/index.html). The JavaScript client consists of an HTML page hosted that can be hosted by the directory service on the Gateway or simply dragged into a web browser. You will add a `script` tag that points to the JavaScript WebSocket library from the HTML page, an HTML form, and the JavaScript needed to connect to a RFC-6455 WebSocket endpoint over WebSocket and send and receive WebSocket messages with the Echo service hosted on [websocket.org](http://www.websocket.org).
 
 1.  Create a new HTML page named **index.md** and save it in a development folder on you computer.
 
@@ -270,7 +270,7 @@ The demo you build will send and receive text and binary messages with the Gatew
 
     An ArrayBuffer function is included because of the limitations of ByteBuffer. Turning a text string into binary via a byte buffer provides you with a memory allocation of binary data, but it does not give you a context or view of the data, such as the data type, starting offset, and number of elements. Without that context, it is impossible to access the data stored in the buffer accurately. The ArrayBuffer as defined in the [Typed Array Specification](https://www.khronos.org/registry/typedarray/specs/latest/) stores the data in a typed array and provides array buffer views to access the memory contained in the buffer. You use a ArrayBufferView mask, such as Uint8Array, to view, index and manipulate the raw binary of the ArrayBuffer. For a list of web browsers that support the Typed Array Specification, see [caniuse.com](http://caniuse.com/#feat=typedarrays).
 
-    The Blob function uses [Kaazing.BlobUtils](../apidoc/client/javascript/gateway/BlobUtils.md), a portable, cross-browser utility library for working with Blob instances. Blob is the default binaryType for WebSocket connections.
+    The Blob function uses [Kaazing.BlobUtils](http://developer.kaazing.com/documentation/5.0/apidoc/client/javascript/gateway/index.html), a portable, cross-browser utility library for working with Blob instances. Blob is the default binaryType for WebSocket connections.
 
     The ByteBuffer is available for JavaScript clients built using the legacy KAAZING Gateway JavaScript ByteBuffer library. Legacy clients can use the latest JavaScript WebSocket library without having to change their client code. The current WebSocket.js library is all that is needed. The current JavaScript WebSocket API enables clients to convert blob to and from Bytebuffer, thereby supporting the integration of blob binary messages in legacy clients.
 
@@ -732,6 +732,6 @@ Next Step
 See Also
 --------
 
-[WebSocket API documentation](../apidoc/client/javascript/gateway/WebSocket.md)
+[WebSocket API documentation](http://developer.kaazing.com/documentation/5.0/apidoc/client/javascript/gateway/index.html)
 
 

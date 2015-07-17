@@ -77,7 +77,7 @@ var amqpClient;
 amqpClient = amqpClientFactory.createAmqpClient();
 ```
 
-Now that you have created an instance of the `AmqpClient` object, you can use the AMQP protocol commands to handle the interactions between the client and the AMQP broker. Refer to the `AmqpClient` [JavaScript AMQP API](../apidoc/client/javascript/amqp/index.md) documentation for the complete list of all the AMQP command and callback functions. In the next step, you will connect to your AMQP broker, which you can then use for publishing and consuming messages.
+Now that you have created an instance of the `AmqpClient` object, you can use the AMQP protocol commands to handle the interactions between the client and the AMQP broker. Refer to the `AmqpClient` [JavaScript AMQP API](http://developer.kaazing.com/documentation/5.0/apidoc/client/javascript/amqp/index.html) documentation for the complete list of all the AMQP command and callback functions. In the next step, you will connect to your AMQP broker, which you can then use for publishing and consuming messages.
 
 ### Connect to an AMQP broker
 
@@ -109,7 +109,7 @@ var amqpClient;
   amqpClient.connect(options, openHandler);
 ```
 
-In this example, the **required** parameters that are passed in are: url: `ws://localhost:8001/amqp` (this assumes that you are running the Gateway locally), virtualHost: `/`, username: `guest`, and password: `guest`. The `openHandler` parameter is a callback to another function. For more information about `amqpClient.connect()`, see the `AmqpClient` connect method in [AmqpClient JavaScript API](../apidoc/client/javascript/amqp/index.md) documentation.
+In this example, the **required** parameters that are passed in are: url: `ws://localhost:8001/amqp` (this assumes that you are running the Gateway locally), virtualHost: `/`, username: `guest`, and password: `guest`. The `openHandler` parameter is a callback to another function. For more information about `amqpClient.connect()`, see the `AmqpClient` connect method in [AmqpClient JavaScript API](http://developer.kaazing.com/documentation/5.0/apidoc/client/javascript/amqp/index.html) documentation.
 
 ### Create channels
 
