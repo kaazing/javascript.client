@@ -24,7 +24,7 @@ This procedure is part of [Build JavaScript WebSocket Clients](o_dev_js.md):
 To Enable the JavaScript Client Logs
 ------------------------------------
 
-1.  Build your Kaazing JavaScript client, as described in [Build JavaScript WebSocket Clients](../dev-js/o_dev_js.md).
+1.  Build your Kaazing JavaScript client, as described in [Build JavaScript WebSocket Clients](o_dev_js.md).
 2.  Edit the client HTML page containing the JavaScript to use the appropriate `*-debug.js` file. For example, if you are using WebSocket, change:
 
     `<script src="WebSocket.js"></script>`

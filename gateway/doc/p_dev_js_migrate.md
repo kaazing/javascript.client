@@ -47,6 +47,6 @@ Next Step
 See Also
 --------
 
-[JavaScript API](../apidoc/client/javascript/gateway/WebSocket.md) documentation
+[JavaScript API](http://developer.kaazing.com/documentation/5.0/apidoc/client/javascript/gateway/index.html) documentation
 
 

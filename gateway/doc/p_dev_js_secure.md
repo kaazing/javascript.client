@@ -100,7 +100,7 @@ function popupLoginDialog(callback) {
 }
 ```
 
-This example is taken from the out of the box JavaScript WebSocket Demo at kaazing.org. For more information on challenge handlers and how to configure location-specific challenge handling strategies, see the [JavaScript Client API](../apidoc/client/javascript/gateway/index.md).
+This example is taken from the out of the box JavaScript WebSocket Demo at kaazing.org. For more information on challenge handlers and how to configure location-specific challenge handling strategies, see the [JavaScript Client API](http://developer.kaazing.com/documentation/5.0/apidoc/client/javascript/gateway/index.html).
 
 To have the out of the box JavaScript WebSocket demo prompt you for authentication, open the Gateway configuration file (`GATEWAY_HOME/conf/gateway-config.xml`), remove the HTML comments surrounding the `<authorization-constraint>` child of the `<echo>` service, restart the Gateway, and then try the demo. You will be prompted for user credentials.
 
@@ -239,6 +239,6 @@ You have completed the JavaScript client examples.
 See Also
 --------
 
-[JavaScript Client API](../apidoc/client/javascript/gateway/index.md)
+[JavaScript Client API](http://developer.kaazing.com/documentation/5.0/apidoc/client/javascript/gateway/index.html)
 
 
