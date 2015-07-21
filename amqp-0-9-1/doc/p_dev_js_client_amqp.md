@@ -10,7 +10,7 @@ Before You Begin
 
 This procedure is part of [Build JavaScript AMQP Clients](o_dev_js_amqp.md):
 
-1.  [Overview of the KAAZING Gateway AMQP Client Library](#overview-of-the-kaazing-gateway-javascript-amqp-client-library)
+1.  [Overview of the Java AMQP Client Libraries](##overview-of-the-java-amqp-client-libraries)
 2.  **Use the KAAZING Gateway JavaScript AMQP Client Library**
 3.  [Secure Your JavaScript AMQP Client](p_dev_js_secure.md)
 
@@ -375,7 +375,7 @@ var handleMessageReceived = function(event) {
 }
 ```
 
-**Note:** The function defined in this section is referenced from the [Declare a queue](#creating_queues) section. At this point, you've configured the Gateway (or RFC-6455 WebSocket endpoint) to communicate with your AMQP broker and set up your JavaScript client to publish messages to an exchange. You have also set up the client (or created a second application) to consume those messages from the AMQP broker. The next section explains how you can further enhance your application to use transactions.
+**Note:** The function defined in this section is referenced from step 10, **Declare a queue**. At this point, you've configured the Gateway (or RFC-6455 WebSocket endpoint) to communicate with your AMQP broker and set up your JavaScript client to publish messages to an exchange. You have also set up the client (or created a second application) to consume those messages from the AMQP broker. The next section explains how you can further enhance your application to use transactions.
 
 #### Message Acknowledgement
 
