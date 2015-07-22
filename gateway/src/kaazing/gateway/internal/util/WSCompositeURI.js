@@ -32,8 +32,6 @@ var WSCompositeURI = (function () {
     wsEquivalent["javascript:wse+ssl"] = "wss";
     wsEquivalent["javascript:ws"] = "ws";
     wsEquivalent["javascript:wss"] = "wss";
-    wsEquivalent["flash:wsr"] = "ws";
-    wsEquivalent["flash:wsr+ssl"] = "wss";
     wsEquivalent["flash:wse"] = "ws";
     wsEquivalent["flash:wse+ssl"] = "wss";
 
