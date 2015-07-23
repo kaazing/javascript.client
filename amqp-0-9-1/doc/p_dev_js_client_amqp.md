@@ -10,7 +10,7 @@ Before You Begin
 
 This procedure is part of [Build JavaScript AMQP Clients](o_dev_js_amqp.md):
 
-1.  [Overview of the Java AMQP Client Libraries](#overview-of-the-java-amqp-client-libraries)
+1.  [Overview of the KAAZING Gateway JavaScript AMQP Client Library](o_dev_js_amqp.md#overview-of-the-kaazing-gateway-javascript-amqp-client-library)
 2.  **Use the KAAZING Gateway JavaScript AMQP Client Library**
 3.  [Secure Your JavaScript AMQP Client](p_dev_js_secure.md)
 
