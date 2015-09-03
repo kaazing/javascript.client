@@ -33,7 +33,7 @@
      * so we model the authentication scheme and parameters in this class.</p>
      *
      * <p>This class is also responsible for detecting and adapting the <code>Application Basic</code>
-     * and <code>Application Negotiate</code> authentication schemes into their <code>Basic</code> and
+     * and <code>Negotiate</code> authentication schemes into their <code>Basic</code> and
      * <code>Negotiate</code> counterpart authentication schemes.</p>
      * Constructor from the protected URI location triggering the challenge,
      * and an entire server-provided 'WWW-Authenticate:' string.

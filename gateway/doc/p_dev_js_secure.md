@@ -21,7 +21,7 @@ Authenticating your client involves implementing a challenge handler to respond 
 
 ### Creating a Basic Challenge Handler
 
-A challenge handler is a constructor used in an application to respond to authentication challenges from the Gateway when the application attempts to access a protected resource. Each of the resources protected by the Gateway is configured with a different authentication scheme (for example, Basic, Application Basic, Application Negotiate, or Application Token), and your application requires a challenge handler for each of the schemes that it will encounter or a single challenge handler that will respond to all challenges. Also, you can add a dispatch challenge handler to route challenges to specific challenge handlers according to the URI of the requested resource.
+A challenge handler is a constructor used in an application to respond to authentication challenges from the Gateway when the application attempts to access a protected resource. Each of the resources protected by the Gateway is configured with a different authentication scheme (for example, Basic, Application Basic, or Application Token), and your application requires a challenge handler for each of the schemes that it will encounter or a single challenge handler that will respond to all challenges. Also, you can add a dispatch challenge handler to route challenges to specific challenge handlers according to the URI of the requested resource.
 
 For information about each authentication scheme type, see [Configure the HTTP Challenge Scheme](https://github.com/kaazing/gateway/blob/develop/doc/security/p_authentication_config_http_challenge_scheme.md).
 
@@ -32,10 +32,10 @@ function setupSSO(factory) {
   /* Respond to authentication challenges with popup login dialog */
   var basicHandler = new Kaazing.Gateway.BasicChallengeHandler();
 
-    basicHandler.loginHandler = function(callback) { 
+    basicHandler.loginHandler = function(callback) {
         // Create static credentials for test
         var credentials = new Kaazing.Gateway.PasswordAuthentication("joe", "welcome");
-        callback(credentials); 
+        callback(credentials);
     }
 
     factory.setChallengeHandler(basicHandler);
@@ -107,12 +107,12 @@ To have the out of the box JavaScript WebSocket demo prompt you for authenticati
 This `BasicChallengeHandler` can be instantiated using a new `BasicChallengeHandler()`. After instantiating `BasicChallengeHandler`, the `loginHandler` function can be implemented to handle the authentication challenge. By default, `loginHandler` will send an empty `PasswordAuthentication`.
 
 ``` js
-        var basicHandler = new Kaazing.Gateway.BasicChallengeHandler(); 
+        var basicHandler = new Kaazing.Gateway.BasicChallengeHandler();
         basicHandler.loginHandler = function(callback) {
             callback(new Kaazing.Gateway.PasswordAuthentication("global", "credentials"));
         };
         webSocketFactory.setChallengeHandler(basicHandler);
-        
+
 ```
 
 ### Creating a Custom Challenge Handler
@@ -240,5 +240,3 @@ See Also
 --------
 
 [JavaScript Client API](http://developer.kaazing.com/documentation/5.0/apidoc/client/javascript/gateway/index.html)
-
-
