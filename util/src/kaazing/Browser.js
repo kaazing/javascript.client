@@ -37,6 +37,10 @@ else if (navigator.userAgent.indexOf("Trident/7") != -1 && navigator.userAgent.i
     // window.ActiveXObject property is hidden from the DOM
     browser = "chrome";
 }
+else if (navigator.userAgent.indexOf("Edge") != -1) {
+    // treat Edge same as chrome
+    browser = "chrome";
+}
 else if(Object.prototype.toString.call(window.opera) == "[object Opera]") {
     browser = 'opera';
 }
