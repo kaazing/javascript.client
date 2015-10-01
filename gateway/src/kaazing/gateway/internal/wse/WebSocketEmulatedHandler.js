@@ -25,7 +25,7 @@
  */
 var WebSocketEmulatedHandler = (function () {
     ;;;var CLASS_NAME = "WebSocketEmulatedHandler";
-    
+
     ;;;var LOG = Logger.getLogger(CLASS_NAME);
 
     var _authHandler = new WebSocketEmulatedAuthenticationHandler();
@@ -48,6 +48,12 @@ var WebSocketEmulatedHandler = (function () {
         for (var i = 0; i < protocol.length; i++) {
             protocols.push(protocol[i]);
         }
+
+        // Add extensions to be negotiated. Currently, we are only negotiating
+        // x-kaazing-idle-timeout extension in CE.
+        var extensions = [];
+        extensions.push(WebSocketHandshakeObject.KAAZING_SEC_EXTENSION_IDLE_TIMEOUT);
+        channel.requestHeaders.push(new URLRequestHeader(WebSocketHandshakeObject.HEADER_SEC_EXTENSIONS, extensions.join(",")));
 
         this._nextHandler.processConnect(channel, location, protocols);
     }
