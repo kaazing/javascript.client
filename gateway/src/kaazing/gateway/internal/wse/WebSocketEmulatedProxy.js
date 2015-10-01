@@ -631,6 +631,31 @@ var WebSocketEmulatedProxy = (function () {
                     }
                     if ($this.readyState < 1) {
                         if (create.status == 201) {
+                            $this.parent.responseHeaders[WebSocketHandshakeObject.HEADER_SEC_PROTOCOL] = create.getResponseHeader(WebSocketHandshakeObject.HEADER_SEC_PROTOCOL);
+                            $this.parent.responseHeaders[WebSocketHandshakeObject.HEADER_SEC_EXTENSIONS] = create.getResponseHeader(WebSocketHandshakeObject.HEADER_SEC_EXTENSIONS);
+
+                            var connectionTimeout = 10 * 1000; // Default connection timeout 10ms
+                            var extensionsHeader = create.getResponseHeader(WebSocketHandshakeObject.HEADER_SEC_EXTENSIONS);
+
+                            if (extensionsHeader) {
+                                var extensions = extensionsHeader.split(",");
+                                for (var j = 0; j < extensions.length; j++) {
+                                    var extensionParts = extensions[j].split(";");
+                                    var extensionName =  extensionParts[0].replace(/^\s+|\s+$/g,"");
+
+                                    if (WebSocketHandshakeObject.KAAZING_SEC_EXTENSION_IDLE_TIMEOUT === extensionName) {
+                                        // x-kaazing-idle-timeout extension has been negotiated. Use the timeout parameter
+                                        // that will be specified like this: "x-kaazing-idle-timeout; timeout=5000"
+                                        connectionTimeout = extensionParts[1].match(/\d+/)[0];
+                                        ;
+                                        ;
+                                        ;
+                                        WSEBLOG.info(this, 'WebSocketEmulatedProxy.onreadystatechange', {'timeout':connectionTimeout});
+                                        break;
+                                    }
+                                }
+                            }
+
                             var locations = create.responseText.split("\n");
                             var upstreamLocation = locations[0];
                             var downstreamLocation = locations[1];
@@ -653,7 +678,7 @@ var WebSocketEmulatedProxy = (function () {
                             // upstream URL using parts(scheme and authority) from the create URI so that
                             // tools such as Fortify can be satisfied while scanning the JS library.
                             $this._upstream = createURI.scheme + "://" + createURI.authority + upstreamURI.path;
-                            $this._downstream = new WebSocketEmulatedProxyDownstream(downstreamLocation, $this.sequence);
+                            $this._downstream = new WebSocketEmulatedProxyDownstream(downstreamLocation, $this.sequence, connectionTimeot);
 
                             //compare downstreamLocation with channel.location to check for redirected
                             var redirectUrl = downstreamLocation.substring(0, downstreamLocation.indexOf("/;e/"));
@@ -661,8 +686,8 @@ var WebSocketEmulatedProxy = (function () {
                                 $this.parent._redirectUri = redirectUrl;
                             }
                             bindHandlers($this, $this._downstream);
-                            //get response headers
-                            $this.parent.responseHeaders = create.getAllResponseHeaders();
+                            // get response headers
+                            // $this.parent.responseHeaders = create.getAllResponseHeaders();
                             doOpen($this);
                         }
                         else {

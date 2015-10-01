@@ -40,7 +40,7 @@ var WebSocketEmulatedProxyDownstream = (function () {
      *
      * @class  WebSocketEmulatedProxyDownstream consitutes the downstream half of the binary WebSocket emulation protocol
      */
-    var WebSocketEmulatedProxyDownstream = function (location, sequence) {
+    var WebSocketEmulatedProxyDownstream = function(location, sequence, connectionTimeout) {
         ;
         ;
         ;
@@ -70,6 +70,8 @@ var WebSocketEmulatedProxyDownstream = (function () {
         this.idleTimeout = null;
         this.lastMessageTimestamp = null;
         this.buf = new $rootModule.ByteBuffer();
+        this.connectTimer = null;
+        this.connectionTimeout = connectionTimeout;
 
         // allow event handlers to be assigned before triggering
         var $this = this;
@@ -120,6 +122,7 @@ var WebSocketEmulatedProxyDownstream = (function () {
         // ensure idle time if running is stopped
         stopIdleTimer($this);
 
+        startConnectTimer($this, $this.connectionTimeout);
 
         // construct destination
         var connectURI = new URI($this.location);
@@ -192,6 +195,8 @@ var WebSocketEmulatedProxyDownstream = (function () {
             // the message body (if any) as per the XMLHttpRequest api spec. 
             // All HTTP headers have been received by now.
             if (xhr.readyState == 3) {
+                stopConnectTimer($this);
+
                 // onreadystatechange is called multiple times for the same ready state
                 // the if condition will ensure that the idle timer is not initialized multiple times
                 if ($this.idleTimer == null) {
@@ -635,6 +640,27 @@ var WebSocketEmulatedProxyDownstream = (function () {
         if ($this.idleTimer != null) {
             clearTimeout($this.idleTimer);
             $this.IdleTimer = null;
+        }
+    }
+
+    //------------ Connect Timer--------------------//
+    function startConnectTimer($this, delayInMilliseconds) {
+        // Ensure connectTimer is stopped before starting.
+        stopConnectTimer($this);
+
+        $this.connectTimer = setTimeout(function() {
+            connectTimerHandler($this);
+        }, delayInMilliseconds);
+    }
+
+    function connectTimerHandler($this) {
+        doError($this);
+    }
+
+    function stopConnectTimer($this) {
+        if ($this.connectTimer != null) {
+            clearTimeout($this.connectTimer);
+            $this.connectTimer = null;
         }
     }
 

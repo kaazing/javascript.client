@@ -31,6 +31,7 @@ var WebSocketHandshakeObject = (function () {
     };
 
     WebSocketHandshakeObject.KAAZING_EXTENDED_HANDSHAKE = "x-kaazing-handshake";
+    WebSocketHandshakeObject.HEADER_SEC_PROTOCOL = "X-WebSocket-Protocol";
     WebSocketHandshakeObject.HEADER_SEC_EXTENSIONS = "X-WebSocket-Extensions";
     WebSocketHandshakeObject.KAAZING_SEC_EXTENSION_IDLE_TIMEOUT = "x-kaazing-idle-timeout";
     WebSocketHandshakeObject.KAAZING_SEC_EXTENSION_PING_PONG = "x-kaazing-ping-pong";

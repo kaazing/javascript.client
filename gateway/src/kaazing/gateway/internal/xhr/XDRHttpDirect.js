@@ -79,10 +79,22 @@ var XDRHttpDirect = (function () {
                     var headerLines = responseText.substring(startOfHeadersAt, endOfHeadersAt).split("\r\n");
                     //console.log("_responseHeaders: " + headerLines);
                     xhr._responseHeaders = {};
-                    for (var i = 0; i < headerLines.length; i++) {
+                    for (var i=0; i < headerLines.length; i++) {
                         var header = headerLines[i].split(":");
-                        xhr._responseHeaders[header[0].replace(/^\s+|\s+$/g, "")] = header[1].replace(/^\s+|\s+$/g, "");
+                        if(header.length > 1) {
+                            var headerName = header[0].replace(/^\s+|\s+$/g,"");
+                            var headerValue = header[1].replace(/^\s+|\s+$/g,"");
+                            var currentValue = xhr._responseHeaders[headerName];
+                            var newValue = headerValue;
+
+                            if (currentValue && (headerValue.length > 0)) {
+                                newValue = currentValue.concat(",").concat(headerValue);
+                            }
+
+                            xhr._responseHeaders[headerName] = newValue;
+                        }
                     }
+
                     progressAt = startOfResponseAt;
                     //console.log("xdr "+ id + " .readyState = 2");
                     readyState = xhr.readyState = 3;
