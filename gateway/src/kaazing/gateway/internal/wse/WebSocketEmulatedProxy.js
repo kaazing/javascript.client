@@ -381,6 +381,12 @@ var WebSocketEmulatedProxy = (function () {
             //console.log("upstream.onload " + xdr.readyState);
             openUpstream($this);
         }
+        xdr.onerror = function() {
+            if ($this._downstream) {
+                $this._downstream.disconnect();
+            }
+            doClose($this);
+        };
         xdr.open("POST", $this._upstream + "&.krn=" + Math.random(), true);
         $this.upstreamXHR = xdr;
         //open a new upstream if idle for 30 sec
@@ -432,7 +438,6 @@ var WebSocketEmulatedProxy = (function () {
             }
             else {
                 var xhr = new XMLHttpRequest0();
-                xhr.open("POST", $this._upstream + "&.krn=" + Math.random(), true);
                 xhr.onreadystatechange = function () {
                     if (xhr.readyState == 4) {
                         ;
@@ -453,7 +458,18 @@ var WebSocketEmulatedProxy = (function () {
                         }
                     }
                 };
+                xhr.onerror = function() {
+                    ;
+                    ;
+                    ;
+                    WSEBLOG.finest(this, 'WebSocketEmulatedProxy.doFlush: xhr.onerror status = ' + xhr.status);
+                    if ($this._downstream) {
+                        $this._downstream.disconnect();
+                    }
+                    doClose($this);
+                };
 
+                xhr.open("POST", $this._upstream + "&.krn=" + Math.random(), true);
                 var out = new $rootModule.ByteBuffer();
 
                 while (sendQueue.length) {
@@ -579,6 +595,14 @@ var WebSocketEmulatedProxy = (function () {
         for (var i = 0; i < $this.parent.requestHeaders.length; i++) {
             var requstHdr = $this.parent.requestHeaders[i];
             create.setRequestHeader(requstHdr.label, requstHdr.value);
+        }
+
+        create.onerror = function() {
+            ;
+            ;
+            ;
+            WSEBLOG.info(this, 'WebSocketEmulatedProxy.onerror', {'status':create.status});
+            doError($this);
         }
 
         create.onredirectallowed = function (originalLoc, redirectLoc) {

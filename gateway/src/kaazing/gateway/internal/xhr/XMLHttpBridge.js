@@ -149,6 +149,12 @@ var XMLHttpBridge = (function () {
         }
     }
 
+    function onerror($this) {
+        if (typeof($this.outer.onerror) !== "undefined") {
+            $this.outer.onerror();
+        }
+    }
+
     function fromHex(formatted) {
         return parseInt(formatted, 16);
     }
@@ -434,13 +440,18 @@ var XMLHttpBridge = (function () {
                                         xmlHttp.outer.status = status;
                                         onreadystatechange(xmlHttp);
                                         break;
+                                    case 404:
+                                        // trigger callback handler
+                                        xmlHttp.outer.status = status;
+                                        xmlHttp.outer.statusText = statusText;
+                                        onerror(xmlHttp);
+                                        break;
                                     default:
                                         xmlHttp.outer._responseHeaders = responseHeaders;
                                         xmlHttp.outer.status = status;
                                         xmlHttp.outer.statusText = statusText;
                                         break;
                                 }
-
                                 break;
                             case "p":
                                 /*
