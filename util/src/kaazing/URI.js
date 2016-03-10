@@ -76,7 +76,22 @@ function URI(str) {
          * @memberOf URI
          */
         this.host = authority;
-        var colonAt = authority.indexOf(":");
+        // if IPv6 address found
+        if (authority.indexOf("[") > -1) {
+            // verify if port exists and get colon location
+            if (authority.lastIndexOf(":") > authority.indexOf("]")) {
+                var colonAt = authority.lastIndexOf(":");
+            }
+            // the port does not exist in auhority
+            else {
+                var colonAt = -1;
+            }
+        }
+        // host is not an IPv6 address
+        else {
+            var colonAt = authority.lastIndexOf(":");
+        }
+
         if (colonAt != -1) {
             this.host = authority.slice(0, colonAt);
 
