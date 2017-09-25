@@ -676,7 +676,7 @@ The following example demonstrates how to create the JavaScript AMQP demo listed
         CONNECTING: ws://localhost:8000/amqp guest
         ```
 
-**Note:** You can also point your client at a live demo that doesn't require the Gateway (or RFC-6455 WebSocket endpoint) or a local AMQP broker. In the **Location** field, enter `ws://sandbox.kaazing.net:80/amqp091`. For more information, see [kaazing.org](http://kaazing.org).
+**Note:** You can also point your client at a live demo that doesn't require the Gateway (or RFC-6455 WebSocket endpoint) or a local AMQP broker. In the **Location** field, enter `ws://demos.kaazing.com:80/amqp`. For more information, see [kaazing.org](http://kaazing.org).
 
 JavaScript AMQP Demo Code
 -------------------------
